@@ -1,6 +1,6 @@
 # api
 
-## Project setup
+## Configuração do projeto
 ```
 npm install
 ```
