@@ -2,7 +2,7 @@
 
 ## Configuração do projeto
 
-## Necessarop baixar node.js
+## Necessario baixar node.js
 
 ```
 npm install
