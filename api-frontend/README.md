@@ -1,9 +1,6 @@
 # api
 
-## Configuração do projeto
-
-## Necessario baixar node.js
-
+## Project setup
 ```
 npm install
 ```
