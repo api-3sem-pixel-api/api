@@ -1,4 +1,19 @@
 
+
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark" data-a11y-animated-images="system">
+  <head>
+<p align="center" dir="auto" name="topo">
+    <a href="#o-projeto">O Projeto</a> | 
+    <a href="#tecnologias">Tecnologias</a> | 
+    <a href="#objetivos">Sprints</a> | 
+    <a href="#levantamento">Levantamento de Requisitos</a> |  
+    <a href="#prototipo">Modelagem</a> | 
+    <a href="#prototipo">Protótipo</a> | 
+    <a href="#org-equipe">Organização da Equipe</a> | 
+    <a href="#org-repo">Organização do Repositório</a>
+</p>
+
 <p align="center"> <img src="https://github.com/4l1son/teste/blob/main/pixil-frame-0%20(1).png" width=320>
 </p>
     <h2>Equipe de desenvolvimento</h2>
@@ -7,11 +22,19 @@
 | :-------------: | :-------------: |:-------------: | :-------------: |:-------------: | :-------------: |
 | [<img src="https://avatars.githubusercontent.com/u/61194755?v=4" width=115><br><sub>Matheus Cruz Fiebig</sub>](https://github.com/matheus-fiebig)   | [<img src="https://avatars.githubusercontent.com/u/111617208?v=4" width=115><br><sub>Danillo Wesley da Costa Silva</sub>](https://github.com/zZzidanillo)  | [<img src="https://avatars.githubusercontent.com/u/111581261?v=4"  width=115><br><sub>Alisson dos Santos Pereira</sub>](https://github.com/4l1son) | [<img src="https://avatars.githubusercontent.com/u/102562662?v=4" width=115><br><sub>Luciano</sub>](https://github.com/lucianonps) | [<img src="https://avatars.githubusercontent.com/u/111614619?v=4" width=115><br><sub>Wagner de Deus Silva Junior</sub>](https://github.com/wdeus) | [<img src="https://avatars.githubusercontent.com/u/99774131?v=4" width=115><br><sub>Lucas Caetano da Silva</sub>](https://github.com/L0uks)
 
-  <h1  >Sistema de controle de horas-Sobre o Projeto 🎓</h1>
+
+<h2 align="center">O Projeto</h2>
+  <h1  align="center">Sistema de controle de horas-Sobre o Projeto 🎓</h1>
  <hr>
 <p align="left">O projeto se baseia em um sistema que faça o controle da jornada de trabalho do colaborador, identifique e classifique horas extras, controle das horas extras e sobreavisos.Acesso de administrador (master para os departamentos pessoal e financeiro), gestor (aprovaçãoe lançamento) e colaborador (apontar horas extras).</p>
 
-<h2>Tecnologias utilizadas</h2>
+
+
+
+
+<h2 align="center">Tecnologias utilizadas</h2>
+<h1 align="center">Tecnologias</h1>
+
 <div style="display: inline_block">
 <img align="center" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" width=100>
 
@@ -24,7 +47,7 @@
 
 
 <hr>
-<h2>Requisitos</h2>
+<h2 align="center">Requisitos</h2>
 <ol><li>Usuários devem ter perfis diferentes: administrador(acesso as informações de parametrização, extração de relatórios e aprovação), gestor (aprovaçãoe lançamento) e colaborador (apontar horas)</li>
   <li>Apontamentode horas extras e classificação das horas</li>
   <li>Lançamento de horas de sobreaviso</li>
@@ -45,14 +68,14 @@ CR e colaborador
       <li>Documentações</li>
     </ol>
    
-   <h2>Modelagem</h2>
+   <h2 align="center">Modelagem</h2>
    <img src="https://github.com/api-2sem-pixel/api/blob/develop/assets/ModelagemApiSprint2.png">
    
-   <h2>Documentação</h2>
+   <h2 align="center">Documentação</h2>
    <li><a href="https://github.com/api-2sem-pixel/api/blob/develop/assets/documentacao.pdf"> Documentação </a></li>
    
-   <h2>Sprints</h2>
-   <h3>Sprint-1</h3>
+   <h2 align="center">Sprints</h2>
+   <h3 align="center">Sprint-1</h3>
     <ul> 
       <li><a href="https://github.com/api-2sem-pixel/api/blob/develop/assets/burndown/sp1/burndown_sp1.png"> Burndown </a></li>
     </ul>
@@ -64,7 +87,7 @@ CR e colaborador
 |   Sprint-1    |      **<a href="https://github.com/api-2sem-pixel/api" target="_blank">Configurações do projeto</a>** | **5** |
    </ul>
    
-   <h3>Sprint-2</h3>
+   <h3 align="center">Sprint-2</h3>
    <ul> 
       <li><a href="https://github.com/api-2sem-pixel/api/blob/develop/assets/burndown/sp2/burndown.png"> Burndown </a></li>
     </ul>
@@ -84,7 +107,7 @@ CR e colaborador
    
    </ul>
    
-   <h3>Sprint-3</h3>
+   <h3 align="center">Sprint-3</h3>
        <ul> 
       <li><a href="https://github.com/api-2sem-pixel/api/blob/develop/assets/burndown/sp3/burndown.png"> Burndown </a></li>
     </ul>
@@ -100,7 +123,7 @@ CR e colaborador
 |   Sprint-3    |      **Visualização e deleção de Cliente** | **-** |
    </ul>
    
-   <h3>Sprint-4</h3>
+   <h3 align="center">Sprint-4</h3>
      <ul> 
       <li><a href="https://github.com/api-2sem-pixel/api/blob/develop/assets/burndown/sp4/burndown.png"> Burndown </a></li>
 
@@ -111,7 +134,7 @@ CR e colaborador
 |   Sprint-4    |      **Correção E Melhorias**          |   **?**              |
    </ul>
 
-   <h2>Configurar Projeto</h2>
+   <h2 align="center">Configurar Projeto</h2>
 <div style="display: inline_block">
 
     
@@ -120,7 +143,7 @@ CR e colaborador
   <li>Rodar o comando mvn clean javafx:run (Ex: https://openjfx.io/openjfx-docs/index.html#maven)</li>
 </div>
 
-  <h2>Executável</h2>
+  <h2 align="center">Executável</h2>
 <div style="display: inline_block">
 [JAR_API.zip](https://github.com/api-2sem-pixel/api/blob/develop/assets/api.jar)
 
