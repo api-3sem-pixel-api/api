@@ -8,7 +8,7 @@
     <a href="#tecnologias">Tecnologias</a> | 
     <a href="#objetivos">Sprints</a> | 
     <a href="#levantamento">Levantamento de Requisitos</a> |  
-    <a href="#prototipo">Modelagem</a> | 
+    <a href="#Modelagem">Modelagem</a> | 
     <a href="#prototipo">Protótipo</a> | 
     <a href="#org-equipe">Organização da Equipe</a> | 
     <a href="#org-repo">Organização do Repositório</a>
