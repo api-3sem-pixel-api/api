@@ -5,6 +5,7 @@ import http from '@/services/http';
 interface User {
   firstName: string;
   password: string; 
+
 }
 
 export const useAuth = () => {
@@ -57,7 +58,7 @@ export const useAuth = () => {
             Authorization: tokenAuth,
           },
         });
-        // Faça algo com os dados se necessário
+
       } else {
         clear();
         router.push('/login');
