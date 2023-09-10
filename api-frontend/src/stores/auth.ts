@@ -43,7 +43,7 @@ export const useAuth = () => {
 
   const fullName = computed(() => {
     if (user.value) {
-      return user.value.firstName + ' ' + user.value.password; // Alterado de 'lastName' para 'password'
+      return user.value.firstName + ' ' + user.value.password; 
     }
     return '';
   });
