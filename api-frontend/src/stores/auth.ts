@@ -4,7 +4,7 @@ import http from '@/services/http';
 
 interface User {
   firstName: string;
-  password: string; // Alterado de 'lastName' para 'password'
+  password: string; 
 }
 
 export const useAuth = () => {
