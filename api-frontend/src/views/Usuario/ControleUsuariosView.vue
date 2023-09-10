@@ -1,14 +1,19 @@
 <template>
-  <h1>Tela de de Visualizacao de usuario</h1>
+  <h1>Tela de Visualização de Usuário</h1>
+  <button @click="redirectToHome">Ir para a página inicial</button>
 </template>
+
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+
+export default defineComponent({
   name: "ControleUsuariosView",
   methods: {
     redirectToHome() {
-      this.$router.push('/');
+      const router = useRouter();
+      router.push('/');
     },
-  }
-}
-
+  },
+});
 </script>
