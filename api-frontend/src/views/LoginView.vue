@@ -29,7 +29,7 @@ export default defineComponent({
 
       try {
         const user = {
-          email: 'emilly94@ramos.com',
+          email: 'teste94@ramos.com',
           password: '123',
         };
 
