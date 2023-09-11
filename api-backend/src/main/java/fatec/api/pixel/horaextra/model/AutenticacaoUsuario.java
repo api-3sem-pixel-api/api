@@ -31,9 +31,9 @@ public class AutenticacaoUsuario implements UserDetails{
 	private String login;
 	private String senha;
 
-	public AutenticacaoUsuario(DadosLoginUsuario dados) {
-		this.login = dados.login();
-		this.senha = dados.senha();
+	public AutenticacaoUsuario(String login, String senha) {
+		this.login = login;
+		this.senha = senha;
 	}
 
 	//INSERIR OS NIVEIS DE PERFIL (Admin, gestor, etc).
