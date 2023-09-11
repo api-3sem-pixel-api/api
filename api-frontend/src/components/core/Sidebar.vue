@@ -55,21 +55,21 @@ export default class Sidebar extends Vue {
 
 <style scoped>
 .header {
-  background-color: #2471ed;
+  background: #3A78F2;
   width: 100%;
-  height: 75px;
+  height: 76px;
   position: absolute;
   top:0;
   left:0;
 }
 
 .sidenav {
+  background: #3A78F2;
   font-size: 16px;
   height: 100%;
-  width: 250px;
+  width: 260px;
   position: fixed;
   z-index: 10;
-  background-color: #2471ed;
   overflow-x: hidden;
   padding-top: 75px;
   transition: 0.5s;

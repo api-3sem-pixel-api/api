@@ -66,12 +66,13 @@ export default class SidebarItem extends Vue {
 .active {
   color: #2471ed;
   background-color: #fff;
+  transition: 0.15s linear;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .item:not(.active) {
   color: #fff !important;
-  background-color: #2471ed;
+  background: #3A78F2;
 }
 
 .dropdown {
