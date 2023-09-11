@@ -12,7 +12,7 @@ import fatec.api.pixel.horaextra.repository.AutenticacaoUsuarioRepository;
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping("autenticaoUsuario")
+@RequestMapping("/autenticaoUsuario")
 public class AutenticacaoUsuarioController {
 	
 	@Autowired
@@ -22,5 +22,6 @@ public class AutenticacaoUsuarioController {
 	@Transactional
 	public void insert(@RequestBody DadosLoginUsuario dados) {
 		var autenticacaoUsuario = new AutenticacaoUsuario(dados);
+		repository.save(autenticacaoUsuario);
 	}
 }
