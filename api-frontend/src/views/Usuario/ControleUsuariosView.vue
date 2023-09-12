@@ -5,9 +5,7 @@
 export default {
   name: "ControleUsuariosView",
   methods: {
-    redirectToHome() {
-      this.$router.push('/');
-    },
+    
   }
 }
 

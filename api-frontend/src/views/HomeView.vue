@@ -1,19 +1,25 @@
 <template>
+  <Sidebar></Sidebar>
   <div>
-    <h2>Conteúdo da página inicial aqui</h2>
+    Teste
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name:'HomeView',
-  props:[''],
+import { Options, Vue } from 'vue-class-component'
+import Sidebar from '@/components/core/Sidebar.vue';
+
+@Options({
   components: {
-
-  },
-
+    Sidebar
+  }
+})
+export default class HomeView extends Vue {
 };
 </script>
 
 <style scoped>
+  .teste{
+    float: right;
+  }
 </style>

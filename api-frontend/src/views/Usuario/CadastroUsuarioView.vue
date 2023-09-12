@@ -5,9 +5,6 @@
 export default {
   name: "CadastroUsuariosView",
   methods: {
-    redirectToHome() {
-      this.$router.push('/');
-    },
   }
 }
 
