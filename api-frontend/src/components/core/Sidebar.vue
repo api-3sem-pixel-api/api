@@ -1,5 +1,9 @@
 <template>
-  <div class="header"></div>
+  <div class="header">
+    <div class="logo">
+      <img src="../../assets/logo.png">
+    </div>
+  </div>
   <div class="sidenav">
     <SidebarItem :menu="menu" @close-all-but-this="closeMenus" @change-page="changePage" v-for="menu in menus">
     </SidebarItem>
@@ -55,21 +59,37 @@ export default class Sidebar extends Vue {
 
 <style scoped>
 .header {
-  background: #3A78F2;
+  /* background: #3A78F2; */
+  background: linear-gradient(270deg, rgb(97, 156, 216) 5.22%, #1F25C1 60.08%);
   width: 100%;
   height: 76px;
-  position: absolute;
-  top:0;
-  left:0;
+  position: relative;
+  box-shadow: 5px 5px 5px #c6c6c6;
+
+  .toggle-button{
+    display: flex;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: inherit;
+    justify-content: center;
+  }
 }
 
 .sidenav {
-  background: #3A78F2;
+  /* background: #3A78F2; */
+  background: linear-gradient(0deg, rgb(97, 156, 216) 5.22%, #1F25C1 60.08%);
   font-size: 16px;
-  height: 100%;
+  height: 100vh;
+  box-shadow: 5px 5px 5px #c6c6c6;
   width: 260px;
-  position: fixed;
-  z-index: 10;
+  position: relative;
+  float: left;
+  z-index: 9;
   overflow-x: hidden;
   padding-top: 75px;
   transition: 0.5s;

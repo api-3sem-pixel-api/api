@@ -1,5 +1,8 @@
 <template>
   <Sidebar></Sidebar>
+  <div>
+    Teste
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,4 +19,7 @@ export default class HomeView extends Vue {
 </script>
 
 <style scoped>
+  .teste{
+    float: right;
+  }
 </style>
