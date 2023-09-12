@@ -81,7 +81,7 @@ export default class Sidebar extends Vue {
 }
 
 #sidenav {
-  height: 100vh;
+  height: 120vh;
   width: 260px;
   padding-top: 75px;
   float: left;
