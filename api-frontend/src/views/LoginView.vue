@@ -54,33 +54,43 @@ export default defineComponent({
 
 .login-box-container {
   text-align: center;
-  background: linear-gradient(to bottom right, #0041d8, #7cbeeb);
 }
 
 .login-box {
-  background: linear-gradient(to bottom right, #0041d8, #7cbeeb);
+  background: linear-gradient(to bottom right, #0c42f7,10%, #4E7ACB);
+
+
   border-radius: 10px;
   padding: 20px;
-  margin: 10px 0 40px;
-
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  max-width: 500px;
+  margin: 41px 0 41px;
+  padding-bottom: 70px;
+  padding-top: 20px;
+  max-width: 548px;
+  height:  598px;
   width: 100%;
 }
 
 .login-box h2 {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  width: 89px;
+height: 38.943px;
+
 }
 
 .login-box input {
   width: 80%;
   max-width: 80%;
-  padding: 10px;
-  margin: 10px 0 40px;
-
+  padding: 20px;
+  
+  margin-top: 80px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 15px;
+  color: #928B8B;
+font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
 }
 
 .login-box button {
@@ -88,12 +98,14 @@ export default defineComponent({
   max-width: 50%;
   padding: 10px;
   background: #ffffff;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
+
   color: #d3baba;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border: none;
   border-radius: 5px;
   font-size: 18px;
   cursor: pointer;
-  margin-top: 40px;
+  margin-top: 250px;
 }
 </style>
