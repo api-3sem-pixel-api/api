@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     children:[
       {
-        path: "/lancametohoras",
+        path: "/lancamentohoras",
         name: "LancamentoHoras",
         component:LancamentoHorasView,
       }

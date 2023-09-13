@@ -42,7 +42,6 @@
 import { Options, Vue } from 'vue-class-component';
 import { ExtratoHoraLinha } from './extrato-hora-linha';
 
-
 Options({
     props:['linhas', 'podeGerenciarLancamentos']
 })
