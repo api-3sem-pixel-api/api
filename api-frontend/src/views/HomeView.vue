@@ -2,8 +2,8 @@
   <div class="page">
     <Sidebar></Sidebar>
     <div class="container container-margins">
-      <!-- <router-view /> -->
-      <TabelaHoras></TabelaHoras>
+      <router-view />
+      
     </div>
   </div>
 </template>

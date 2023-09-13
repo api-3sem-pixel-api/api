@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from '@/views/LoginView.vue' 
 import Home from '@/views/HomeView.vue' 
+import LancamentoHorasView from '@/views/LancamentoHoras/LancamentoHorasView.vue' 
+
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,10 +12,18 @@ const routes: Array<RouteRecordRaw> = [
     component: Login,
   },
   {
-    path: "/home",
+    path: "/authorized",
     name: "Home",
     component: Home,
-  }
+    children:[
+      {
+        path: "/lancametohoras",
+        name: "LancamentoHoras",
+        component:LancamentoHorasView,
+      }
+    ]
+  },
+
 ]
 
 const router = createRouter({
