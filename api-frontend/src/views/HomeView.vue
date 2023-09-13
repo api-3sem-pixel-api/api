@@ -2,7 +2,8 @@
   <div class="page">
     <Sidebar></Sidebar>
     <div class="container container-margins">
-      <router-view />
+      <!-- <router-view /> -->
+      <TabelaHoras></TabelaHoras>
     </div>
   </div>
 </template>
@@ -10,10 +11,12 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Sidebar from '@/components/core/Sidebar.vue';
+import TabelaHoras from '@/components/tabela-horas/TabelaHoras.vue';
 
 @Options({
   components: {
-    Sidebar
+    Sidebar,
+    TabelaHoras
   }
 })
 export default class HomeView extends Vue {

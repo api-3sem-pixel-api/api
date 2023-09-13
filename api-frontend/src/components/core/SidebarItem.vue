@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { MenuChild, MenuParent } from './Menu';
+import { MenuChild, MenuParent } from './menu';
 
 @Options({
   props: ['menu'],
