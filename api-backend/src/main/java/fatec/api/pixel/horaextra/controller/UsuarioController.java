@@ -33,11 +33,7 @@ public class UsuarioController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity insert(@RequestBody DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
-		var usuario = new Usuario(dados);
-		repository.save(usuario);
-		
-		autenticacaoUsuarioService.insert(dados.cpf());
-		
+		var usuario = service.inserirUsuario(dados);
 		var uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

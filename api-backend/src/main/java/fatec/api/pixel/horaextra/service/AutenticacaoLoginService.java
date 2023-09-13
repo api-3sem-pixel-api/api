@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import fatec.api.pixel.horaextra.dto.DadosControlePermissao;
 import fatec.api.pixel.horaextra.repository.AutenticacaoUsuarioRepository;
 import fatec.api.pixel.horaextra.repository.UsuarioRepository;
 
@@ -23,10 +24,15 @@ public class AutenticacaoLoginService implements UserDetailsService {
 		return repository.findByLogin(username);
 	}
 	
-	public Long getIdTipoUsuario(String cpf) {
+	public DadosControlePermissao getIdTipoUsuarioAndFlPrimeiroAcesso(String cpf) {
 		var usuario = usuarioRepository.findByCpf(cpf);
-		return usuario.getTipoUsuario().getId();
+		return new DadosControlePermissao(usuario.getTipoUsuario().getId(), convertToLong(usuario.getAutenticacaoUsuario().isPrimeiroAcesso()));
 	}
 	
-	
+	private Long convertToLong(boolean primeiroAcesso) {
+		if(primeiroAcesso) {
+			return 1l;
+		}
+		return 0l;
+	}
 }

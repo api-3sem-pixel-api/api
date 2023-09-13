@@ -15,9 +15,10 @@ public class AutenticacaoUsuarioService {
 	@Autowired
 	AutenticacaoUsuarioRepository repository;
 	
-	public void insert(String cpf) {
+	public AutenticacaoUsuario insert(String cpf) {
 		var autenticacaoUsuario = new AutenticacaoUsuario(cpf, passwordUtils.encrypt(cpf));
 		repository.save(autenticacaoUsuario);
+		return autenticacaoUsuario;
 	}
 	
 	public void update(String cpf, String senha) {

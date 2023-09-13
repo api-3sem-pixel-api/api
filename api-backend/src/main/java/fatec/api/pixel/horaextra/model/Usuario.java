@@ -34,6 +34,9 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private boolean ativo;
+	@OneToOne
+	@JoinColumn(name="Id_Autenticacao_Usuario")
+	private AutenticacaoUsuario autenticacaoUsuario;
 	
 	public Usuario(DadosCadastroUsuario dados) {
 		this.tipoUsuario = new TipoUsuario(dados.idTipoUsuario());

@@ -35,8 +35,8 @@ public class AutenticacaoLoginController {
 		var authentication = manager.authenticate(token);
 		
 		var tokenJWT = tokenService.gerarToken((AutenticacaoUsuario) authentication.getPrincipal());
-		var permissaoUsuario = loginService.getIdTipoUsuario(dados.login());
+		var permissaoUsuario = loginService.getIdTipoUsuarioAndFlPrimeiroAcesso(dados.login());
 		
-		return ResponseEntity.ok(new DadosRetornoLogin(tokenJWT, permissaoUsuario));
+		return ResponseEntity.ok(new DadosRetornoLogin(tokenJWT, permissaoUsuario.idTipoUsuario(), permissaoUsuario.flPrimeiroAcesso()));
 	}                          
 }
