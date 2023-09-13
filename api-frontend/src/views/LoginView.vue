@@ -2,7 +2,9 @@
   <div class="login-container">
     <div class="login-box-container">
       <div class="login-box">
-        <h2>Login</h2>
+        <div class="header">
+              <img src="../assets/logo.png">
+        </div>
         <input type="text" placeholder="Usuário" v-model="username" />
         <input type="password" placeholder="Senha" v-model="password" />
         <button @click="login">Entrar</button>
@@ -57,40 +59,49 @@ export default defineComponent({
 }
 
 .login-box {
-  background: linear-gradient(to bottom right, #0c42f7,10%, #4E7ACB);
+  background: linear-gradient(0deg, rgb(97, 156, 216) 5.22%, #1F25C1 60.08%);
+  box-shadow: 5px 5px 5px #c6c6c6;
 
 
   border-radius: 10px;
   padding: 20px;
-  margin: 41px 0 41px;
+  margin: 40px 0 100px;
   padding-bottom: 70px;
   padding-top: 20px;
   max-width: 548px;
   height:  598px;
-  width: 100%;
+ 
 }
 
 .login-box h2 {
   margin-bottom: 40px;
   width: 89px;
-height: 38.943px;
+  height: 38.943px;
 
+}
+
+.login-box header logo{
+
+  width: 89px;
+height: 38.943px;
+flex-shrink: 0;
+margin-bottom: 100000px;
 }
 
 .login-box input {
   width: 80%;
   max-width: 80%;
   padding: 20px;
-  
-  margin-top: 80px;
+  margin: 50px 0 50px;
+
   border: 1px solid #ccc;
   border-radius: 15px;
   color: #928B8B;
-font-family: Poppins;
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .login-box button {
@@ -98,7 +109,7 @@ line-height: normal;
   max-width: 50%;
   padding: 10px;
   background: #ffffff;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
 
   color: #d3baba;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -106,6 +117,6 @@ line-height: normal;
   border-radius: 5px;
   font-size: 18px;
   cursor: pointer;
-  margin-top: 250px;
+  margin-top: 150px;
 }
 </style>
