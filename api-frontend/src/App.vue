@@ -21,7 +21,7 @@ a,
 a:visited,
 a:hover,
 a:active {
-  color: inherit;
+  color: inherit !important;
 }
 
 #app{
