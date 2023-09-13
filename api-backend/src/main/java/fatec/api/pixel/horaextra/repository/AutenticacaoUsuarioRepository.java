@@ -8,5 +8,5 @@ import fatec.api.pixel.horaextra.model.AutenticacaoUsuario;
 public interface AutenticacaoUsuarioRepository extends JpaRepository<AutenticacaoUsuario, Long> {
 
 	UserDetails findByLogin(String login);
-
+	AutenticacaoUsuario findByLoginIgnoreCase(String login);
 }

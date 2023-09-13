@@ -1,5 +1,6 @@
 package fatec.api.pixel.horaextra.model;
 
+import fatec.api.pixel.horaextra.dto.DadosCadastroUsuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Usuario {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="Id_Tipo_Usuario")
 	private TipoUsuario tipoUsuario;
 	@Column(name = "Cpf_Cnpj")
@@ -34,4 +35,13 @@ public class Usuario {
 	private String email;
 	private boolean ativo;
 	
+	public Usuario(DadosCadastroUsuario dados) {
+		this.tipoUsuario = new TipoUsuario(dados.idTipoUsuario());
+		this.cpf = dados.cpf();
+		this.nome = dados.nome();
+		this.telefone = dados.telefone();
+		this.email = dados.email();
+		this.ativo = true;
+	}
+
 }

@@ -1,9 +1,12 @@
 package fatec.api.pixel.horaextra.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,6 +25,10 @@ public class TipoUsuario {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
-	@OneToOne(mappedBy = "tipoUsuario")
-	private Usuario usuario;
+	@OneToMany(mappedBy = "tipoUsuario")
+	private List<Usuario> usuario;
+	
+	public TipoUsuario(Long idTipoUsuario) {
+		this.id = idTipoUsuario;
+	}
 }

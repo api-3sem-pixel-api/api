@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import fatec.api.pixel.horaextra.dto.DadosLoginUsuario;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,10 +31,13 @@ public class AutenticacaoUsuario implements UserDetails{
 	private Long id;
 	private String login;
 	private String senha;
+	@Column(name = "fl_primeiro_acesso")
+	private boolean primeiroAcesso;
 
 	public AutenticacaoUsuario(String login, String senha) {
 		this.login = login;
 		this.senha = senha;
+		this.primeiroAcesso = true;
 	}
 
 	//INSERIR OS NIVEIS DE PERFIL (Admin, gestor, etc).
