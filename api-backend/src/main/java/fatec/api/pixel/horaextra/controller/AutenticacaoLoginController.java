@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fatec.api.pixel.horaextra.dto.DadosLoginUsuario;
-import fatec.api.pixel.horaextra.dto.DadosTokenJWT;
+import fatec.api.pixel.horaextra.dto.DadosRetornoLogin;
 import fatec.api.pixel.horaextra.model.AutenticacaoUsuario;
+import fatec.api.pixel.horaextra.service.AutenticacaoLoginService;
 import fatec.api.pixel.horaextra.service.TokenService;
 import jakarta.validation.Valid;
 
@@ -25,13 +26,17 @@ public class AutenticacaoLoginController {
 	@Autowired
 	private TokenService tokenService;
 	
+	@Autowired
+	AutenticacaoLoginService loginService;
+	
 	@PostMapping
 	public ResponseEntity login(@RequestBody @Valid DadosLoginUsuario dados) {
 		var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
 		var authentication = manager.authenticate(token);
 		
 		var tokenJWT = tokenService.gerarToken((AutenticacaoUsuario) authentication.getPrincipal());
+		var permissaoUsuario = loginService.getIdTipoUsuario(dados.login());
 		
-		return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
-	}
+		return ResponseEntity.ok(new DadosRetornoLogin(tokenJWT, permissaoUsuario));
+	}                          
 }
