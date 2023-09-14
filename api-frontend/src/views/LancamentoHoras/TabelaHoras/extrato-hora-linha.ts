@@ -4,6 +4,7 @@ export class  ExtratoHoraLinha {
     cliente!: string;
     projeto!: string;
     inicio!: Date;
+    modalidade!: string;
     fim!: Date;
     solicitante!: string;
     justificativa!: string;

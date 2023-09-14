@@ -3,6 +3,7 @@
         <table class="table table-responsive no-wrap-table">
         <thead>
             <tr>
+                <th scope="col" class="text-left">Modalidade</th>
                 <th scope="col" class="text-left">CR</th>
                 <th scope="col" class="text-left">Cliente</th>
                 <th scope="col" class="text-left">Projeto</th>
@@ -16,6 +17,7 @@
         </thead>
         <tbody>
             <tr v-for="linha in linhas">
+                <td>{{linha.modalidade}}</td>
                 <td>{{linha.cr}}</td>
                 <td>{{linha.cliente}}</td>
                 <td>{{linha.projeto}}</td>
@@ -57,7 +59,8 @@ export default class TabelaHoras extends Vue {
             justificativa: 'Solicitação externa',
             projeto: 'Projeto 1',
             solicitante: 'Luciano',
-            status: 1
+            status: 1,
+            modalidade: 'Modalidade 1'
         }
     ];
 
@@ -86,7 +89,7 @@ export default class TabelaHoras extends Vue {
             return '-';
         
         const datePart = dataSplit[0].split('-').reverse().join('/');
-        const timePart = dataSplit[1].substring(0,8); 
+        const timePart = dataSplit[1].substring(0,5); 
         return datePart + ' ' + timePart;
     }
 }
