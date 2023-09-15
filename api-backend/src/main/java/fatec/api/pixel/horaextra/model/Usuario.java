@@ -1,5 +1,7 @@
 package fatec.api.pixel.horaextra.model;
 
+import java.util.List;
+
 import fatec.api.pixel.horaextra.dto.DadosCadastroUsuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
