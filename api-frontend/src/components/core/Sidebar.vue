@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { MenuChild, MenuParent } from './menu';
+import { MenuParent } from './menu';
 import SidebarItem from './SidebarItem.vue';
 
 @Options({
