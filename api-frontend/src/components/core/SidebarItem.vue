@@ -1,28 +1,31 @@
 <template>
-  <div class="item" :class="{ active: menu.active }">
-    <div class="item-content">
+  <div class="item">
+    <div class="item-content" :class="{ active: menu.active && !menu.childs.length }">
       <router-link :to="menu.link ? menu.link : ''" class="item-main" @click="$emit('closeAllButThis', toggle())">
         <i :class="menu.icon"></i>
-        <span> {{ menu.description }} </span>
+        <span>
+          {{ menu.description }}
+        </span>
       </router-link>
 
-      <div class="dropdown" v-if="menu.active" v-for="dropdownItem in menu.childs">
+      <div class="dropdown" :class="{ active: menu.active }" v-if="menu.active" v-for="dropdownItem in menu.childs">
         <router-link :to="dropdownItem.link" @click="$emit('changePage', changePage(dropdownItem))">
           <a class="dropdown-link">
-            <span class="description" :style="{ 'text-decoration': dropdownItem.active ? 'underline' : 'none' }">
+            <span class="description"
+              :style="{ 'text-decoration': dropdownItem.active ? 'underline !important' : 'none' }">
               {{ dropdownItem.description }}
             </span>
           </a>
         </router-link>
       </div>
-    
+
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { MenuChild, MenuParent } from './Menu';
+import { MenuChild, MenuParent } from './menu';
 
 @Options({
   props: ['menu'],
@@ -30,7 +33,7 @@ import { MenuChild, MenuParent } from './Menu';
 export default class SidebarItem extends Vue {
   menu!: MenuParent;
 
-  toggle() : MenuParent {
+  toggle(): MenuParent {
     this.menu.active = !this.menu.active;
     return this.menu;
   }
@@ -61,12 +64,17 @@ export default class SidebarItem extends Vue {
 .item-main {
   cursor: pointer;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 0 5px 0;
 }
 
 .active {
   color: #1F25C1;
   background-color: #fff;
   transition: 0.15s linear;
+  padding: 7px 0 7px 0;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -76,7 +84,7 @@ export default class SidebarItem extends Vue {
 }
 
 .dropdown {
-  padding: 8px 0 0 50px;
+  padding: 0px 0 0 50px;
   position: relative;
 
   .dropdown-link {
@@ -85,7 +93,7 @@ export default class SidebarItem extends Vue {
     width: 100%;
 
     .description {
-      margin: 0 5px 0 5px;
+      margin: 5px 0 5px 8px;
     }
   }
 }

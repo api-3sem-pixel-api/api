@@ -5,28 +5,28 @@
     </div>
   </div>
   <div id="sidenav">
-    <SidebarItem :menu="menu" @close-all-but-this="closeMenus" @change-page="changePage" v-for="menu in menus">
+    <SidebarItem :menu="menu" @close-all-but-this="closeMenus" v-for="menu in menus">
     </SidebarItem>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { MenuChild, MenuParent } from './Menu';
+import { MenuParent } from './menu';
 import SidebarItem from './SidebarItem.vue';
 
 @Options({
-  props:['menus'],
+  props: ['menus'],
   components: {
     SidebarItem
   }
 })
 export default class Sidebar extends Vue {
   menus: MenuParent[] = [
-    {
+  {
       icon: 'fas fa-home',
       description: 'Home',
-      active: true,
+      active: false,
       link: '/home',
       childs: []
     },
@@ -36,26 +36,34 @@ export default class Sidebar extends Vue {
       active: false,
       link:'',
       childs: [
-        { active: false, description: 'Lançamento', link: '/home' },
-        { active: false, description: 'Aprovação/Reprovação', link: '/home' },
+        { active: false, description: 'Lançamento', link: '/lancamentohoras' },
+        { active: false, description: 'Aprovação/Reprovação', link: '/controlehoras' },
       ]
     }
   ];
-
-  changePage(current: MenuChild){;
-    this.menus.forEach(m => {
-      m.childs.map(c => c.active = current.description == c.description);
+  authorizationLevel: number = 1;
+  
+  created(): void {
+    const currentUrl = this.$route.fullPath;
+    this.menus.forEach(menu => {
+      menu.active = currentUrl.includes(menu.link) && !!menu.link;
+      this.activateSubItens(menu, currentUrl);
     })
   }
 
-  closeMenus(openedMenu: MenuParent){
+  private activateSubItens(menu: MenuParent, currentUrl: string) {
+    menu.childs.map(subitem => {
+      subitem.active = currentUrl.includes(subitem.link);
+      if (subitem.active) menu.active = true;
+    });
+  }
+
+  closeMenus(openedMenu: MenuParent) {
     this.menus.forEach(m => {
       m.active = openedMenu.description == m.description;
       m.childs.map(c => c.active = false);
     })
   }
-
-
 }
 </script>
 
@@ -66,7 +74,7 @@ export default class Sidebar extends Vue {
   height: 76px;
   box-shadow: 5px 5px 5px #c6c6c6;
 
-  .toggle-button{
+  .toggle-button {
     display: flex;
   }
 
@@ -81,7 +89,7 @@ export default class Sidebar extends Vue {
 }
 
 #sidenav {
-  height: 100vh;
+  height: 120vh;
   width: 260px;
   padding-top: 75px;
   float: left;
@@ -91,7 +99,7 @@ export default class Sidebar extends Vue {
   transition: 0.5s;
   position: relative;
 
-  .toggle-btn{
+  .toggle-btn {
     top: 74%;
     left: 45%;
     position: absolute;

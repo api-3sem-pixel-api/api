@@ -9,16 +9,24 @@
 * {
   padding: 0;
   margin: 0;
-  vertical-align: baseline;
-  list-style: none;
-  text-decoration: none;
   border: 0;
+  list-style: none !important;
+  vertical-align: baseline !important;
+  text-decoration: none !important;
   font-family: 'Poppins', sans-serif;
+  
 }
 
 a,
 a:visited,
 a:hover,
 a:active {
-  color: inherit;
-}</style>
+  color: inherit !important;
+}
+
+#app{
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+</style>
