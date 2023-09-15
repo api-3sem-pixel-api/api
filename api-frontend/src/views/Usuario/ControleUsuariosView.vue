@@ -10,10 +10,8 @@ import { useRouter } from 'vue-router';
 export default defineComponent({
   name: "ControleUsuariosView",
   methods: {
-    redirectToHome() {
-      const router = useRouter();
-      router.push('/');
-    },
-  },
-});
+    
+  }
+}
+
 </script>
