@@ -1,46 +1,46 @@
 <template>
-  <div class="container">
-    <div class="login-container">
+  <div class="login-container">
     <div class="login-box-container">
       <div class="login-box">
         <div class="header">
-          <img src="../assets/logo.png">
+          <img src="@/assets/logo.png">
         </div>
-        <input type="text" placeholder="Usuário" v-model="username" />
-        <input type="password" placeholder="Senha" v-model="password" />
+        <input type="text" placeholder="Usuário" v-model="login" />
+        <input type="password" placeholder="Senha" v-model="senha" />
         <button @click="login">Entrar</button>
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import http from "@/services/http";
 import { useAuth } from '@/stores/auth';
+import { Login } from './Models/login';
 
 export default defineComponent({
   data() {
     return {
-      username: '',
-      password: '',
-    };
+      login: '',
+      senha: '',
+    } as Login;
   },
   methods: {
     async login() {
       const auth = useAuth();
 
       try {
-        const user = {
-          email: 'teste94@ramos.com',
-          password: '123',
+        const user: Login = {
+          login: this.login,
+          senha: this.senha,
         };
 
         const { data } = await http.post('/auth', user);
+        auth.setUser(data.idTipoUsuario);
         auth.setToken(data.token);
-        auth.setUser(data.user);
         auth.setIsAuth(true);
+
       } catch (error) {
         console.log(error);
       }
@@ -54,6 +54,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .login-box-container {
@@ -61,10 +62,20 @@ export default defineComponent({
 }
 
 .login-box {
-  background: linear-gradient(0deg, rgb(97, 156, 216) 5.22%, #1F25C1 60.08%);
+  background: linear-gradient(0deg, rgb(68 144 221) 5.22%, #1F25C1 60.08%);
   box-shadow: 5px 5px 5px #c6c6c6;
   border-radius: 10px;
   padding: 20px;
+  height: 80vh;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 40vw;
+}
+
+.header {
+  margin-bottom: 30px;
 }
 
 .login-box h2 {
@@ -72,28 +83,20 @@ export default defineComponent({
   width: 89px;
 }
 
-.login-box header logo {
-  width: 89px;
-  height: 38.943px;
-  flex-shrink: 0;
-  margin-bottom: 100000px;
-}
-
 .login-box input {
   width: 80%;
-  padding: 20px;
+  padding: 7.5px;
   margin: 25px 0;
   border: 1px solid #ccc;
-  border-radius: 15px;
+  border-radius: 5px;
   color: #928B8B;
 }
 
 .login-box button {
-  width:50%;
-  padding: 10px;
+  width: 50%;
+  padding: 5px;
   background: #ffffff;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
-  color: #d3baba;
+  color: blue;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border: none;
   border-radius: 5px;
