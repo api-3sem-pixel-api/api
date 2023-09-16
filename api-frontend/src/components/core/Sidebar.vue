@@ -12,8 +12,9 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { MenuParent } from './menu';
+import { MenuParent, adminMenu, colaboradorMenu, gestorMenu } from './menu';
 import SidebarItem from './SidebarItem.vue';
+import { useAuth } from '@/stores/auth';
 
 @Options({
   props: ['menus'],
@@ -22,33 +23,27 @@ import SidebarItem from './SidebarItem.vue';
   }
 })
 export default class Sidebar extends Vue {
-  menus: MenuParent[] = [
-  {
-      icon: 'fas fa-home',
-      description: 'Home',
-      active: false,
-      link: '/home',
-      childs: []
-    },
-    {
-      icon: 'fas fa-clock',
-      description: 'Lançamento de Horas',
-      active: false,
-      link:'',
-      childs: [
-        { active: false, description: 'Lançamento', link: '/lancamentohoras' },
-        { active: false, description: 'Aprovação/Reprovação', link: '/controlehoras' },
-      ]
-    }
-  ];
+  menus: MenuParent[] = [];
   authorizationLevel: number = 1;
   
   created(): void {
+    const auth = useAuth();
+    console.log(auth.getPermissionLevel())
+    this.createSidebar(+auth.getPermissionLevel());
+    
     const currentUrl = this.$route.fullPath;
     this.menus.forEach(menu => {
       menu.active = currentUrl.includes(menu.link) && !!menu.link;
       this.activateSubItens(menu, currentUrl);
     })
+  }
+
+  private createSidebar(permissionLevel: number) {
+    switch(permissionLevel){
+      case 1: this.menus = colaboradorMenu; break;
+      case 2: this.menus = gestorMenu; break;
+      case 3: this.menus = adminMenu; break;
+    }
   }
 
   private activateSubItens(menu: MenuParent, currentUrl: string) {

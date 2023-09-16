@@ -29,15 +29,17 @@ export default class LoginView extends Vue {
   login() {
     const auth = useAuth();
     http.post('/login', this.userInput)
-      .then((data: any) => {
-        auth.setUser(data.idTipoUsuario);
-        auth.setToken(data.token);
+      .then((response: any) => {
+        auth.setPermissionLevel(response.data.idTipoUsuario);
+        auth.setToken(response.data.token);
         auth.setIsAuth(true);
         router.push('authorized')
       })
-      .catch(err => alert(
+      .catch(err => {
+        console.log(err);
+        alert(
         `Algo deu errado. Por favor verifique se seu usuário/senha estão corretos ou tente novamente mais tarde.`)
-      );
+      });
   }
 };
 </script>

@@ -12,6 +12,7 @@ export const useAuth = () => {
   const token = ref<string | null>(localStorage.getItem('token'));
   const userJson = localStorage.getItem('user');
   const user = ref<User | null>(userJson ? JSON.parse(userJson) : null);
+  const permissionLevel = ref<number>();
   const isAuth = ref(false);
 
   function setToken(tokenValue: string | null) {
@@ -32,6 +33,15 @@ export const useAuth = () => {
     }
     user.value = userValue;
     isAuth.value = !!token.value && !!userValue;
+  }
+
+  function getPermissionLevel() : string {
+    return localStorage.getItem('permissionLevel') ?? ''
+  }
+
+  function setPermissionLevel(permission: number) {
+    localStorage.setItem('permissionLevel', permission.toString());
+    permissionLevel.value = permission;
   }
 
   function setIsAuth(auth: boolean) {
@@ -73,16 +83,20 @@ export const useAuth = () => {
   function clear() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('permissionLevel');
     isAuth.value = false;
     token.value = null;
     user.value = null;
+    permissionLevel.value = 0;
   }
 
   return {
     token,
     user,
+    getPermissionLevel,
     setToken,
     setUser,
+    setPermissionLevel,
     checkToken,
     isAuthenticated,
     fullName,
