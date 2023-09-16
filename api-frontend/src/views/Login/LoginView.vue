@@ -18,6 +18,7 @@ import http from "@/services/http";
 import { useAuth } from '@/stores/auth';
 import { Login } from './Models/login';
 import { Vue } from 'vue-class-component';
+import router from "@/router";
 
 export default class LoginView extends Vue {
   userInput: Login = {
@@ -27,14 +28,16 @@ export default class LoginView extends Vue {
 
   login() {
     const auth = useAuth();
-    console.log(this.userInput)
     http.post('/login', this.userInput)
       .then((data: any) => {
-        console.log(data);
         auth.setUser(data.idTipoUsuario);
         auth.setToken(data.token);
         auth.setIsAuth(true);
-      });
+        router.push('authorized')
+      })
+      .catch(err => alert(
+        `Algo deu errado. Por favor verifique se seu usuário/senha estão corretos ou tente novamente mais tarde.`)
+      );
   }
 };
 </script>
