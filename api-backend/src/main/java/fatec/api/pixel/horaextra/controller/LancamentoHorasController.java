@@ -7,14 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fatec.api.pixel.horaextra.dto.DadosAlteracaoStatusLancamento;
 import fatec.api.pixel.horaextra.dto.DadosCadastroLancamentoHoras;
+import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
 import fatec.api.pixel.horaextra.model.LancamentoHoras;
 import fatec.api.pixel.horaextra.repository.LancamentoHorasRepository;
 import fatec.api.pixel.horaextra.service.LancamentoHorasService;
+import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/lancamentoHoras")
@@ -39,14 +43,23 @@ public class LancamentoHorasController {
 		return ResponseEntity.ok().body(list);
 	}
 
+	/*
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<LancamentoHoras> findById(@PathVariable Long id) {
 		LancamentoHoras extrato = repository.findById(id).get();
 		return ResponseEntity.ok().body(extrato);
 	}
-
+	*/
 	@GetMapping("/{idUsuario}")
-	public void getLancamentos(@PathVariable Long id){
-		var teste = service.listarLancamento(id);
+	public ResponseEntity<List<DadosListagemLancamentoHoras>> getLancamentos(@PathVariable("idUsuario") Long id){
+		var listagemLancamento  = service.listarLancamento(id);
+		return ResponseEntity.ok().body(listagemLancamento);
+	}
+	
+	@PutMapping
+	@Transactional
+	public ResponseEntity alterarStatus(@RequestBody DadosAlteracaoStatusLancamento dados) {
+		service.alterarStatus(dados);
+		return ResponseEntity.ok().build();
 	}
 }
