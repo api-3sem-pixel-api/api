@@ -19,7 +19,7 @@ public class HoraextraApplication {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl("jdbc:mysql://localhost/api3sem");
         dataSource.setUsername("root");
-        dataSource.setPassword("12345678");
+        dataSource.setPassword("root");
         return dataSource;
     }
 

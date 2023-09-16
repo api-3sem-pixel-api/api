@@ -24,7 +24,7 @@ public class Modalidade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String descrição;
+	private String descricao;
 	
 	@OneToMany(mappedBy = "modalidade")
 	private List<LancamentoHoras> lancamento;
