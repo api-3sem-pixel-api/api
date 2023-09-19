@@ -31,7 +31,8 @@
 
     <TabelaHoras 
       style="margin-top: 100px;" 
-      :ttt="'teste'"
+      :horas="horasLancadas"
+      :podeGerenciarLancamentos="nivelDePermissao > 1"
     ></TabelaHoras>
 
 
@@ -67,6 +68,7 @@ export default class LancamentoHorasView extends Vue {
   }
 
   horasLancadas: ExtratoHoraLinha[] = [];
+  nivelDePermissao: number = 0;
 
   created(): void {
     this.obterLancamentos();
@@ -74,16 +76,15 @@ export default class LancamentoHorasView extends Vue {
 
   obterLancamentos() {
     const user = useAuth().getUser();
-    http.get('/lancamentoHoras/' + user.id, { headers: { Authorization: 'Bearer ' + user.token } })
-      .then(response => {
-        this.horasLancadas = response.data;
-      })
-      .catch(err => alert('Algo deu errado. Tente novamente mais tarde.'));
+
+    this.nivelDePermissao = user.permissionLevel;
+    http.get('/lancamentoHoras/' + user.id)
+      .then(response => this.horasLancadas = response.data)
+      .catch(_ => alert('Algo deu errado. Tente novamente mais tarde.'));
   }
 
   async lancar() {
-    console.log(this.lancamento)
-    const { data } = await http.post("/lancamentoHoras", this.lancamento);
+    await http.post("/lancamentoHoras", this.lancamento);
   }
 };
 </script>
