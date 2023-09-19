@@ -14,6 +14,8 @@
 import { Options, Vue } from 'vue-class-component';
 import { MenuParent } from './menu';
 import SidebarItem from './SidebarItem.vue';
+import { useAuth } from '@/stores/auth';
+import { colaboradorMenu, gestorMenu, adminMenu } from './menu';
 
 @Options({
   props: ['menus'],
@@ -44,6 +46,9 @@ export default class Sidebar extends Vue {
   authorizationLevel: number = 1;
   
   created(): void {
+    const auth = useAuth();
+    this.createSidebar(auth.getUser().permissionLevel);
+    
     const currentUrl = this.$route.fullPath;
     this.menus.forEach(menu => {
       menu.active = currentUrl.includes(menu.link) && !!menu.link;
@@ -51,8 +56,16 @@ export default class Sidebar extends Vue {
     })
   }
 
+  private createSidebar(permissionLevel: number) {
+    switch(permissionLevel){
+      case 1: this.menus = colaboradorMenu; break;
+      case 2: this.menus = gestorMenu; break;
+      case 3: this.menus = adminMenu; break;
+    }
+  }
+
   private activateSubItens(menu: MenuParent, currentUrl: string) {
-    menu.childs.map(subitem => {
+    menu.childs.map((subitem:any) => {
       subitem.active = currentUrl.includes(subitem.link);
       if (subitem.active) menu.active = true;
     });
@@ -105,4 +118,4 @@ export default class Sidebar extends Vue {
     position: absolute;
   }
 }
-</style>./Menu
+</style>./Menu./menu

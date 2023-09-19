@@ -5,48 +5,46 @@
         <div class="header">
           <img src="@/assets/logo.png">
         </div>
-        <input type="text" placeholder="Usuário" v-model="login" />
-        <input type="password" placeholder="Senha" v-model="senha" />
-        <button @click="login">Entrar</button>
+        <input type="text" placeholder="Usuário" v-model="userInput.login" />
+        <input type="password" placeholder="Senha" v-model="userInput.senha" />
+        <button v-on:click="login()">Entrar</button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import http from "@/services/http";
 import { useAuth } from '@/stores/auth';
 import { Login } from './Models/login';
+import { Vue } from 'vue-class-component';
+import router from "@/router";
 
-export default defineComponent({
-  data() {
-    return {
-      login: '',
-      senha: '',
-    } as Login;
-  },
-  methods: {
-    async login() {
-      const auth = useAuth();
+export default class LoginView extends Vue {
+  userInput: Login = {
+    login: '',
+    senha: '',
+  };
 
-      try {
-        const user: Login = {
-          login: this.login,
-          senha: this.senha,
-        };
-
-        const { data } = await http.post('/auth', user);
-        auth.setUser(data.idTipoUsuario);
-        auth.setToken(data.token);
+  login() {
+    const auth = useAuth();
+    http.post('/login', this.userInput)
+      .then((response: any) => {
+        auth.setUser({
+          id: response.data.id,
+          permissionLevel: response.data.idTipoUsuario,
+          token: response.data.token
+        });
         auth.setIsAuth(true);
-
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
-});
+        router.push('authorized')
+      })
+      .catch(err => {
+        console.log(err);
+        alert(
+        `Algo deu errado. Por favor verifique se seu usuário/senha estão corretos ou tente novamente mais tarde.`)
+      });
+  }
+};
 </script>
 
 <style scoped>

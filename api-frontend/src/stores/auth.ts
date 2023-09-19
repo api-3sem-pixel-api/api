@@ -3,9 +3,9 @@ import router from '@/router/index';
 import http from '@/services/http';
 
 interface User {
-  firstName: string;
-  password: string; 
-
+  id: number;
+  token: string; 
+  permissionLevel: number;
 }
 
 export const useAuth = () => {
@@ -14,14 +14,8 @@ export const useAuth = () => {
   const user = ref<User | null>(userJson ? JSON.parse(userJson) : null);
   const isAuth = ref(false);
 
-  function setToken(tokenValue: string | null) {
-    if (tokenValue) {
-      localStorage.setItem('token', tokenValue);
-    } else {
-      localStorage.removeItem('token');
-    }
-    token.value = tokenValue;
-    isAuth.value = !!tokenValue && !!user.value;
+  function getUser() : User{
+    return JSON.parse(localStorage.getItem('user') ?? '')
   }
 
   function setUser(userValue: User | null) {
@@ -40,13 +34,6 @@ export const useAuth = () => {
 
   const isAuthenticated = computed(() => {
     return !!token.value && !!user.value;
-  });
-
-  const fullName = computed(() => {
-    if (user.value) {
-      return user.value.firstName + ' ' + user.value.password; 
-    }
-    return '';
   });
 
   async function checkToken() {
@@ -81,11 +68,10 @@ export const useAuth = () => {
   return {
     token,
     user,
-    setToken,
+    getUser,
     setUser,
     checkToken,
     isAuthenticated,
-    fullName,
     clear,
     setIsAuth,
     isAuth,
