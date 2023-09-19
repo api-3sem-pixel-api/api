@@ -17,15 +17,10 @@
       <input type="text" class="form-control" v-model="lancamento.projeto">
     </div>
 
-
-
     <div class="col">
       <p class="italic">Inicio</p>
       <input id="party" type="datetime-local" name="partydate" v-model="lancamento.inicio" />
     </div>
-
-
-
 
     <div class="col">
       <p class="italic">Fim</p>
@@ -34,10 +29,10 @@
     <div class="col" style="margin-top:30px;"><button v-on:click="lancar" type="button"
         class="btn btn-outline-primary">Lançar</button></div>
 
-
-
-
-    <TabelaHoras style="margin-top: 100px;"></TabelaHoras>
+    <TabelaHoras 
+      style="margin-top: 100px;" 
+      :ttt="'teste'"
+    ></TabelaHoras>
 
 
   </div>
@@ -52,6 +47,7 @@ import { ExtratoHoraLinha } from './TabelaHoras/extrato-hora-linha';
 
 
 @Options({
+  props:['horasLancadas'],
   components: {
     TabelaHoras
   }
@@ -73,13 +69,16 @@ export default class LancamentoHorasView extends Vue {
   horasLancadas: ExtratoHoraLinha[] = [];
 
   created(): void {
-      this.obterLancamentos();
+    this.obterLancamentos();
   }
 
-  obterLancamentos(){
+  obterLancamentos() {
     const user = useAuth().getUser();
-    http.get('/lancamentoHoras/'+user.id)
-      .then(respose => console.log(respose));
+    http.get('/lancamentoHoras/' + user.id, { headers: { Authorization: 'Bearer ' + user.token } })
+      .then(response => {
+        this.horasLancadas = response.data;
+      })
+      .catch(err => alert('Algo deu errado. Tente novamente mais tarde.'));
   }
 
   async lancar() {

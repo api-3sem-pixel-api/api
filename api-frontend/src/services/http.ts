@@ -11,8 +11,7 @@ const headers = function(){
 };
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8080',
-  headers: headers()
+  baseURL: 'http://localhost:8080'
 });
 
 export default axiosInstance;

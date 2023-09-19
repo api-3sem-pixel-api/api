@@ -1,5 +1,5 @@
 <template>
-    <div class="table-horas">
+    <!-- <div class="table-horas">
         <table class="table table-responsive no-wrap-table">
         <thead>
             <tr>
@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="linha in linhas">
+            <tr v-for="linha in horas">
                 <td>{{linha.modalidade}}</td>
                 <td>{{linha.cr}}</td>
                 <td>{{linha.cliente}}</td>
@@ -38,31 +38,21 @@
             </tr>
         </tbody>
     </table>
-    </div>
+</div> -->
+<button @click="testar">Testar</button>
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { ExtratoHoraLinha } from './extrato-hora-linha';
 
 Options({
-    props:['linhas', 'podeGerenciarLancamentos']
+    name:'TabelaHoras',
+    props:['ttt']
 })
 export default class TabelaHoras extends Vue {
-    podeGerenciarLancamentos: boolean = false;
-    linhas: ExtratoHoraLinha[] = [
-        {
-            cliente: 'Cliente 1',
-            cr: 'Cr 1',
-            fim: new Date(),
-            id: 1,
-            inicio: new Date(),
-            justificativa: 'Solicitação externa',
-            projeto: 'Projeto 1',
-            solicitante: 'Luciano',
-            status: 1,
-            modalidade: 'Modalidade 1'
-        }
-    ];
+    podeGerenciarLancamentos!: boolean;
+    horas!: ExtratoHoraLinha[];
+    ttt!:string;
 
     aprovar() : void {
 
@@ -91,6 +81,12 @@ export default class TabelaHoras extends Vue {
         const datePart = dataSplit[0].split('-').reverse().join('/');
         const timePart = dataSplit[1].substring(0,5); 
         return datePart + ' ' + timePart;
+    }
+
+    testar(){
+        console.log(this.ttt)
+        console.log(this.horas)
+        console.log(this.podeGerenciarLancamentos)
     }
 }
 </script>

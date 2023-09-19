@@ -28,7 +28,7 @@ export default class LoginView extends Vue {
 
   login() {
     const auth = useAuth();
-    http.post('/login', this.userInput)
+    http.post('/login', this.userInput, {headers: {}})
       .then((response: any) => {
         auth.setUser({
           id: response.data.id,
