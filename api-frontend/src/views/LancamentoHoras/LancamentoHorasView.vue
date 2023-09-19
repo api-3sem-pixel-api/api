@@ -1,5 +1,4 @@
 <template>
-
   <div class="row ">
     <div class="col">
       <p class="italic">Modalidade</p>
@@ -7,48 +6,49 @@
     </div>
     <div class="col">
       <p class="italic">CR</p>
-      <select class="form-select" aria-label=".form-select-lg example"  v-model = "lancamento.cr"></select>
+      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cr"></select>
     </div>
     <div class="col">
       <p class="italic">Cliente</p>
-      <select class="form-select" aria-label=".form-select-lg example" v-model = "lancamento.cliente"></select>
+      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cliente"></select>
     </div>
     <div class="col">
       <p class="italic">Projeto</p>
-      <input type="text" class="form-control" v-model = "lancamento.projeto">       
+      <input type="text" class="form-control" v-model="lancamento.projeto">
     </div>
 
 
 
     <div class="col">
       <p class="italic">Inicio</p>
-      <input id="party" type="datetime-local" name="partydate" v-model ="lancamento.inicio" />
+      <input id="party" type="datetime-local" name="partydate" v-model="lancamento.inicio" />
     </div>
 
-    
 
-    
+
+
     <div class="col">
       <p class="italic">Fim</p>
-      <input class="button-s" id="party" type="datetime-local"  name="partydate" v-model = "lancamento.fim" /> 
+      <input class="button-s" id="party" type="datetime-local" name="partydate" v-model="lancamento.fim" />
     </div>
-    <div class="col" style="margin-top:30px;"><button v-on:click ="lancar" type="button" class="btn btn-outline-primary">Lançar</button></div>
+    <div class="col" style="margin-top:30px;"><button v-on:click="lancar" type="button"
+        class="btn btn-outline-primary">Lançar</button></div>
 
 
 
 
     <TabelaHoras style="margin-top: 100px;"></TabelaHoras>
-    
+
 
   </div>
-
-
 </template>
 
 <script lang="ts">
 import TabelaHoras from './TabelaHoras/TabelaHoras.vue';
 import { Options, Vue } from 'vue-class-component';
 import http from "@/services/http";
+import { useAuth } from '@/stores/auth';
+import { ExtratoHoraLinha } from './TabelaHoras/extrato-hora-linha';
 
 
 @Options({
@@ -57,24 +57,34 @@ import http from "@/services/http";
   }
 })
 export default class LancamentoHorasView extends Vue {
-  lancamento:any = {
-      id: '',
-      cr: '',
-      cliente: '',
-      projeto:'',
-      inicio:'',
-      fim:'',
-      modalidade:'',
-      solicitante:'',
-      justificativa:'',
-      status:'',
+  lancamento: any = {
+    id: '',
+    cr: '',
+    cliente: '',
+    projeto: '',
+    inicio: '',
+    fim: '',
+    modalidade: '',
+    solicitante: '',
+    justificativa: '',
+    status: '',
   }
 
- async lancar(){
+  horasLancadas: ExtratoHoraLinha[] = [];
 
-  console.log(this.lancamento)
-    const {data} = await http.post("/lancamentoHoras", this.lancamento);
-    
+  created(): void {
+      this.obterLancamentos();
+  }
+
+  obterLancamentos(){
+    const user = useAuth().getUser();
+    http.get('/lancamentoHoras/'+user.id)
+      .then(respose => console.log(respose));
+  }
+
+  async lancar() {
+    console.log(this.lancamento)
+    const { data } = await http.post("/lancamentoHoras", this.lancamento);
   }
 };
 </script>
@@ -84,12 +94,12 @@ export default class LancamentoHorasView extends Vue {
   font-weight: 700;
   width: 100%;
 }
-.form-select{
+
+.form-select {
   width: 0.75;
 }
-.button-s{
-  boder:1px solid #000;
+
+.button-s {
+  boder: 1px solid #000;
 }
-
-
 </style>
