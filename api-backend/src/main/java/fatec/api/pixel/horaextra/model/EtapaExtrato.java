@@ -7,28 +7,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "tipo_usuario")
-@Entity(name = "TipoUsuario")
+@Table(name = "Etapa_Extrato")
+@Entity(name = "EtapaExtrato")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class TipoUsuario {
-
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class EtapaExtrato {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
-	@OneToMany(mappedBy = "tipoUsuario")
-	private List<Usuario> usuario;
 	
-	public TipoUsuario(Long idTipoUsuario) {
-		this.id = idTipoUsuario;
+	@OneToMany(mappedBy = "etapa")
+	private List<LancamentoHoras> lancamento;
+
+	public EtapaExtrato(Long id) {
+		this.id = id;
 	}
 }

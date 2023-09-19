@@ -2,33 +2,38 @@ package fatec.api.pixel.horaextra.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "tipo_usuario")
-@Entity(name = "TipoUsuario")
+@Table(name = "Cliente")
+@Entity(name = "Cliente")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class TipoUsuario {
-
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String descricao;
-	@OneToMany(mappedBy = "tipoUsuario")
-	private List<Usuario> usuario;
+@NoArgsConstructor
+public class Cliente {
 	
-	public TipoUsuario(Long idTipoUsuario) {
-		this.id = idTipoUsuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "Razao_Social")
+	private String razaoSocial;
+	private String cnpj;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<LancamentoHoras>lancamento;
+	
+	public Cliente(Long idCliente) {
+		this.id = idCliente;
 	}
+
 }
