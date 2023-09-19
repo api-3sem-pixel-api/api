@@ -24,9 +24,9 @@ public class AutenticacaoLoginService implements UserDetailsService {
 		return repository.findByLogin(username);
 	}
 	
-	public DadosControlePermissao getIdTipoUsuarioAndFlPrimeiroAcesso(String cpf) {
+	public DadosControlePermissao getDadosControlePermissao(String cpf) {
 		var usuario = usuarioRepository.findByCpf(cpf);
-		return new DadosControlePermissao(usuario.getTipoUsuario().getId(), convertToLong(usuario.getAutenticacaoUsuario().isPrimeiroAcesso()));
+		return new DadosControlePermissao(usuario.getTipoUsuario().getId(), usuario.getId(), convertToLong(usuario.getAutenticacaoUsuario().isPrimeiroAcesso()));
 	}
 	
 	private Long convertToLong(boolean primeiroAcesso) {

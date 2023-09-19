@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
+@CrossOrigin(origins = "*") 
 public class AutenticacaoLoginController {
 
 	@Autowired
@@ -35,8 +37,8 @@ public class AutenticacaoLoginController {
 		var authentication = manager.authenticate(token);
 		
 		var tokenJWT = tokenService.gerarToken((AutenticacaoUsuario) authentication.getPrincipal());
-		var permissaoUsuario = loginService.getIdTipoUsuarioAndFlPrimeiroAcesso(dados.login());
+		var permissaoUsuario = loginService.getDadosControlePermissao (dados.login());
 		
-		return ResponseEntity.ok(new DadosRetornoLogin(tokenJWT, permissaoUsuario.idTipoUsuario(), permissaoUsuario.flPrimeiroAcesso()));
+		return ResponseEntity.ok(new DadosRetornoLogin(tokenJWT, permissaoUsuario.idTipoUsuario(), permissaoUsuario.id(), permissaoUsuario.flPrimeiroAcesso()));
 	}                          
 }

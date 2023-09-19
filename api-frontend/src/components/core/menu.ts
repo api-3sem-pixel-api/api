@@ -9,7 +9,6 @@ export interface MenuChild{
     active:boolean;
 }
 
-
 export const colaboradorMenu: MenuParent[] = [
     {
       icon: 'fas fa-home',
