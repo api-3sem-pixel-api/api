@@ -80,16 +80,8 @@ export default class LancamentoHorasView extends Vue {
 listmodal: any =[];
 
 listcr: any =[
-  { id: '1', cr: 'ola' },
-  { id: '2', cr: 'Opção 2' },
-  { id: '3', cr: 'Opção 3' },
-
 ];
 listcliente: any =[
-  { id: '1', cliente: 'ola' },
-  { id: '2', cliente: 'Opção 2' },
-  { id: '3', cliente: 'Opção 3' },
-
 ];
 
 
@@ -98,7 +90,9 @@ listcliente: any =[
 
   created(): void {
     this.obterLancamentos();
-    this.popularCombobox();
+    this.ComboboxCr();
+    this.ComboboxModalidade();
+    this.ComboboxCliente();
   }
 
   obterLancamentos() {
@@ -110,13 +104,30 @@ listcliente: any =[
       .catch(_ => alert('Algo deu errado. Tente novamente mais tarde.'));
   }
 
-  popularCombobox  () {
+  ComboboxCr (){
+    http.get('/cr')
+    .then(Response=> {this.listcr = Response.data
+    })
+  
+  }
+  
+  ComboboxModalidade  () {
     http.get("/modalidade")
       .then(response => {
         this.listmodal = response.data
       })
 
   }
+
+  ComboboxCliente(){
+    http.get('/cliente').then(Response=>{
+      this.listcliente = Response.data
+    })
+  }
+
+
+
+
 
   async lancar() {
     try {
