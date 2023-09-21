@@ -7,6 +7,7 @@ export class ExtratoHoraLinha {
     modalidade!: string;
     fim!: Date;
     solicitante!: string;
+    motivo!:string;
     justificativa!: string;
     status!: number;
 }

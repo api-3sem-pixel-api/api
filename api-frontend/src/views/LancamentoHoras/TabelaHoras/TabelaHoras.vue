@@ -10,7 +10,8 @@
                     <th scope="col" class="text-left">Inicio</th>
                     <th scope="col" class="text-left">Fim</th>
                     <th scope="col" class="text-left" v-if="podeGerenciarLancamentos">Solicitante</th>
-                    <th scope="col" class="text-left">Justificativa</th>
+                    <th scope="col" class="text-left ">Motivo do Lançamento</th>
+                    <th scope="col" class="text-left ">Justificativa do Gestor/Administrador</th>
                     <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center" v-if="podeGerenciarLancamentos">Ações</th>
                 </tr>
@@ -24,16 +25,18 @@
                     <td>{{ formatarData(linha.inicio) }}</td>
                     <td>{{ formatarData(linha.fim) }}</td>
                     <td v-if="podeGerenciarLancamentos">{{ linha.solicitante }}</td>
-                    <td>{{ linha.justificativa }}</td>
+                    <td class="text-center">{{ linha.motivo }}</td>
+                    <td class="text-center">{{ linha.justificativa ?? '-' }}</td>
                     <td>
-                        <div class="pill text-center" :class="{
+                        <div class="pill text-center text-wrap" :class="{
                             waiting: linha.status == 1,
                             approved: linha.status == 2,
                             reproved: linha.status == 3,
-                            canceled: linha.status == 4
+                            canceled: linha.status == 4,
+                            approvedGestor: linha.status == 5
                         }">{{ obterDescricaoStatus(linha.status) }}</div>
                     </td>
-                    <td v-if="podeGerenciarLancamentos" class="text-center">
+                    <td v-if="podeGerenciarLancamentos && linha.status == 1" class="text-center">
                         <button class="btn btn-link text-success" @click="aprovar(linha)">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
@@ -41,12 +44,19 @@
                             <i class="fa fa-window-close" aria-hidden="true"></i>
                         </button>
                     </td>
+                    <td v-if="podeGerenciarLancamentos && linha.status != 1" class="text-center">
+                        -
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <ModalMotivo :idLancamento="idLancamentoReprova" :statusAtual="statusReprova"></ModalMotivo>
+    <ModalMotivo 
+        :idLancamento="idLancamentoReprova" 
+        :statusAtual="statusReprova"
+        @update-table="updateTableEvent"
+    ></ModalMotivo>
 </template>
 
 <script lang="ts">
@@ -74,20 +84,26 @@ export default defineComponent({
         aprovar(linha: ExtratoHoraLinha): void {
             const horaParaAprovar = {
                 idLancamento: linha.id,
-                status: 2,
+                status: linha.status == 1 ? 5 : 2,
                 justificativa: null
             };
 
-            http.put('/lancamentohoras', horaParaAprovar)
+            http.put('/lancamentoHoras', horaParaAprovar)
                 .then(r => {
                     alert('Hora aprovada com sucesso.');
+                    this.updateTableEvent();
                 })
                 .catch(err => {
                     alert('Algo deu errado tente novamente mais tarde.')
                 });
+
+        },
+            
+        updateTableEvent(){
+            this.$emit('update-table');
         },
 
-        reprovar: function (linha: ExtratoHoraLinha): void {
+        reprovar (linha: ExtratoHoraLinha): void {
             this.idLancamentoReprova = linha.id;
             this.statusReprova = linha.status;
             const modal = document.getElementById("reprovar-modal")!;
@@ -100,6 +116,7 @@ export default defineComponent({
                 case 2: return 'Aprovada';
                 case 3: return 'Reprovada';
                 case 4: return 'Cancelada';
+                case 5: return 'Aprovada pelo Gestor';
                 default: return '-'
             }
         },
@@ -132,9 +149,13 @@ export default defineComponent({
 
 .pill {
     border-radius: 30px;
-    width: 130px;
+    width: 140px;
     color: white;
     text-align: center;
+
+    &.approvedGestor{
+        background-color: #fac02d;
+    }
 
     &.approved {
         background-color: #26fc29;

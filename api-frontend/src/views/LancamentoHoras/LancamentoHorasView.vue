@@ -1,5 +1,5 @@
 <template>
-  <div class="row ">
+  <div class="row lancamento-horas ">
     <div class="col-3">
       <p class="bold">Modalidade</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade">
@@ -40,12 +40,12 @@
       style="margin-top: 100px;" 
       :horas="horasLancadas"
       :podeGerenciarLancamentos="nivelDePermissao > 1"
+      @update-table="obterLancamentos"
     ></TabelaHoras>
 </template>
 
 <script lang="ts">
 import TabelaHoras from './TabelaHoras/TabelaHoras.vue';
-import ModalMotivo from './ModalMotivo/ModalMotivo.vue';
 import { Options, Vue } from 'vue-class-component';
 import http from "@/services/http";
 import { useAuth } from '@/stores/auth';
@@ -137,7 +137,7 @@ listcliente: any =[
   width: 100%;
 }
 
-.lancar-horas{
+.lancamento-horas{
   margin-bottom: 75px;
 }
 

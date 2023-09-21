@@ -57,6 +57,7 @@ export default defineComponent({
             http.put('/lancamentoHoras', horaParaReprovar)
                 .then(r => {
                     this.close();
+                    this.$emit('update-table');
                     alert('Hora reprovada com sucesso.');
                 })
                 .catch(err => {
