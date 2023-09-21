@@ -3,6 +3,8 @@ package fatec.api.pixel.horaextra.model;
 import java.util.Date;
 
 import fatec.api.pixel.horaextra.dto.DadosCadastroLancamentoHoras;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,9 +32,9 @@ public class LancamentoHoras {
 	private String projeto;
 	private String motivo;
 	private String justificativa;
-	@Column(name = "DataHora_Inicio")
+	@Column(name = "datahora_Inicio")
 	private Date dataInicio;
-	@Column(name = "DataHora_Fim")
+	@Column(name = "datahora_Fim")
 	private Date dataFim;
 
 	@ManyToOne

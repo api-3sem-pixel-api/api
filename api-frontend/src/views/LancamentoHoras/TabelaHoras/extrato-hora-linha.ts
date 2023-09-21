@@ -1,4 +1,4 @@
-export class  ExtratoHoraLinha {
+export class ExtratoHoraLinha {
     id!: number;
     cr!: string;
     cliente!: string;
