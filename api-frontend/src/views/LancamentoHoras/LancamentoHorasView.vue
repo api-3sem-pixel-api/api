@@ -102,6 +102,7 @@ listcliente: any =[
 
   created(): void {
     this.obterLancamentos();
+    this.popularCombobox();
   }
 
   obterLancamentos() {
@@ -111,6 +112,14 @@ listcliente: any =[
     http.get('/lancamentoHoras/' + user.id)
       .then(response => this.horasLancadas = response.data)
       .catch(_ => alert('Algo deu errado. Tente novamente mais tarde.'));
+  }
+
+  popularCombobox  () {
+    http.get("/modalidade")
+      .then(response => {
+        this.listmodal = response.data
+      })
+
   }
 
   async lancar() {
