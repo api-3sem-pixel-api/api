@@ -123,7 +123,14 @@ listcliente: any =[
   }
 
   async lancar() {
+    try {
     await http.post("/lancamentoHoras", this.lancamento);
+         alert(`Horas lançadas com sucesso!!!`)
+  
+  } catch (error) {
+          alert(`Algo deu errado. Tente novamente mais tarde.`)
+  
+  }
   }
 };
 </script>
