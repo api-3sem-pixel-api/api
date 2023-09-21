@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-
-
-createApp(App).component('LoginView',LoginView).use(router).mount('#app')
+createApp(App)
+    .component('LoginView',LoginView)
+    .use(router)
+    .mount('#app')
