@@ -54,7 +54,7 @@ export default defineComponent({
                 justificativa: this.motivo
             };
 
-            http.put('/lancamentohoras', horaParaReprovar)
+            http.put('/lancamentoHoras', horaParaReprovar)
                 .then(r => {
                     this.close();
                     alert('Hora reprovada com sucesso.');

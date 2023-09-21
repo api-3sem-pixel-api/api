@@ -3,7 +3,7 @@
     <div class="col-3">
       <p class="bold">Modalidade</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade">
-        <option v-for="item in listmodal" :key="item.id" :value="item.id">{{item.modalidade}}</option>
+        <option v-for="item in listmodal" :key="item.idModalidade" :value="item.idModalidade">{{item.descricaoModalidade}}</option>
       </select>
     </div>
     
@@ -77,12 +77,8 @@ export default class LancamentoHorasView extends Vue {
 
 }]
 
-listmodal: any =[
-  { id: '1', modalidade: 'ola' },
-  { id: '2', modalidade: 'Opção 2' },
-  { id: '3', modalidade: 'Opção 3' },
+listmodal: any =[];
 
-];
 listcr: any =[
   { id: '1', cr: 'ola' },
   { id: '2', cr: 'Opção 2' },
