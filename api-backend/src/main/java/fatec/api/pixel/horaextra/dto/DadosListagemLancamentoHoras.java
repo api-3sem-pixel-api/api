@@ -12,5 +12,6 @@ public record DadosListagemLancamentoHoras(
 		Date fim,
 		String solicitante,
 		String justificativa,
+		String motivo,
 		Long status) {
 }

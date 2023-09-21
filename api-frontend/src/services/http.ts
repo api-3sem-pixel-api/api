@@ -1,10 +1,9 @@
 import { useAuth } from '@/stores/auth';
 import axios, { AxiosInstance } from 'axios';
 
-
 const headers = function(){
   const auth = useAuth().getUser();
-  if(auth == undefined || auth == null) return {};
+  if(auth == undefined || auth == null || auth.token == undefined) return {};
   return { 
     Authorization: 'Bearer ' + auth.token
   }

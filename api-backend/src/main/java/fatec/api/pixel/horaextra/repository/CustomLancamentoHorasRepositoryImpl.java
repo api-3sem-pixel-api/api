@@ -28,6 +28,7 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				+ "       eh.DataHora_Fim,"
 				+ "       usuario.Nome,"
 				+ "       eh.Justificativa,"
+				+ "       eh.Motivo,"
 				+ "       eh.Id_Etapa_Extrato"
 				+ " FROM extrato_hora eh"
 				+ " INNER JOIN Cr cr on eh.Id_Cr = cr.Id"
@@ -60,8 +61,9 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 							(String) object[5], 
 							(Date) object[6],
 							(String) object[7],
-							(String) object[8], 
-							Long.valueOf(object[9].toString())));
+							(String) object[8],
+							(String) object[9],
+							Long.valueOf(object[10].toString())));
 				}
 				return dadosListagemLancamentoHoras;
 	}
