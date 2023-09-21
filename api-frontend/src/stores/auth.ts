@@ -16,7 +16,7 @@ export const useAuth = () => {
   const isAuth = ref(false);
 
   function getUser() : User{
-    return JSON.parse(localStorage.getItem('user') ?? '')
+    return JSON.parse(localStorage.getItem('user') ?? '{}')
   }
 
   function setUser(userValue: User | null) {
