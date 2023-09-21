@@ -34,34 +34,66 @@
                         }">{{ obterDescricaoStatus(linha.status) }}</div>
                     </td>
                     <td v-if="podeGerenciarLancamentos" class="text-center">
-                        <button class="btn btn-link text-success"><i class="fa fa-check" aria-hidden="true"></i></button>
-                        <button class="btn btn-link text-danger"><i class="fa fa-window-close"
-                                aria-hidden="true"></i></button>
+                        <button class="btn btn-link text-success" @click="aprovar(linha)">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-link text-danger" @click="reprovar(linha)">
+                            <i class="fa fa-window-close" aria-hidden="true"></i>
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <ModalMotivo :idLancamento="idLancamentoReprova" :statusAtual="statusReprova"></ModalMotivo>
 </template>
 
 <script lang="ts">
+import { PropType, defineComponent } from 'vue';
 import { ExtratoHoraLinha } from './extrato-hora-linha';
-import {PropType} from 'vue'
+import ModalMotivo from '../ModalMotivo/ModalMotivo.vue';
+import http from '@/services/http';
 
-export default {
+
+export default defineComponent({
     props: {
         podeGerenciarLancamentos: Boolean,
         horas: Array as PropType<ExtratoHoraLinha[]>
-    }, 
+    },
+    components: {
+        ModalMotivo
+    },
+    data(){
+        return {
+            idLancamentoReprova: 0,
+            statusReprova: 0
+        }
+    },
     methods: {
-        aprovar(): void {
+        aprovar(linha: ExtratoHoraLinha): void {
+            const horaParaAprovar = {
+                idLancamento: linha.id,
+                status: 2,
+                justificativa: null
+            };
 
+            http.put('/lancamentohoras', horaParaAprovar)
+                .then(r => {
+                    alert('Hora aprovada com sucesso.');
+                })
+                .catch(err => {
+                    alert('Algo deu errado tente novamente mais tarde.')
+                });
         },
-        
-        reprovar(): void {
 
+        reprovar: function (linha: ExtratoHoraLinha): void {
+            this.idLancamentoReprova = linha.id;
+            this.statusReprova = linha.status;
+            const modal = document.getElementById("reprovar-modal")!;
+            modal.style.display = "block";
         },
-        
+
         obterDescricaoStatus(statusId: number) {
             switch (statusId) {
                 case 1: return 'Em Aprovação';
@@ -73,8 +105,8 @@ export default {
         },
 
         formatarData(toFormatDate: Date | undefined | null): string {
-            if(!toFormatDate) return '';
-            
+            if (!toFormatDate) return '';
+
             const data = new Date(toFormatDate);
             const dataSplit = data.toISOString().split('T');
 
@@ -84,9 +116,9 @@ export default {
             const datePart = dataSplit[0].split('-').reverse().join('/');
             const timePart = dataSplit[1].substring(0, 5);
             return datePart + ' ' + timePart;
-        },
+        }
     }
-}
+})
 </script>
 <style>
 .table-horas {

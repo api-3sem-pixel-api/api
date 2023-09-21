@@ -1,46 +1,44 @@
 <template>
-  <div class="row ">
+  <div class="row lancar-horas">
     <div class="col">
-      <p class="italic">Modalidade</p>
+      <p class="bold">Modalidade</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade"></select>
     </div>
     <div class="col">
-      <p class="italic">CR</p>
+      <p class="bold">CR</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cr"></select>
     </div>
     <div class="col">
-      <p class="italic">Cliente</p>
+      <p class="bold">Cliente</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cliente"></select>
     </div>
     <div class="col">
-      <p class="italic">Projeto</p>
+      <p class="bold">Projeto</p>
       <input type="text" class="form-control" v-model="lancamento.projeto">
     </div>
 
     <div class="col">
-      <p class="italic">Inicio</p>
+      <p class="bold">Inicio</p>
       <input id="party" type="datetime-local" name="partydate" v-model="lancamento.inicio" />
     </div>
 
     <div class="col">
-      <p class="italic">Fim</p>
+      <p class="bold">Fim</p>
       <input class="button-s" id="party" type="datetime-local" name="partydate" v-model="lancamento.fim" />
     </div>
     <div class="col" style="margin-top:30px;"><button v-on:click="lancar" type="button"
         class="btn btn-outline-primary">Lançar</button></div>
-
-    <TabelaHoras 
+  </div>
+  <TabelaHoras 
       style="margin-top: 100px;" 
       :horas="horasLancadas"
       :podeGerenciarLancamentos="nivelDePermissao > 1"
     ></TabelaHoras>
-
-
-  </div>
 </template>
 
 <script lang="ts">
 import TabelaHoras from './TabelaHoras/TabelaHoras.vue';
+import ModalMotivo from './ModalMotivo/ModalMotivo.vue';
 import { Options, Vue } from 'vue-class-component';
 import http from "@/services/http";
 import { useAuth } from '@/stores/auth';
@@ -90,9 +88,13 @@ export default class LancamentoHorasView extends Vue {
 </script>
 
 <style scoped>
-.italic {
+.bold {
   font-weight: 700;
   width: 100%;
+}
+
+.lancar-horas{
+  margin-bottom: 75px;
 }
 
 .form-select {
