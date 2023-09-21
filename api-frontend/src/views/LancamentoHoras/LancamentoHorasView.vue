@@ -2,15 +2,21 @@
   <div class="row lancar-horas">
     <div class="col">
       <p class="bold">Modalidade</p>
-      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade"></select>
+      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade">
+        <option v-for="item in listmodal" :key="item.id" :value="item.id">{{item.modalidade}}</option>
+      </select>
     </div>
     <div class="col">
       <p class="bold">CR</p>
-      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cr"></select>
+      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cr">
+        <option v-for="item in listcr" :key="item.id" :value="item.id">{{item.cr}}</option>
+      </select>
     </div>
     <div class="col">
       <p class="bold">Cliente</p>
-      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cliente"></select>
+      <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cliente">
+        <option v-for="item in listcliente" :key="item.id" :value="item.id">{{item.cliente}}</option>
+      </select>
     </div>
     <div class="col">
       <p class="bold">Projeto</p>
@@ -64,6 +70,31 @@ export default class LancamentoHorasView extends Vue {
     justificativa: '',
     status: '',
   }
+  modal: any = [{
+  id: '',
+  modalidade:'',
+
+}]
+
+listmodal: any =[
+  { id: '1', modalidade: 'ola' },
+  { id: '2', modalidade: 'Opção 2' },
+  { id: '3', modalidade: 'Opção 3' },
+
+];
+listcr: any =[
+  { id: '1', cr: 'ola' },
+  { id: '2', cr: 'Opção 2' },
+  { id: '3', cr: 'Opção 3' },
+
+];
+listcliente: any =[
+  { id: '1', cliente: 'ola' },
+  { id: '2', cliente: 'Opção 2' },
+  { id: '3', cliente: 'Opção 3' },
+
+];
+
 
   horasLancadas: ExtratoHoraLinha[] = [];
   nivelDePermissao: number = 0;
