@@ -1,40 +1,39 @@
 <template>
   <div class="row ">
-    <div class="col">
+    <div class="col-3">
       <p class="italic">Modalidade</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade">
         <option v-for="item in listmodal" :key="item.id" :value="item.id">{{item.modalidade}}</option>
       </select>
-
-
     </div>
-    <div class="col">
-      <p class="italic">CR</p>
+    
+    <div class="col-3">
+      <p class="italc">CR</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cr">
         <option v-for="item in listcr" :key="item.id" :value="item.id">{{item.cr}}</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-3">
       <p class="italic">Cliente</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cliente">
         <option v-for="item in listcliente" :key="item.id" :value="item.id">{{item.cliente}}</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-3" >
       <p class="italic">Projeto</p>
       <input type="text" class="form-control" v-model="lancamento.projeto">
     </div>
 
-    <div class="col">
+    <div class="col-3" style="margin-top: 10px;">
       <p class="italic">Inicio</p>
       <input id="party" type="datetime-local" name="partydate" v-model="lancamento.inicio" />
     </div>
 
-    <div class="col">
+    <div class="col-3" style="margin-top:10px">
       <p class="italic">Fim</p>
       <input class="button-s" id="party" type="datetime-local" name="partydate" v-model="lancamento.fim" />
     </div>
-    <div class="col" style="margin-top:30px;"><button v-on:click="lancar" type="button"
+    <div class="col-1" style="margin-top:40px;"><button v-on:click="lancar" type="button"
         class="btn btn-outline-primary">Lançar</button></div>
 
     <TabelaHoras 
