@@ -10,18 +10,22 @@
     <div class="col-3">
       <p class="bold">CR</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cr">
-        <option v-for="item in listcr" :key="item.id" :value="item.id">{{item.cr}}</option>
+        <option v-for="item in listcr" :key="item.id" :value="item.id">{{item.nomeCr}}</option>
       </select>
     </div>
     <div class="col-3">
       <p class="bold">Cliente</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.cliente">
-        <option v-for="item in listcliente" :key="item.id" :value="item.id">{{item.cliente}}</option>
+        <option v-for="item in listcliente" :key="item.id" :value="item.id">{{item.nomeCliente}}</option>
       </select>
     </div>
     <div class="col-3" >
       <p class="bold">Projeto</p>
       <input type="text" class="form-control" v-model="lancamento.projeto">
+    </div>
+    <div class="col-3" style="margin-top:10px" >
+      <p class="bold">Motivo</p>
+      <input type="text" class="form-control" v-model="lancamento.motivo">
     </div>
 
     <div class="col-3" style="margin-top: 10px;">
@@ -67,9 +71,10 @@ export default class LancamentoHorasView extends Vue {
     inicio: '',
     fim: '',
     modalidade: '',
-    solicitante: '',
+    solicitante: 0,
     justificativa: '',
-    status: '',
+    motivo:'',
+    status: 1,
   }
   modal: any = [{
   id: '',
@@ -105,7 +110,8 @@ listcliente: any =[
   }
 
   ComboboxCr (){
-    http.get('/cr')
+    const user = useAuth().getUser();
+    http.get('/cr/'+ user.id)
     .then(Response=> {this.listcr = Response.data
     })
   
@@ -131,11 +137,12 @@ listcliente: any =[
 
   async lancar() {
     try {
+    this.lancamento.solicitante = useAuth().getUser().id;
     await http.post("/lancamentoHoras", this.lancamento);
-         alert(`Horas lançadas com sucesso!!!`)
+    alert(`Horas lançadas com sucesso!!!`)
   
   } catch (error) {
-          alert(`Algo deu errado. Tente novamente mais tarde.`)
+    alert(`Algo deu errado. Tente novamente mais tarde.`)
   
   }
   }
