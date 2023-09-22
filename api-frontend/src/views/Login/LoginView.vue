@@ -40,7 +40,6 @@ export default class LoginView extends Vue {
         router.push('authorized')
       })
       .catch(err => {
-        console.log(err);
         alert(
         `Algo deu errado. Por favor verifique se seu usuário/senha estão corretos ou tente novamente mais tarde.`)
       });
