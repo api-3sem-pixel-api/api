@@ -1,6 +1,9 @@
 package fatec.api.pixel.horaextra.repository;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -43,10 +46,17 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 					jpql += " INNER JOIN cr_usuario crUsuario on crUsuario.Id_Cr = cr.Id";
 					jpql += " WHERE crUsuario.Id_Usuario = :idUsuario";
 				}
-				
+				if(idTipoUsuario == ID_TIPO_ADMIN) {
+					jpql += " WHERE eh.Id_Etapa_Extrato in (:etapas)";
+				}
+					
 				TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
-				if(idTipoUsuario == ID_TIPO_COLABORADOR || idTipoUsuario == ID_TIPO_GESTOR)
+				if(idTipoUsuario == ID_TIPO_COLABORADOR || idTipoUsuario == ID_TIPO_GESTOR) {
 					query.setParameter("idUsuario", idUsuario);
+				}else {
+					query.setParameter("etapas", Arrays.asList(3,5));
+				}
+					
 				
 				List<Object[]> result = query.getResultList();
 				List<DadosListagemLancamentoHoras> dadosListagemLancamentoHoras = new ArrayList<DadosListagemLancamentoHoras>();
