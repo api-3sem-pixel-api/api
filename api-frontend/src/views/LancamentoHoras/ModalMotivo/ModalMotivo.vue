@@ -31,6 +31,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ModalMotivo',
+    __name: 'ModalMotivo',
     props: {
         idLancamento: Number,
         statusAtual: Number
