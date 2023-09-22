@@ -61,8 +61,8 @@ public class LancamentoHoras {
 		this.projeto = horas.projeto();
 		this.motivo = horas.motivo();
 		this.justificativa = horas.justificativa();
-		this.dataInicio = new Date();
-		this.dataFim = new Date();
+		this.dataInicio = horas.dataHoraInicio();
+		this.dataFim = horas.dataHoraFim();
 		this.cr = new Cr(horas.idCr());
 		this.usuario = new Usuario(horas.idUsuario());
 		this.modalidade = new Modalidade(horas.modalidade());
