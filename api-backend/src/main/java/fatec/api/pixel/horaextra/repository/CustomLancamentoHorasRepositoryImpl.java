@@ -54,7 +54,7 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				if(idTipoUsuario == ID_TIPO_COLABORADOR || idTipoUsuario == ID_TIPO_GESTOR) {
 					query.setParameter("idUsuario", idUsuario);
 				}else {
-					query.setParameter("etapas", Arrays.asList(3,5));
+					query.setParameter("etapas", Arrays.asList(3,5,2));
 				}
 					
 				
