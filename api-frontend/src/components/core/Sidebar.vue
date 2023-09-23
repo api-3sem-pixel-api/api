@@ -32,7 +32,7 @@ export default class Sidebar extends Vue {
     
     const currentUrl = this.$route.fullPath;
     this.menus.forEach(menu => {
-      menu.active = currentUrl.includes(menu.link) && !!menu.link;
+      menu.active = currentUrl.includes(menu.link) && !!menu.link && menu.link != '/';
       this.activateSubItens(menu, currentUrl);
     })
   }

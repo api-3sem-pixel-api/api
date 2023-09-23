@@ -36,7 +36,8 @@
                             approvedGestor: linha.status == 5
                         }">{{ obterDescricaoStatus(linha.status) }}</div>
                     </td>
-                    <td v-if="podeGerenciarLancamentos && linha.status == 1" class="text-center">
+                    <td v-if="podeGerenciarLancamentos && 
+                            (linha.status == 1 || (linha.status == 5 &&  nivelPermissao == 3))" class="text-center">
                         <button class="btn btn-link text-success" @click="aprovar(linha)">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>
@@ -44,7 +45,8 @@
                             <i class="fa fa-window-close" aria-hidden="true"></i>
                         </button>
                     </td>
-                    <td v-if="podeGerenciarLancamentos && linha.status != 1" class="text-center">
+                    <td v-if="(nivelPermissao == 3 && linha.status != 1 && linha.status != 5) || 
+                              (nivelPermissao == 2 && (linha.status == 5 || linha.status == 3 || linha.status == 2))" class="text-center">
                         -
                     </td>
                 </tr>
@@ -64,6 +66,7 @@ import { PropType, defineComponent } from 'vue';
 import { ExtratoHoraLinha } from './extrato-hora-linha';
 import ModalMotivo from '../ModalMotivo/ModalMotivo.vue';
 import http from '@/services/http';
+import { useAuth } from '@/stores/auth';
 
 
 export default defineComponent({
@@ -76,9 +79,13 @@ export default defineComponent({
     },
     data(){
         return {
+            nivelPermissao: 0,
             idLancamentoReprova: 0,
             statusReprova: 0
         }
+    },
+    created(){
+        this.nivelPermissao = useAuth().getUser().permissionLevel
     },
     methods: {
         aprovar(linha: ExtratoHoraLinha): void {

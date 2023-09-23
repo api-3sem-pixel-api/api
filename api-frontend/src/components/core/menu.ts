@@ -25,6 +25,13 @@ export const colaboradorMenu: MenuParent[] = [
       childs: [
         { active: false, description: 'Lançamento', link: '/lancamentohoras' }
       ]
+    },
+    {
+      icon: 'fa-solid fa-right-from-bracket',
+      description: 'Sair',
+      active: false,
+      link:'/',
+      childs: []
     }
 ]
 
@@ -45,6 +52,13 @@ export const gestorMenu: MenuParent[] = [
           { active: false, description: 'Lançamento', link: '/lancamentohoras' },
           { active: false, description: 'Aprovação/Reprovação', link: '/controlehoras' }
         ]
+      },
+      {
+        icon: 'fa-solid fa-right-from-bracket',
+        description: 'Sair',
+        active: false,
+        link:'/',
+        childs: []
       }
 ]
 

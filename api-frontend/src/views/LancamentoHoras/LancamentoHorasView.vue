@@ -1,5 +1,5 @@
 <template>
-  <div class="row lancamento-horas ">
+  <div class="row lancamento-horas" v-if="nivelDePermissao != 3">
     <div class="col-3">
       <p class="bold">Modalidade</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade">
