@@ -65,7 +65,11 @@
    <br>
    
    <h2 align="center">Sprints</h2>
+   
    <h3 align="center">Sprint-1</h3>
+   <ul>
+     <li>Burndown: https://imgur.com/a/DF0zaIQ</li>
+   </ul>
    <ul> 
    <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/8cmdt4x-394</li>
    <br>
