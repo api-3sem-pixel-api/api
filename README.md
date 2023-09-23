@@ -46,7 +46,7 @@
   <li>Notificação de lançamentos realizados para Gestor e RH;</li>
   <li>Dashboard com acompanhamento em tempo real das horas extras executadas com filtro cliente, CR e colaborador.</li>
   </ol>
-    <h2>Requisitos não funcionais</h2>
+    <h2 align="center">Requisitos não funcionais</h2>
     <ol>
       <li>Usabilidade (na facilidade de uso e na facilidade de aprendizado)</li>
       <li>Manutenibilidade (código passível de evolução e reparos)</li>
@@ -56,20 +56,27 @@
     </ol>
    
    <h2 align="center">Modelagem</h2>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/ModelagemApiMER.png">Modelo Entidade-Relacionamento</a></li>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/WhatsApp%20Image%202023-09-22%20at%2022.06.18.jpeg">Modelo Lógico</a></li>
+   <br>
    
    <h2 align="center">Documentação</h2>
-   <li><a href="https://github.com/api-2sem-pixel/api/blob/develop/assets/documentacao.pdf"> Documentação </a></li>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/Documenta%C3%A7%C3%A3o.pdf"> Documentação </a></li>
+   <br>
    
    <h2 align="center">Sprints</h2>
    <h3 align="center">Sprint-1</h3>
-    <ul>
+   <ul> 
+   <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/8cmdt4x-394</li>
+   <br>
+   
     
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
-|   Sprint-1    |      **Login**           |   **?**              |
-|   Sprint-1    |      **Lançamento de Horas** | **?** |
-|   Sprint-1    |      **Aprovação/Reprovação** | **?** |
-|   Sprint-1    |      **Enabler de alteração de senha** | **?** |
+|   Sprint-1    |      **Login**           |   **11**              |
+|   Sprint-1    |      **Lançamento de Horas** | **1** |
+|   Sprint-1    |      **Aprovação/Reprovação** | **2** |
+|   Sprint-1    |      **Enabler de alteração de senha** | **-** |
    </ul>
    
    <h3 align="center">Sprint-2</h3>
@@ -77,13 +84,13 @@
 
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
-|   Sprint-2    |      **Visualização Clientes**           |   **?**              |
-|   Sprint-2    |      **Cadastro de Clientes** | **?** |
-|   Sprint-2    |      **Visualização CRs** | **?** |
-|   Sprint-2    |      **Cadastro de CRs** | **?** |
-|   Sprint-2    |      **Visualização Usuarios** | **?** |
-|   Sprint-2    |      **Cadastro de Usuários** | **?** |
-|   Sprint-2    |      **Enabler de Parametrização** | **?** |
+|   Sprint-2    |      **Visualização Clientes**           |   **10**              |
+|   Sprint-2    |      **Cadastro de Clientes** | **9** |
+|   Sprint-2    |      **Visualização CRs** | **8** |
+|   Sprint-2    |      **Cadastro de CRs** | **7** |
+|   Sprint-2    |      **Visualização Usuarios** | **6** |
+|   Sprint-2    |      **Cadastro de Usuários** | **5** |
+|   Sprint-2    |      **Enabler de Parametrização** | **-** |
    </ul>
    
    <h3 align="center">Sprint-3</h3>
@@ -91,12 +98,12 @@
 
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
-|   Sprint-3    |      **Relatórios**           |   **?**              |
-|   Sprint-3    |      **Dashboards** | **?** |
-|   Sprint-3    |      **Parametrização** | **?** |
-|   Sprint-3    |      **Inativação de Usuário** | **?** |
-|   Sprint-3    |      **Inativação de CR** | **?** |
-|   Sprint-3    |      **Inativação de Clientes** | **?** |
+|   Sprint-3    |      **Relatórios**           |   **4**              |
+|   Sprint-3    |      **Dashboards** | **12** |
+|   Sprint-3    |      **Parametrização** | **3** |
+|   Sprint-3    |      **Inativação de Usuário** | **13** |
+|   Sprint-3    |      **Inativação de CR** | **14** |
+|   Sprint-3    |      **Inativação de Clientes** | **15** |
    </ul>
    
    <h3 align="center">Sprint-4</h3>
@@ -104,9 +111,9 @@
 
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
-|   Sprint-4    |      **Cancelamento de Horas**           |   **?**              |
-|   Sprint-4    |      **Edição de Usuário**          |   **?**              |
-|   Sprint-4    |      **Edição de CR**          |   **?**              |
-|   Sprint-4    |      **Edição de Clientes**          |   **?**              |
-|   Sprint-4    |      **Notificação Admin/Gestor**          |   **?**              |
+|   Sprint-4    |      **Cancelamento de Horas**           |   **16**              |
+|   Sprint-4    |      **Edição de Usuário**          |   **18**              |
+|   Sprint-4    |      **Edição de CR**          |   **19**              |
+|   Sprint-4    |      **Edição de Clientes**          |   **20**              |
+|   Sprint-4    |      **Notificação Admin/Gestor**          |   **17**              |
    </ul>
