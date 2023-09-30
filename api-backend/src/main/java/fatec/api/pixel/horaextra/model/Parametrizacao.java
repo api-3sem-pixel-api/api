@@ -3,6 +3,7 @@ package fatec.api.pixel.horaextra.model;
 import java.util.Date;
 
 import fatec.api.pixel.horaextra.dto.DadosParametrizacao;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,9 +24,13 @@ public class Parametrizacao {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "dt_inicio_pagamento")
 	private Date dataInicioPagamento;
+	@Column(name = "dt_fim_pagamento")
 	private Date dataFimPagamento;
+	@Column(name = "inicio_horario_noturno")
 	private String inicioHorarioNoturno;
+	@Column(name = "fim_horario_noturno")
 	private String fimHorarioNoturno;
 
 	public Parametrizacao(DadosParametrizacao dados) {

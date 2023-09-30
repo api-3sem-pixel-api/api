@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fatec.api.pixel.horaextra.dto.DadosParametrizacao;
+import fatec.api.pixel.horaextra.dto.DadosParametrizacaoListagem;
 import fatec.api.pixel.horaextra.model.Parametrizacao;
 import fatec.api.pixel.horaextra.repository.ParametrizacaoRepository;
 
@@ -21,13 +22,21 @@ public class ParametrizacaoService {
 		repository.save(parametrizacao);
 	}
 	
-	public List<DadosParametrizacao> listar(){
+	public List<DadosParametrizacaoListagem> listar(){
 		var parametrizacoes = repository.findAll();
-		var dados = new ArrayList<DadosParametrizacao>();
+		var dados = new ArrayList<DadosParametrizacaoListagem>();
 		for(Parametrizacao param : parametrizacoes) {
-			dados.add(new DadosParametrizacao(param.getDataInicioPagamento(),param.getDataFimPagamento(), 
+			dados.add(new DadosParametrizacaoListagem(param.getId(),param.getDataInicioPagamento(),param.getDataFimPagamento(), 
 					param.getInicioHorarioNoturno(), param.getFimHorarioNoturno()));
 		}
 		return dados;
+	}
+	
+	public void alterar(DadosParametrizacao dados, Long id) {
+		var parametrizacao = repository.getReferenceById(id);
+		parametrizacao.setDataInicioPagamento(dados.dataInicioPagamento());
+		parametrizacao.setDataFimPagamento(dados.dataFimPagamento());
+		parametrizacao.setInicioHorarioNoturno(dados.inicioHorarioNoturno());
+		parametrizacao.setFimHorarioNoturno(dados.fimHorarioNoturno());
 	}
 }
