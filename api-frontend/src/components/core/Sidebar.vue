@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="logo">
-      <img src="../../assets/logo.png">
+      <img class="logo-img" src="../../assets/logo.png">
     </div>
   </div>
   <div id="sidenav">
@@ -74,11 +74,17 @@ export default class Sidebar extends Vue {
 
   .logo {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
     height: inherit;
     justify-content: center;
+    position: relative;
+
+    .logo-img{
+      position:absolute;
+      z-index: 2;
+      top:85vh;
+      width: 200px;
+    }
   }
 }
 
