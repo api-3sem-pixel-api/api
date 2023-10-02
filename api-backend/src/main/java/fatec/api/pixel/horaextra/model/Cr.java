@@ -1,14 +1,13 @@
 package fatec.api.pixel.horaextra.model;
 
 import java.util.List;
-import java.util.Set;
 
+import fatec.api.pixel.horaextra.dto.DadosCadastroCr;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -31,6 +30,7 @@ public class Cr {
 	private String sigla;
 	@Column(name = "Codigo_CR")
 	private String codigo;
+	private boolean ativo;
 	
 	@OneToMany(mappedBy = "cr")
 	private List<LancamentoHoras> lancamento;
@@ -42,5 +42,13 @@ public class Cr {
 	
 	public Cr(Long idCr) {
 		this.id = idCr;
+	}
+
+	public Cr(DadosCadastroCr dados) {
+		this.id = dados.idCr();
+		this.nome = dados.nomeCr();
+		this.sigla = dados.siglaCr();
+		this.codigo = dados.codigoCr();
+		this.ativo = true;
 	}
 }
