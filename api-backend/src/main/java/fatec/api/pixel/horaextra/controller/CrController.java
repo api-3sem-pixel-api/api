@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import fatec.api.pixel.horaextra.dto.DadosCadastroCr;
 import fatec.api.pixel.horaextra.dto.DadosListagemCr;
+import fatec.api.pixel.horaextra.model.Cr;
 import fatec.api.pixel.horaextra.repository.CrRepository;
 import fatec.api.pixel.horaextra.service.CrService;
 import jakarta.transaction.Transactional;
@@ -31,6 +32,12 @@ public class CrController {
 	
 	@Autowired
 	private CrService service;
+	
+	@GetMapping
+	public ResponseEntity<List<Cr>> findAll() {
+		List<Cr> list = repository.findAll();
+		return ResponseEntity.ok().body(list);
+	}
 	
 	@GetMapping("/{idUsuario}")
 	public ResponseEntity<List<DadosListagemCr>> listarCr(@PathVariable("idUsuario") Long idUsuario){
