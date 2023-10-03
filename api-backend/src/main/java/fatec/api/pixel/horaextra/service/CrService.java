@@ -28,7 +28,6 @@ public class CrService {
 	
 	public void atualizarCr(DadosCadastroCr dados, Long id) {
 		var atualizacaoCr = repository.getReferenceById(id);
-		atualizacaoCr.setId(dados.idCr());
 		atualizacaoCr.setNome(dados.nomeCr());
 		atualizacaoCr.setSigla(dados.siglaCr());
 		atualizacaoCr.setCodigo(dados.codigoCr());	

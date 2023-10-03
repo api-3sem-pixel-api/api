@@ -32,6 +32,7 @@ public class Cr {
 	private String sigla;
 	@Column(name = "Codigo_CR")
 	private String codigo;
+	private boolean ativo;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cr")
@@ -47,9 +48,9 @@ public class Cr {
 	}
 
 	public Cr(DadosCadastroCr dados) {
-		this.id = dados.idCr();
 		this.nome = dados.nomeCr();
 		this.sigla = dados.siglaCr();
 		this.codigo = dados.codigoCr();
+		this.ativo = true;
 	}
 }
