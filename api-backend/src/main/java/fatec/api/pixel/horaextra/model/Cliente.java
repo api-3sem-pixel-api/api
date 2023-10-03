@@ -42,7 +42,6 @@ public class Cliente {
 	}
 	
 	public Cliente(DadosCadastroCliente dados) {
-		this.id = dados.idCliente();
 		this.razaoSocial = dados.razaoSocialCliente();
 		this.cnpj = dados.cnpjCliente();
 		this.ativo = true;

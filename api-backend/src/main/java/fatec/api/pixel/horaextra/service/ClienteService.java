@@ -35,7 +35,6 @@ public class ClienteService {
 	
 	public void atualizarCliente(DadosCadastroCliente dados, Long id) {
 		var atualizacaoCliente = repository.getReferenceById(id);
-		atualizacaoCliente.setId(dados.idCliente());
 		atualizacaoCliente.setRazaoSocial(dados.razaoSocialCliente());
 		atualizacaoCliente.setCnpj(dados.cnpjCliente());
 	}
