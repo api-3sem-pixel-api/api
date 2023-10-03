@@ -31,19 +31,18 @@ public class CrUsuarioController {
 	@Autowired
 	private CrUsuarioService service;
 	
+	
 	@GetMapping
 	public ResponseEntity<List<CrUsuario>> findAll() {
 		List<CrUsuario> list = repository.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	/*
-	@GetMapping
-	public ResponseEntity<List<DadosCadastroCrUsuario>> listarCrUsuario(){
-		var listagemCrUsuario = service.listarCrUsuario();
+	@GetMapping("/{idCr}")
+	public ResponseEntity<List<CrUsuario>> listarCrUsuario(@PathVariable Long idCr){
+		var listagemCrUsuario = service.listarCrUsuario(idCr);
 		return ResponseEntity.ok().body(listagemCrUsuario);
 	}
-	*/
 	
 	@PostMapping
 	@Transactional

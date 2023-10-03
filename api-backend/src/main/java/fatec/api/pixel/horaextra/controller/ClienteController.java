@@ -33,6 +33,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
+	/*
 	@GetMapping
 	public ResponseEntity<List<Cliente>> findAll() {
 		List<Cliente> list = repository.findAll();
@@ -44,7 +45,7 @@ public class ClienteController {
 		var listagemCliente = service.listarCliente();
 		return ResponseEntity.ok().body(listagemCliente);
 	}
-	
+	*/
 	@PostMapping
 	@Transactional
 	public ResponseEntity insert(@RequestBody DadosCadastroCliente dados, UriComponentsBuilder uriBuilder) {
