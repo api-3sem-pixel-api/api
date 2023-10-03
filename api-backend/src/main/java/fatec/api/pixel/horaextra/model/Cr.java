@@ -2,6 +2,8 @@ package fatec.api.pixel.horaextra.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import fatec.api.pixel.horaextra.dto.DadosCadastroCr;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +33,7 @@ public class Cr {
 	@Column(name = "Codigo_CR")
 	private String codigo;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cr")
 	private List<LancamentoHoras> lancamento;
 	
