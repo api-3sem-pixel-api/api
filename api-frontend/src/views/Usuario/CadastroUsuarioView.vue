@@ -1,63 +1,106 @@
 <template>
-  <template>
-    <div id="reprovar-modal" class="r-modal">
-
+  <div>
+    <!-- Seção de Cadastro de Usuário -->
+    <template>
+      <div id="reprovar-modal" class="r-modal">
         <!-- Modal content -->
         <div class="r-modal-content">
-            <div class="modal-header d-flex align-items-baseline">
-                <h4>Explique o motivo</h4>
-                <span class="close">&times;</span>
+          <div class="modal-header d-flex align-items-baseline">
+            <h4>Explique o motivo</h4>
+            <span class="close">&times;</span>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <input placeholder="Nome" v-model="userInput.nome" style="width: 800px;" type="text" class="form-control" />
+              </div>
+              <div class="col">
+                <input placeholder="Email" v-model="userInput.email" style="width: 800px;" type="text" class="form-control" />
+              </div>
+              <div class="col">
+                <input placeholder="Funcao" v-model="userInput.funcao" style="width: 800px;" type="text" class="form-control" />
+              </div>
+              <div class="col">
+                <input placeholder="CPF" v-model="userInput.CPF" style="width: 800px;" type="text" class="form-control" />
+              </div>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <input  placeholder="Nome"  v-model="userInput.nome" style="width: 800px;" type="text" class="form-control" />
-                  
-                    </div>
-                    <div class="col">
-                        <input  placeholder="Email"   v-model="userInput.email" style="width: 800px;" type="text" class="form-control" />
-                    
-                    </div>
-                    <div class="col">
-                        <input  placeholder="Funcao"  v-model="userInput.funcao" style="width: 800px;" type="text" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <input  placeholder="CPF"  v-model="userInput.CPF" style="width: 800px;" type="text" class="form-control" />
-                  
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col">
-                        <button type="button"  class="btn btn-danger">Cancelar</button>
-                        <button type="button"  class="btn btn-link r-ml-2">Cadastrar</button>
-                    </div>
-                </div>
+            <div class="row mt-4">
+              <div class="col">
+                <button type="button" class="btn btn-danger" @click="cancelar">Cancelar</button>
+                <button type="button" class="btn btn-link r-ml-2" @click="cadastrar">Cadastrar</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </template>
+
+    <!-- Tabela de Usuários -->
+    <div class="table-horas">
+      <table class="table table-responsive no-wrap-table">
+        <thead>
+          <tr>
+            <th scope="col" class="text-left">Nome</th>
+            <th scope="col" class="text-left">CPF</th>
+            <th scope="col" class="text-left">Email</th>
+            <th scope="col" class="text-left">Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="usuario in usuarios">
+            <td>{{ usuario.nome }}</td>
+            <td>{{ usuario.CPF }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.funcao }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</template>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
-import http from "@/services/http";
+import axios from 'axios';
 import { cadastrousuario } from './Models/cadastrousuario';
-import { Vue } from 'vue-class-component';
-import router from "@/router";
 
-export default class CadastroUsuarioView extends Vue{
-  userInput: cadastrousuario = {
-    nome:'',
-    email:'',
-    funcao:'',
-    telefone:'',
-    CPF:'',
-  };
-  cad(){
+export default defineComponent({
+  data() {
+    return {
+      cadastrousuario: {
+        nome: '',
+        email: '',
+        funcao: '',
+        telefone: '',
+        CPF: '',
+      },
+      usuarios: [], // Lista de usuários
+    };
+  },
+  methods: {
+    async cadastrar() {
+      try {
+        const response = await axios.post('http://localhost:8080/cad', this.cadastrousuario);
 
-
-  }
-}
-
+        if (response.status === 200) {
+          // Cadastro bem-sucedido, adicione o novo usuário à lista
+          this.usuarios.push({ ...this.userInput });
+          // Limpa os campos de entrada após o cadastro
+          this.cadastrousuario = {
+            nome: '',
+            email: '',
+            funcao: '',
+            telefone: '',
+            CPF: '',
+          };
+          console.log('Cadastro bem-sucedido');
+        } else {
+          console.error('Erro ao cadastrar usuário');
+        }
+      } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+      }
+    },
+   },
+});
 </script>
