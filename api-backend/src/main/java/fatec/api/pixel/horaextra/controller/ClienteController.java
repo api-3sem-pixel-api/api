@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import fatec.api.pixel.horaextra.dto.DadosCadastroCliente;
 import fatec.api.pixel.horaextra.dto.DadosListagemCliente;
+import fatec.api.pixel.horaextra.model.Cliente;
 import fatec.api.pixel.horaextra.repository.ClienteRepository;
 import fatec.api.pixel.horaextra.service.ClienteService;
 import jakarta.transaction.Transactional;
@@ -31,6 +32,12 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService service;
+	
+	@GetMapping
+	public ResponseEntity<List<Cliente>> findAll() {
+		List<Cliente> list = repository.findAll();
+		return ResponseEntity.ok().body(list);
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<DadosListagemCliente>> listarCliente(){
