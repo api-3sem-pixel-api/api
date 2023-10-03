@@ -30,7 +30,6 @@ public class Cr {
 	private String sigla;
 	@Column(name = "Codigo_CR")
 	private String codigo;
-	private boolean ativo;
 	
 	@OneToMany(mappedBy = "cr")
 	private List<LancamentoHoras> lancamento;
@@ -49,6 +48,5 @@ public class Cr {
 		this.nome = dados.nomeCr();
 		this.sigla = dados.siglaCr();
 		this.codigo = dados.codigoCr();
-		this.ativo = true;
 	}
 }
