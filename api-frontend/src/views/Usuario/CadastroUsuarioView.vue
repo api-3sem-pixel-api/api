@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Seção de Cadastro de Usuário -->
     <template>
       <div id="reprovar-modal" class="r-modal">
         <!-- Modal content -->
@@ -35,7 +34,6 @@
       </div>
     </template>
 
-    <!-- Tabela de Usuários -->
     <div class="table-horas">
       <table class="table table-responsive no-wrap-table">
         <thead>
