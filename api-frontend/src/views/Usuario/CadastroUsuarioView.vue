@@ -61,32 +61,32 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import axios from 'axios';
 import { cadastrousuario } from './Models/cadastrousuario';
+import http from "@/services/http";
 
 export default defineComponent({
   data() {
     return {
-      cadastrousuario: {
+      userInput: {
         nome: '',
         email: '',
         funcao: '',
         telefone: '',
         CPF: '',
-      },
-      usuarios: [], // Lista de usuários
+      } as cadastrousuario,
+      usuarios: [] as cadastrousuario[], 
     };
   },
   methods: {
     async cadastrar() {
       try {
-        const response = await axios.post('http://localhost:8080/cad', this.cadastrousuario);
+        const response = await http.post('/usuario', this.userInput);
 
         if (response.status === 200) {
-          // Cadastro bem-sucedido, adicione o novo usuário à lista
+
           this.usuarios.push({ ...this.userInput });
-          // Limpa os campos de entrada após o cadastro
-          this.cadastrousuario = {
+
+          this.userInput = {
             nome: '',
             email: '',
             funcao: '',
@@ -100,7 +100,10 @@ export default defineComponent({
       } catch (error) {
         console.error('Erro ao cadastrar usuário:', error);
       }
-    },
-   },
+    },cancelar(){
+      
+    }
+  },
 });
+
 </script>
