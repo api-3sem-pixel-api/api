@@ -1,11 +1,14 @@
 <template>
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-outline-primary" @click="cadastrar()"> Cadastrar Usuario </button>
+  </div>
   <div>
     <template>
-      <div id="reprovar-modal" class="r-modal">
+      <div id="user-modal" class="r-modal">
         <!-- Modal content -->
         <div class="r-modal-content">
           <div class="modal-header d-flex align-items-baseline">
-            <h4>Explique o motivo</h4>
+            <h4>Cadastro usuario</h4>
             <span class="close">&times;</span>
           </div>
           <div class="modal-body">
@@ -26,7 +29,7 @@
             <div class="row mt-4">
               <div class="col">
                 <button type="button" class="btn btn-danger" @click="cancelar">Cancelar</button>
-                <button type="button" class="btn btn-link r-ml-2" @click="cadastrar">Cadastrar</button>
+                <button type="button" class="btn btn-link r-ml-2" @click="cadastrar()">Cadastrar</button>
               </div>
             </div>
           </div>
