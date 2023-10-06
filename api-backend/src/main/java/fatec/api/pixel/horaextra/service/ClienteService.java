@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fatec.api.pixel.horaextra.dto.DadosCadastroCliente;
 import fatec.api.pixel.horaextra.dto.DadosListagemCliente;
 import fatec.api.pixel.horaextra.model.Cliente;
 import fatec.api.pixel.horaextra.repository.ClienteRepository;
@@ -24,5 +25,22 @@ public class ClienteService {
 			dados.add(new DadosListagemCliente(cliente.getId(), cliente.getRazaoSocial()));
 		}
 		return dados;
+	}
+	
+	public Cliente inserirCliente(DadosCadastroCliente dados) {
+		var cliente = new Cliente(dados);
+		repository.save(cliente);
+		return cliente;
+	}
+	
+	public void atualizarCliente(DadosCadastroCliente dados, Long id) {
+		var atualizacaoCliente = repository.getReferenceById(id);
+		atualizacaoCliente.setId(dados.idCliente());
+		atualizacaoCliente.setRazaoSocial(dados.razaoSocialCliente());
+		atualizacaoCliente.setCnpj(dados.cnpjCliente());
+	}
+	
+	public void excluirCliente(Cliente cliente) {
+		cliente.setAtivo(false);
 	}
 }
