@@ -40,6 +40,7 @@ public class Usuario {
 	private String email;
 	private boolean ativo;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="Id_Autenticacao_Usuario")
 	private AutenticacaoUsuario autenticacaoUsuario;
