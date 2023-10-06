@@ -3,6 +3,8 @@ package fatec.api.pixel.horaextra.model;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import fatec.api.pixel.horaextra.dto.DadosCadastroUsuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +35,7 @@ public class Usuario {
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name="Id_Tipo_Usuario")
+	@JsonIgnore
 	private TipoUsuario tipoUsuario;
 	@Column(name = "Cpf_Cnpj")
 	private String cpf;
@@ -43,9 +46,11 @@ public class Usuario {
 	
 	@OneToOne
 	@JoinColumn(name="Id_Autenticacao_Usuario")
+	@JsonIgnore
 	private AutenticacaoUsuario autenticacaoUsuario;
 	
 	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
 	private List<LancamentoHoras> lancamento;
 	
 	/*

@@ -20,33 +20,33 @@
           <td>{{ cr['nome'] }}</td>
           <td class="text-center">Ativo</td>
           <td class="text-center">
-            <button class="btn btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button class="btn btn-link">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+            <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="btn btn-link" @click="editUserCr()"><i class="fas fa-id-card" aria-hidden="true"></i></button>
+            <button class="btn btn-link"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-
+  <ModalCrUsuario></ModalCrUsuario>
   <ModalCadastroCrView @update-table="loadAllCr"></ModalCadastroCrView>
 </template>
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
 import ModalCadastroCrView from '@/views/Cr/ModalCadastroCr/ModalCadastroCrView.vue'
+import ModalCrUsuario from '@/views/Cr/ModalCrUsuario/ModalCrUsuario.vue'
 
 export default defineComponent({
   name: "ControleCrView",
   components: {
-    ModalCadastroCrView
+    ModalCadastroCrView,
+    ModalCrUsuario
   },
   data() {
     return {
-      crs: Array as PropType<any>
+      crs: Array as PropType<any>,
+      crUser: Number
     }
   },
   created() {
@@ -55,6 +55,11 @@ export default defineComponent({
   methods: {
     newCr() {
       var modal = document.getElementById("cadastro-cr-modal")!;
+      modal.style.display = "block";
+    },
+    editUserCr(id: number){
+      // this.crUser = id;
+      var modal = document.getElementById("cr-usuario-modal")!;
       modal.style.display = "block";
     },
     loadAllCr() {

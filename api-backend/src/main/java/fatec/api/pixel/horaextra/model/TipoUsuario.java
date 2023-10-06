@@ -2,6 +2,8 @@ package fatec.api.pixel.horaextra.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class TipoUsuario {
 	private Long id;
 	private String descricao;
 	@OneToMany(mappedBy = "tipoUsuario")
+	
 	private List<Usuario> usuario;
 	
 	public TipoUsuario(Long idTipoUsuario) {
