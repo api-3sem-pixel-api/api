@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Login from '@/views/Login/LoginView.vue' 
-import Home from '@/views/HomeView.vue' 
+import Login from '@/views/Login/LoginView.vue'
+import Home from '@/views/HomeView.vue'
 import LancamentoHorasView from '@/views/LancamentoHoras/LancamentoHorasView.vue'
-
-
-
+import CadastroUsuarioView from '@/views/Usuario/CadastroUsuarioView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,15 +14,19 @@ const routes: Array<RouteRecordRaw> = [
     path: "/authorized",
     name: "Home",
     component: Home,
-    children:[
+    children: [
       {
-        path: "/lancamentohoras",
+        path: "lancamentohoras", // Remove the leading slash
         name: "LancamentoHoras",
-        component:LancamentoHorasView,
+        component: LancamentoHorasView,
+      },
+      {
+        path: "cadastrousuario", // Remove the leading slash
+        name: "CadastroUsuario",
+        component: CadastroUsuarioView,
       }
     ]
-  },
-
+  }
 ]
 
 const router = createRouter({
