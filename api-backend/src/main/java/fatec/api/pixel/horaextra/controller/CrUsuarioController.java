@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,5 +58,14 @@ public class CrUsuarioController {
 	public ResponseEntity update(@PathVariable Long id, @RequestBody DadosCadastroCrUsuario dados) {
 		service.atualizarCrUsuario(dados, id, id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity delete(@PathVariable Long id) {
+	   return repository.findById(id)
+	           .map(record -> {
+	               repository.deleteById(id);
+	               return ResponseEntity.ok().build();
+	           }).orElse(ResponseEntity.notFound().build());
 	}
 }
