@@ -16,12 +16,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     children: [
       {
-        path: "lancamentohoras", // Remove the leading slash
+        path: "lancamentohoras", 
         name: "LancamentoHoras",
         component: LancamentoHorasView,
       },
       {
-        path: "cadastrousuario", // Remove the leading slash
+        path: "/cadastrousuario",
         name: "CadastroUsuario",
         component: CadastroUsuarioView,
       }

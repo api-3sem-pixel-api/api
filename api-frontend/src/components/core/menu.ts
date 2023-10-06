@@ -54,6 +54,13 @@ export const gestorMenu: MenuParent[] = [
         ]
       },
       {
+        icon: 'fa-solid fa-user',
+        description: 'Cadastro de Usuario',
+        active: false,
+        link:'/cadastrousuario',
+        childs: []
+      },
+      {
         icon: 'fa-solid fa-right-from-bracket',
         description: 'Sair',
         active: false,
