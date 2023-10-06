@@ -50,7 +50,8 @@ export const gestorMenu: MenuParent[] = [
         link:'',
         childs: [
           { active: false, description: 'Lançamento', link: '/lancamentohoras' },
-          { active: false, description: 'Aprovação/Reprovação', link: '/controlehoras' }
+          { active: false, description: 'Aprovação/Reprovação', link: '/controlehoras' },
+          { active: false, description: 'Cadastro Cliente', link: '/cliente' },
         ]
       },
       {
