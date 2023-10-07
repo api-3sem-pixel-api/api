@@ -61,11 +61,10 @@ public class CrUsuarioController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {
-	   return repository.findById(id)
-	           .map(record -> {
-	               repository.deleteById(id);
-	               return ResponseEntity.ok().build();
-	           }).orElse(ResponseEntity.notFound().build());
+	public ResponseEntity delete(@RequestBody DadosCadastroCrUsuario dados) {
+		CrUsuario crUsuario = new CrUsuario(dados);
+		repository.delete(crUsuario);
+	   
+	   return ResponseEntity.ok().build();
 	}
 }
