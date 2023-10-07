@@ -3,7 +3,7 @@
         <!-- Modal content -->
         <div class="r-modal-content">
             <div class="modal-header d-flex align-items-baseline">
-                <h4>Editar de CR Usuario</h4>
+                <h4>Editar de CR Usuario {{ idCr }}</h4>
                 <span class="close" @click="close">&times;</span>
             </div>
             <div class="modal-body">
@@ -25,8 +25,8 @@
                         </table>
                     </div>
                     <div class="col-2 row">
-                        <div class="col-12 arrow-change" @click="adicionarNoCr()"><i class="fa-solid fa-square-caret-right"></i></div>
-                        <div class="col-12 arrow-change" @click="removerDoCr()"><i class="fa-solid fa-square-caret-left"></i></div>
+                        <div class="col-12 cursor-pointer arrow-change" @click="adicionarNoCr()"><i class="fa-solid fa-square-caret-right"></i></div>
+                        <div class="col-12 cursor-pointer arrow-change" @click="removerDoCr()"><i class="fa-solid fa-square-caret-left"></i></div>
                     </div>
                     <div class="col-5">
                         <table class="w-100">
@@ -42,7 +42,6 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col">
-                        <button type="button" class="btn btn-success">Salvar</button>
                         <button type="button" @click="close()" class="btn btn-link r-ml-2">Cancelar</button>
                     </div>
                 </div>
@@ -61,11 +60,6 @@ export default defineComponent({
     props:['idCr'],
     watch:{
         idCr: function(newVal, oldVal) {
-            this.usuariosParaAdd = [];
-            this.usuariosDoCr = [];
-            this.usuarioParaAdd = 0;
-            this.usuarioParaRemover = 0;
-            this.usuariosTotais = [];
             this.loadUsuarioCr();
         }
     },
@@ -80,6 +74,7 @@ export default defineComponent({
     },
     methods: {
         loadUsuarioCr(){
+            this.limparCampos();
             http.get('/usuario')
             .then(x => {
                 this.usuariosTotais = x.data;
@@ -114,9 +109,18 @@ export default defineComponent({
         },
         adicionarNoCr(){
             http.post('/crUsuario', [{idUsuario: this.usuarioParaAdd, idCr: this.idCr}])
+                .then(_ => this.loadUsuarioCr())
         },
         removerDoCr(){
-            http.delete('/crUsuario')
+            http.delete('/crUsuario', {data: {idUsuario: this.usuarioParaRemover, idCr: this.idCr}})
+                .then(_ => this.loadUsuarioCr())
+        },
+        limparCampos(){
+            this.usuariosParaAdd = [];
+            this.usuariosDoCr = [];
+            this.usuarioParaAdd = 0;
+            this.usuarioParaRemover = 0;
+            this.usuariosTotais = [];
         },
         close() {
             var modal = document.getElementById("cr-usuario-modal")!;
