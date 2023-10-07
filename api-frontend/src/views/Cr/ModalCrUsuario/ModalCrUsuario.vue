@@ -25,8 +25,8 @@
                         </table>
                     </div>
                     <div class="col-2 row">
-                        <div class="col-12 arrow-change"><i class="fa-solid fa-square-caret-right"></i></div>
-                        <div class="col-12 arrow-change"><i class="fa-solid fa-square-caret-left"></i></div>
+                        <div class="col-12 arrow-change" @click="adicionarNoCr()"><i class="fa-solid fa-square-caret-right"></i></div>
+                        <div class="col-12 arrow-change" @click="removerDoCr()"><i class="fa-solid fa-square-caret-left"></i></div>
                     </div>
                     <div class="col-5">
                         <table class="w-100">
@@ -58,8 +58,16 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ModalCrUsuario',
-    props: {
-        crId: Number
+    props:['idCr'],
+    watch:{
+        idCr: function(newVal, oldVal) {
+            this.usuariosParaAdd = [];
+            this.usuariosDoCr = [];
+            this.usuarioParaAdd = 0;
+            this.usuarioParaRemover = 0;
+            this.usuariosTotais = [];
+            this.loadUsuarioCr();
+        }
     },
     data() {
         return {
@@ -70,15 +78,12 @@ export default defineComponent({
             usuarioParaRemover: new Number(),
         }
     },
-    created() {
-        this.loadUsuarioCr();
-    },
     methods: {
         loadUsuarioCr(){
             http.get('/usuario')
             .then(x => {
                 this.usuariosTotais = x.data;
-                http.get('/crUsuario/' + this.crId)
+                http.get('/crUsuario/' + this.idCr)
                     .then(y => {
                         const data = y.data as [
                             {
@@ -108,10 +113,10 @@ export default defineComponent({
             return id == this.usuarioParaRemover;
         },
         adicionarNoCr(){
-            http.post('/crUsuario', [{idUsuario: this.usuarioParaAdd}])
+            http.post('/crUsuario', [{idUsuario: this.usuarioParaAdd, idCr: this.idCr}])
         },
         removerDoCr(){
-            http.post('/crUsuario', [{idUsuario: this.usuarioParaAdd}])
+            http.delete('/crUsuario')
         },
         close() {
             var modal = document.getElementById("cr-usuario-modal")!;
@@ -167,7 +172,7 @@ export default defineComponent({
 }
 
 .selected{
-    background-color: aquamarine;
+    background-color: #00000021;
 }
 
 .arrow-change{

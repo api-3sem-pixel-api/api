@@ -21,19 +21,19 @@
           <td class="text-center">Ativo</td>
           <td class="text-center">
             <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button class="btn btn-link" @click="editUserCr()"><i class="fas fa-id-card" aria-hidden="true"></i></button>
+            <button class="btn btn-link" @click="editUserCr(cr['id'])"><i class="fas fa-id-card" aria-hidden="true"></i></button>
             <button class="btn btn-link"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <ModalCrUsuario></ModalCrUsuario>
+  <ModalCrUsuario :id-cr="idCr"></ModalCrUsuario>
   <ModalCadastroCrView @update-table="loadAllCr"></ModalCadastroCrView>
 </template>
 <script lang="ts">
 import http from '@/services/http';
-import { PropType, defineComponent } from 'vue';
+import { PropType, defineComponent, ref } from 'vue';
 import ModalCadastroCrView from '@/views/Cr/ModalCadastroCr/ModalCadastroCrView.vue'
 import ModalCrUsuario from '@/views/Cr/ModalCrUsuario/ModalCrUsuario.vue'
 
@@ -46,7 +46,7 @@ export default defineComponent({
   data() {
     return {
       crs: Array as PropType<any>,
-      crUser: Number
+      idCr: 0
     }
   },
   created() {
@@ -58,7 +58,7 @@ export default defineComponent({
       modal.style.display = "block";
     },
     editUserCr(id: number){
-      // this.crUser = id;
+      this.idCr = id;
       var modal = document.getElementById("cr-usuario-modal")!;
       modal.style.display = "block";
     },
