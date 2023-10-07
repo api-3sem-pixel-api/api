@@ -3,5 +3,5 @@ export interface cadastrousuario {
     email:string;
     funcao:string;
     telefone:string;
-    CPF:string;
+    cpf:string;
 }

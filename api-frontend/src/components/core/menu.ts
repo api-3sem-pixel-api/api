@@ -55,10 +55,12 @@ export const gestorMenu: MenuParent[] = [
       },
       {
         icon: 'fa-solid fa-user',
-        description: 'Cadastro de Usuario',
+        description: 'Controle de cadastro',
         active: false,
         link:'/cadastrousuario',
-        childs: []
+        childs: [
+          { active: false, description: 'Cadastro de Usuario', link: '/cadastrousuario' },
+        ]
       },
       {
         icon: 'fa-solid fa-right-from-bracket',
