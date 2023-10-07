@@ -14,4 +14,24 @@ const axiosInstance: AxiosInstance = axios.create({
   headers: headers()
 });
 
+axiosInstance.interceptors.request.use(function (config) {
+  const el = document.getElementById('loading-interceptor');
+  el!.style.display = "block";
+  return config;
+}, function (error) {
+  const el = document.getElementById('loading-interceptor');
+  // el!.style.display = "block";
+  return Promise.reject(error);
+});
+
+axiosInstance.interceptors.response.use(function (response) {
+  const el = document.getElementById('loading-interceptor');
+  el!.style.display = "none";
+  return response;
+}, function (error) {
+  const el = document.getElementById('loading-interceptor');
+  el!.style.display = "none";
+  return Promise.reject(error);
+});
+
 export default axiosInstance;
