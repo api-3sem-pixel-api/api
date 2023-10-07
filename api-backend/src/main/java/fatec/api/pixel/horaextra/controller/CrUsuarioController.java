@@ -60,7 +60,7 @@ public class CrUsuarioController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping
 	public ResponseEntity delete(@RequestBody DadosCadastroCrUsuario dados) {
 		CrUsuario crUsuario = new CrUsuario(dados);
 		repository.delete(crUsuario);

@@ -3,7 +3,7 @@
         <!-- Modal content -->
         <div class="r-modal-content">
             <div class="modal-header d-flex align-items-baseline">
-                <h4>Editar de CR Usuario {{ idCr }}</h4>
+                <h4>Editar usuarios do CR {{ idCr }}</h4>
                 <span class="close" @click="close">&times;</span>
             </div>
             <div class="modal-body">
