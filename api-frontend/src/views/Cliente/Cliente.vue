@@ -43,8 +43,10 @@ import { Options, Vue } from 'vue-class-component';
 import http from '@/services/http';
 import { defineComponent } from 'vue';
 
+
 export default defineComponent({
     name: 'Cliente',
+    
     data() {
         return {
             nomeRs: '',
@@ -57,6 +59,8 @@ export default defineComponent({
         var modal = document.getElementById("cadastro-cliente-modal")!;
         modal.style.display = "block";
         },
+    
+        
         
         save(){
             const createCliente = {
@@ -65,26 +69,31 @@ export default defineComponent({
    
                 idCliente: 0
             }
+            
 
             http.post('/cliente',createCliente)
             .then(_ => alert('Cliente salvo !!!'))
             .catch(_ => alert('Tente Novamente '))
             .finally(()=>{
                 this.clear()
+              
 
             });
 
             
         },
+        emitUpdateTable(){
+            this.$emit('update-table');
+        },
         
         
-
-     
+       
         close() {
             var modal = document.getElementById("cadastro-cliente-modal")!;
             modal.style.display = "none";
             this.clear();
         },
+      
         clear(){
             this.nomeRs = '';
             this.siglaCnpj = '';
