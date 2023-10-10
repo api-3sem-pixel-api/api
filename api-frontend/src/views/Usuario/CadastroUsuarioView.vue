@@ -20,7 +20,7 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
-          <td>{{ enumUser[usuario['funcao']] }}</td>
+          <td>{{ usuario.tipoUsuario.descricao }}</td>
           <td class="text-center">
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -41,7 +41,6 @@
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
 </template>
-
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
@@ -68,12 +67,21 @@ export default defineComponent({
   methods: {
     newUser() {
       var modal = document.getElementById("cadastro-user-modal")!;
-      modal.style.display = "block";
+        modal.style.display = "block";
+
     },
-    loadAllUser() {
-      http.get('/usuario')
-        .then(x => this.usuarios = x.data)
-        .catch(err => alert('Algo deu errado, tente novamente mais tarde.'));
+    async loadAllUser() {
+      try {
+        const response = await http.get('/usuario');
+        this.usuarios = response.data;
+
+        this.usuarios.forEach((usuario) => {
+          usuario.funcao = enumUser[usuario.tipoUsuario];
+          console.log(usuario.tipoUsuario);
+        });
+      } catch (err) {
+        alert('Algo deu errado, tente novamente mais tarde.');
+      }
     },
     updateUser(userId: number) {
       this.editUserId = userId;
@@ -89,8 +97,7 @@ export default defineComponent({
       try {
         await http.put(`/usuario/${this.editUserId}`, updatedUser);
 
-        // Atualize os dados do usuário no array this.usuarios
-        const userIndex = this.usuarios.findIndex(u => u.id === this.editUserId);
+        const userIndex = this.usuarios.findIndex((u) => u.id === this.editUserId);
         if (userIndex !== -1) {
           this.usuarios[userIndex] = updatedUser;
         }
@@ -119,3 +126,50 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.r-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .r-modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 630px;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    button {
+        color: white;
+    }
+}
+
+.r-ml-2 {
+    margin-left: 15px;
+}
+
+</style>
