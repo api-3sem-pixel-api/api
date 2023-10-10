@@ -1,8 +1,8 @@
 <template>
-    <div id="cadastro-user-modal" class="r-modal">
+    <div id="update-user-modal" class="r-modal">
       <div class="r-modal-content">
         <div class="modal-header d-flex align-items-baseline">
-          <h4>Cadastro de Usuario</h4>
+          <h4>Atualização de Usuario</h4>
           <span class="close" @click="close">&times;</span>
         </div>
         <div class="modal-body">
@@ -72,7 +72,7 @@
   import { defineComponent } from 'vue';
   
   export default defineComponent({
-    name: 'ModalCadastroUserView',
+    name: 'ModalUpdateCadastroUserView',
     data() {
       return {
         nome: '',
@@ -101,7 +101,7 @@
           cpf: this.cpf,
           idTipoUsuario: funcoesSelecionadas[0], 
           funcao: this.funcao.join(', '),
-          idUser: 0,
+          idUser: 1,
         };
 
   

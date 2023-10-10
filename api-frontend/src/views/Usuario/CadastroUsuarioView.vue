@@ -40,10 +40,13 @@
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
 import ModalUsuarioView from '@/views/Usuario/ModalCadastroUsuario/ModalCadastroUsuarioView.vue';
+import ModalCadastroUpdateUserView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue';
 export default defineComponent({
   name: "ControleUsuarioView",
   components: {
-    ModalUsuarioView
+    ModalUsuarioView,
+    ModalCadastroUpdateUserView
+
   },
   data() {
     return {
@@ -62,15 +65,19 @@ export default defineComponent({
         .then(x => this.usuarios = x.data)
         .catch(err => alert('Algo deu errado tente novamente mais tarde.'));
     },
-    updateUser(){
-      var modal = document.getElementById("cadastro-user-modal")!;
-      modal.style.display = "block";
-    },
+    updateUser() {
+  var modal = document.getElementById("update-user-modal");
+  if (modal) {
+    modal.style.display = "block";
+  } else {
+    console.error("Element with id 'update-user-modal' not found in the DOM.");
+  }
+},
     async excluedUser(index: number) {
       const usuario = this.usuarios[index];
       try {
         await http.delete(`/usuario/${usuario.id}`);
-        this.usuarios.splice(index, 1); // Remove o usuário da lista após a exclusão bem-sucedida
+        this.usuarios.splice(index, 1); 
       } catch (error) {
         alert('Algo deu errado, tente novamente mais tarde.');
       }
