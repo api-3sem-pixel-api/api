@@ -18,7 +18,15 @@
           <td>{{ cr['codigo'] }}</td>
           <td>{{ cr['sigla'] }}</td>
           <td>{{ cr['nome'] }}</td>
-          <td class="text-center">Ativo</td>
+          <td class="d-flex justify-content-center">  
+            <div 
+              class="pill text-center text-wrap" 
+              :class="{
+                approved: cr['ativo'] == true,
+            }"> 
+                Ativo 
+            </div>
+          </td>
           <td class="text-center">
             <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             <button class="btn btn-link" @click="editUserCr(cr['id'])"><i class="fas fa-id-card" aria-hidden="true"></i></button>
@@ -71,3 +79,28 @@ export default defineComponent({
 })
 
 </script>
+
+<style>
+.pill {
+    border-radius: 30px;
+    width: 140px;
+    color: white;
+
+    &.approvedGestor{
+        background-color: #fac02d;
+    }
+
+    &.approved {
+        background-color: #26fc29;
+    }
+
+    &.waiting {
+        background-color: gainsboro;
+    }
+
+    &.reproved,
+    &.canceled {
+        background-color: red;
+    }
+}
+</style>
