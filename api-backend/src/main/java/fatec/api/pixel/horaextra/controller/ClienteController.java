@@ -39,13 +39,14 @@ public class ClienteController {
 		List<Cliente> list = repository.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
+	*/
+
 	@GetMapping
 	public ResponseEntity<List<DadosListagemCliente>> listarCliente(){
 		var listagemCliente = service.listarCliente();
 		return ResponseEntity.ok().body(listagemCliente);
 	}
-	*/
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity insert(@RequestBody DadosCadastroCliente dados, UriComponentsBuilder uriBuilder) {
