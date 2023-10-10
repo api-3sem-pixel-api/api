@@ -29,9 +29,16 @@ public class CrUsuarioService {
 		return crUsuario;
 	}
 	
+	/*
 	public void atualizarCrUsuario(DadosCadastroCrUsuario dados, Long idUsuario, Long idCr) {
 		var atualizacaoCrUsuario = repository.getReferenceById(idUsuario);
 		atualizacaoCrUsuario.setIdUsuario(dados.idUsuario());
 		atualizacaoCrUsuario.setIdCr(dados.idCr());
+	}
+	*/
+	
+	public void excluirCrUsuario(DadosCadastroCrUsuario dados) {
+		var crUsuario = repository.findCrUsuarioByIdCrAndIdUsuario(dados.idCr(), dados.idUsuario());
+		repository.delete(crUsuario);
 	}
 }

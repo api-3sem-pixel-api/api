@@ -53,18 +53,18 @@ public class CrUsuarioController {
 		return ResponseEntity.created(null).build();
 	}
 	
+	/*
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity update(@PathVariable Long id, @RequestBody DadosCadastroCrUsuario dados) {
 		service.atualizarCrUsuario(dados, id, id);
 		return ResponseEntity.ok().build();
 	}
+	*/
 	
 	@DeleteMapping
 	public ResponseEntity delete(@RequestBody DadosCadastroCrUsuario dados) {
-		CrUsuario crUsuario = new CrUsuario(dados);
-		repository.delete(crUsuario);
-	   
-	   return ResponseEntity.ok().build();
+		service.excluirCrUsuario(dados);
+		return ResponseEntity.ok().build();
 	}
 }

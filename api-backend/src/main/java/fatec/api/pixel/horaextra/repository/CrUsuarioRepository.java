@@ -9,4 +9,6 @@ import fatec.api.pixel.horaextra.model.CrUsuario;
 public interface CrUsuarioRepository extends JpaRepository<CrUsuario, Long>{
 
 	public List<CrUsuario> findCrUsuarioByIdCr(Long idCr);
+	
+	public CrUsuario findCrUsuarioByIdCrAndIdUsuario(Long idCr, Long idUsuario);
 }
