@@ -6,18 +6,29 @@
               <th scope="col" class="text-left">Razão Social</th>
               <th scope="col" class="text-left">Cnpj</th>
             
+              <th scope="col" class="text-center">Status</th>
               <th scope="col" class="text-center">Ações</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="client in cliente">
-              <td>{{ client['razaoSocialCliente'] }}</td>
+            <tr v-for="(client, index) in clientes" :key="index">
+          
+             
+              <td>{{ client['nomeCliente'] }}</td>
               <td>{{ client['cnpjCliente'] }}</td>
-              <td class="text-center">Ativo</td>
+              <td class="text-center"  > <div 
+              class="pill approved text-center text-wrap" 
+              :class="{
+                approved: client['ativo'] == true,
+            }" style=""> 
+                Ativo 
+            </div></td>
               <td class="text-center">
                 <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button class="btn btn-link" ><i class="fas fa-id-card" aria-hidden="true"></i></button>
+    
             <button class="btn btn-link"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+            
               </td>
             </tr>
           </tbody>
@@ -42,20 +53,50 @@ export default defineComponent({
 
   data() {
     return {
-        cliente: Array as PropType<any>
+        clientes: Array as PropType<any>
     }},
     created() {
     this.loadAllcliente();
   },
 
     methods: {
-    loadAllcliente() {
-        http.get('/cliente')
-        .then(x => this.cliente = x.data)
-        .catch(err => alert('Algo deu errado tente novamente mais tarde.'));
-    }
+      async loadAllcliente() {
+      try {
+        const response = await http.get('/cliente');
+        this.clientes = response.data;
+        console.log(this.clientes)
+
+       
+      } catch (err) {
+        alert('Algo deu errado, tente novamente mais tarde.');
+      }
+    },
     
     }
 })
 
 </script>
+<style>
+.pill {
+    border-radius: 30px;
+    width: 140px;
+    color: white;
+
+    &.approvedGestor{
+        background-color: #fac02d;
+    }
+
+    &.approved {
+        background-color: #26fc29;
+    }
+
+    &.waiting {
+        background-color: gainsboro;
+    }
+
+    &.reproved,
+    &.canceled {
+        background-color: red;
+    }
+}
+</style>
