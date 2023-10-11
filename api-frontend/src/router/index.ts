@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Login from '@/views/Login/LoginView.vue' 
-import Home from '@/views/HomeView.vue' 
+import Login from '@/views/Login/LoginView.vue'
+import Home from '@/views/HomeView.vue'
 import LancamentoHorasView from '@/views/LancamentoHoras/LancamentoHorasView.vue'
 import ControleCrView from '@/views/Cr/ControleCrView.vue'
+import CadastroUsuarioView from '@/views/Usuario/CadastroUsuarioView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,9 +15,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/authorized",
     name: "Home",
     component: Home,
-    children:[
+    children: [
       {
-        path: "/lancamentohoras",
+        path: "lancamentohoras", 
         name: "LancamentoHoras",
         component:LancamentoHorasView,
       },
@@ -25,9 +26,13 @@ const routes: Array<RouteRecordRaw> = [
         name: "CR",
         component:ControleCrView,
       },
+      {
+        path: "/cadastrousuario",
+        name: "CadastroUsuario",
+        component: CadastroUsuarioView,
+      }
     ]
-  },
-
+  }
 ]
 
 const router = createRouter({

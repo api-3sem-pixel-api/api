@@ -20,7 +20,7 @@
     "pinia": "^2.1.6",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.5",
-    "vue": "^3.3.4",
+    "vue": "^3.2.26",
     "vue-axios": "^3.5.2",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3",
