@@ -46,12 +46,10 @@ public class Usuario {
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="Id_Autenticacao_Usuario")
-	@JsonIgnore
 	private AutenticacaoUsuario autenticacaoUsuario;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
-	@JsonIgnore
 	private List<LancamentoHoras> lancamento;
 	
 	/*
