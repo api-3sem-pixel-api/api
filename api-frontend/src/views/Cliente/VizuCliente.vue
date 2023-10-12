@@ -1,4 +1,5 @@
 <template>
+      <Cliente @update-table="loadAllcliente"></Cliente>
       <div class="row">
         <table class="table table-responsive no-wrap-table">
           <thead>
@@ -14,13 +15,13 @@
             <tr v-for="(client, index) in clientes" :key="index">
           
              
-              <td>{{ client['nomeCliente'] }}</td>
+              <td>{{ client['razaoSocialCliente'] }}</td>
               <td>{{ client['cnpjCliente'] }}</td>
-              <td class="text-center"  > <div 
+              <td class="text-center d-flex" style="justify-content: center;"  > <div 
               class="pill approved text-center text-wrap" 
               :class="{
                 approved: client['ativo'] == true,
-            }" style=""> 
+            }" > 
                 Ativo 
             </div></td>
               <td class="text-center">
@@ -34,7 +35,7 @@
           </tbody>
         </table>
       </div>
-      <Cliente @update-table="loadAllcliente"></Cliente>
+      
 
 
 </template>
