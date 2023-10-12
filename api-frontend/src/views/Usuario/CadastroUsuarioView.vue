@@ -11,6 +11,8 @@
           <th scope="col" class="text-left">Telefone</th>
           <th scope="col" class="text-left">CPF</th>
           <th scope="col" class="text-center">Função</th>
+          <th scope="col" class="text-center">Status</th>
+          
           <th scope="col" class="text-center">Ações</th>
         </tr>
       </thead>
@@ -20,8 +22,15 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
-          <td>{{ usuario.tipoUsuario.descricao }}</td>
-          <td class="text-center">
+           <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
+           <td class="text-center d-flex" style="justify-content: center;"  > <div 
+              class="pill approved text-center text-wrap" 
+              :class="{
+                approved: usuario['ativo'] == true,
+            }" > 
+                Ativo 
+            </div></td>
+           <td class="text-center">
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
@@ -41,6 +50,9 @@
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
 </template>
+
+
+
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
@@ -81,6 +93,18 @@ export default defineComponent({
         });
       } catch (err) {
         alert('Algo deu errado, tente novamente mais tarde.');
+      }
+    },
+    getFuncao(idTipoUsuario: number): string {
+      switch (idTipoUsuario) {
+        case enumUser.Colaborador:
+          return 'Colaborador';
+        case enumUser.Administrador:
+          return 'Administrador';
+        case enumUser.Gestor:
+          return 'Gestor';
+        default:
+          return 'Função Desconhecida';
       }
     },
     updateUser(userId: number) {
@@ -166,10 +190,34 @@ export default defineComponent({
     button {
         color: white;
     }
+    .pill {
+    border-radius: 30px;
+    width: 140px;
+    color: white;
+
+    &.approvedGestor{
+        background-color: #fac02d;
+    }
+
+    &.approved {
+        background-color: #26fc29;
+    }
+
+    &.waiting {
+        background-color: gainsboro;
+    }
+
+    &.reproved,
+    &.canceled {
+        background-color: red;
+    }
+}
+
 }
 
 .r-ml-2 {
     margin-left: 15px;
 }
+
 
 </style>

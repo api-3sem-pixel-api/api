@@ -64,114 +64,113 @@
   </div>
 </template>
 
-  <script lang="ts">
-  import http from '@/services/http';
-  import { defineComponent } from 'vue';
-  
-  export default defineComponent({
-    name: 'ModalCadastroUserView',
-    data() {
-      return {
-        nome: '',
-        email: '',
-        telefone: '',
-        cpf: '',
-        funcao: [],
-        showModal: false, 
-        errorMessage: '', 
-      };
-    },
-    methods: {
-      save() {
-        const funcoesMap = {
-          Colaborador: 1,
-          Administrador: 2,
-          Gestor: 3,
-        };
-  
-        const funcoesSelecionadas = this.funcao.map((valor) => funcoesMap[valor]);
-  
-        const userToCreate = {
-          nome: this.nome,
-          email: this.email,
-          telefone: this.telefone,
-          cpf: this.cpf,
-          idTipoUsuario: funcoesSelecionadas[0], 
-          funcao: this.funcao.join(', '),
-          idUser: 0,
-        };
+<script lang="ts">
+import http from "@/services/http";
+import { defineComponent } from "vue";
 
-  
-        http
-          .post('/usuario', userToCreate)
-          .then(() => {
-            alert('Usuário salvo com sucesso!!!');
-            this.clear();
-            this.close();
-          })
-          .catch(() => {
-            this.errorMessage = 'Algo deu errado. Tente novamente mais tarde.';
-          });
-      },
-      close() {
-        var modal = document.getElementById("cadastro-user-modal")!;
-            modal.style.display = "none";
-            this.clear();
-      },
-      clear() {
-        this.nome = '';
-        this.email = '';
-        this.telefone = '';
-        this.cpf = '';
-        this.funcao = [];
-      },
+export default defineComponent({
+  name: "ModalCadastroUserView",
+  data() {
+    return {
+      nome: "",
+      email: "",
+      telefone: "",
+      cpf: "",
+      funcao: "", // Inicialize como uma string vazia
+      showModal: false,
+      errorMessage: "",
+    };
+  },
+  methods: {
+    save() {
+      const funcoesMap: { [key: string]: number } = {
+  Colaborador: 1,
+  Administrador: 2,
+  Gestor: 3,
+};
+
+
+      const idTipoUsuario = funcoesMap[this.funcao];
+
+      const userToCreate = {
+        nome: this.nome,
+        email: this.email,
+        telefone: this.telefone,
+        cpf: this.cpf,
+        idTipoUsuario,
+        funcao: this.funcao,
+        idUser: 0,
+      };
+
+      http
+        .post("/usuario", userToCreate)
+        .then(() => {
+          alert("Usuário salvo com sucesso!!!");
+          this.clear();
+          this.close();
+        })
+        .catch(() => {
+          this.errorMessage = "Algo deu errado. Tente novamente mais tarde.";
+        });
     },
-  });
-  </script>
-  
-  <style lang="css">
-  .r-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .r-modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 630px;
-  }
-  
-  .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  button {
-    color: white;
-  }
-  
-  .r-ml-2 {
-    margin-left: 15px;
-  }
-  </style>
-  
+    close() {
+      var modal = document.getElementById("cadastro-user-modal")!;
+      modal.style.display = "none";
+      this.clear();
+    },
+    clear() {
+      this.nome = "";
+      this.email = "";
+      this.telefone = "";
+      this.cpf = "";
+      this.funcao = "";
+    },
+  },
+});
+</script>
+
+<style lang="css">
+.r-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.r-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 630px;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  color: white;
+}
+
+.r-ml-2 {
+  margin-left: 15px;
+}
+</style>
