@@ -33,7 +33,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
-	/* NÃO PODE TER 2 MÉTODOS COM A MESMA ASSINATURA, OU SEJA, 2 GET's 
+	/*
 	@GetMapping
 	public ResponseEntity<List<Cliente>> findAll() {
 		List<Cliente> list = repository.findAll();
@@ -45,7 +45,7 @@ public class ClienteController {
 		var listagemCliente = service.listarCliente();
 		return ResponseEntity.ok().body(listagemCliente);
 	}
-	
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity insert(@RequestBody DadosCadastroCliente dados, UriComponentsBuilder uriBuilder) {
