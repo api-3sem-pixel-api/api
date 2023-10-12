@@ -34,10 +34,18 @@ public class UsuarioController {
 	@Autowired
 	AutenticacaoUsuarioService autenticacaoUsuarioService;
 	
+	/*
 	@GetMapping
 	public ResponseEntity<List<Usuario>> findAll() {
 		List<Usuario> list = repository.findAll();
 		return ResponseEntity.ok().body(list);
+	}
+	*/
+	
+	@GetMapping
+	public ResponseEntity<List<DadosCadastroUsuario>> listarUsuario(){
+		var listagemUsuario = service.listarUsuario();
+		return ResponseEntity.ok().body(listagemUsuario);
 	}
 	
 	@GetMapping("/{id}")

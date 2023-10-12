@@ -1,5 +1,8 @@
 package fatec.api.pixel.horaextra.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,21 @@ public class UsuarioService {
 	
 	@Autowired
 	AutenticacaoUsuarioService autenticacaoUsuarioService;
+	
+	public List<DadosCadastroUsuario> listarUsuario(){
+		List<Usuario> usuarios = repository.findAll();
+		List<DadosCadastroUsuario> dados = new ArrayList<DadosCadastroUsuario>();
+		
+		for (Usuario usuario : usuarios) {
+			dados.add(new DadosCadastroUsuario(
+					usuario.getTipoUsuario().getId(),
+					usuario.getCpf(),
+					usuario.getNome(),
+					usuario.getTelefone(),
+					usuario.getEmail()));
+		}
+		return dados;
+	}
 	
 	public void atualizarUsuario(DadosCadastroUsuario dados, Long id) {
 		var atualizacaoUsuario = repository.getReferenceById(id);
