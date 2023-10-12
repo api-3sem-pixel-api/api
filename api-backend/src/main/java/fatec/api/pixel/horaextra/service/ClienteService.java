@@ -22,7 +22,7 @@ public class ClienteService {
 		List<DadosListagemCliente> dados = new ArrayList<DadosListagemCliente>();
 		
 		for (Cliente cliente : clientes) {
-			dados.add(new DadosListagemCliente(cliente.getId(), cliente.getRazaoSocial()));
+			dados.add(new DadosListagemCliente(cliente.getId(), cliente.getCnpj(), cliente.getRazaoSocial()));
 		}
 		return dados;
 	}
