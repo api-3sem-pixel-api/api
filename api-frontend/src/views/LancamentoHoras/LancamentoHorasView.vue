@@ -17,7 +17,7 @@
     <div class="col-3">
       <p class="bold">Cliente</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.idCliente">
-        <option v-for="item in listcliente" :key="item.idCliente" :value="item.idCliente">{{ item.nomeCliente }}</option>
+        <option v-for="item in listcliente" :key="item.idCliente" :value="item.idCliente">{{ item.razaoSocialCliente }}</option>
       </select>
     </div>
     <div class="col-3">

@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
         component:ControleCrView,
       },
       {
-        path: "/cadastrousuario",
+        path: "/usuario",
         name: "CadastroUsuario",
         component: CadastroUsuarioView,
       }

@@ -26,6 +26,8 @@ public class UsuarioService {
 		
 		for (Usuario usuario : usuarios) {
 			dados.add(new DadosCadastroUsuario(
+					usuario.getId(),
+					usuario.getId(),
 					usuario.getTipoUsuario().getId(),
 					usuario.getCpf(),
 					usuario.getNome(),
