@@ -42,6 +42,7 @@ public class CrController {
 	@GetMapping("/{idUsuario}")
 	public ResponseEntity<List<DadosListagemCr>> listarCr(@PathVariable("idUsuario") Long idUsuario){
 		var listagemCr = service.listarCr(idUsuario);
+		
 		return ResponseEntity.ok().body(listagemCr);
 	}
 	

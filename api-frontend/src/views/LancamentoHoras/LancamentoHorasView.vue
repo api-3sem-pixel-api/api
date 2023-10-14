@@ -106,8 +106,11 @@ export default class LancamentoHorasView extends Vue {
   ComboboxCr() {
     const user = useAuth().getUser();
     http.get('/cr/' + user.id)
-      .then(Response => {
-        this.listcr = Response.data
+      .then(response => {
+        console.log(user)
+        this.listcr = response.data
+        console.log(this.listcr)
+        console.log(response.data)
       })
 
   }
