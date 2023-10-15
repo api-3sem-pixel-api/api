@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
-                        <textarea v-model="motivo" placeholder="Motivo" style="width: 800px;" type="text" class="form-control">
+                        <textarea v-model="motivo" placeholder="Motivo" style="width: 600px;" type="text" class="form-control">
                         </textarea>
                     </div>
                 </div>

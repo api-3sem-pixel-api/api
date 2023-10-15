@@ -56,8 +56,12 @@
     </ol>
    
    <h2 align="center">Modelagem</h2>
-   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/ModelagemApiMER.png">Modelo Entidade-Relacionamento</a></li>
-   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/WhatsApp%20Image%202023-09-22%20at%2022.06.18.jpeg">Modelo Lógico</a></li>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/MER.png">Modelo Entidade-Relacionamento</a></li>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/ModeloLogico.jpeg">Modelo Lógico</a></li>
+   <br>
+
+   <h2 align="center">Dicionário de Dados</h2>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/DicionarioDados.pdf">Dicionário de Dados</a></li>
    <br>
    
    <h2 align="center">Documentação</h2>
@@ -84,7 +88,12 @@
    </ul>
    
    <h3 align="center">Sprint-2</h3>
-   <ul> 
+   <ul>
+     <li>Burndown: https://imgur.com/a/c1WSaLX</li>
+   </ul>
+   <ul>
+   <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/8cmdt4x-314</li>
+   <br>
 
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
