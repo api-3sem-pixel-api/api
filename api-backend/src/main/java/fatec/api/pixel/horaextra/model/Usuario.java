@@ -22,8 +22,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "Usuario")
 @Table(name = "usuario")
+@Entity(name = "Usuario")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,10 +33,10 @@ public class Usuario {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name="Id_Tipo_Usuario")
+	@JoinColumn(name="id_tipo_usuario")
 	@JsonIgnore
 	private TipoUsuario tipoUsuario;
-	@Column(name = "Cpf_Cnpj")
+	@Column(name = "cpf_cnpj")
 	private String cpf;
 	private String nome;
 	private String telefone;
@@ -45,7 +45,7 @@ public class Usuario {
 	
 	@JsonIgnore
 	@OneToOne
-	@JoinColumn(name="Id_Autenticacao_Usuario")
+	@JoinColumn(name="id_autenticacao_usuario")
 	private AutenticacaoUsuario autenticacaoUsuario;
 	
 	@JsonIgnore

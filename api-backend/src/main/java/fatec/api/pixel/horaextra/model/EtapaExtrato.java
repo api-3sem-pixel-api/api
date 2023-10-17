@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Etapa_Extrato")
+@Table(name = "etapa_extrato")
 @Entity(name = "EtapaExtrato")
 @Getter
 @Setter

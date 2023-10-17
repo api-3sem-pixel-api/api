@@ -22,32 +22,32 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 	private static final long ID_TIPO_COLABORADOR = 1L;
 	
 	public List<DadosListagemLancamentoHoras> findLancamentoHoras(Long idUsuario, Long idTipoUsuario){
-		String jpql = "SELECT eh.Id,"
-				+ "	   cr.Nome,"
-				+ "       cliente.Razao_Social,"
-				+ "       eh.Projeto,"
-				+ "       eh.DataHora_Inicio,"
-				+ "       modalidade.Descricao,"
-				+ "       eh.DataHora_Fim,"
-				+ "       usuario.Nome,"
-				+ "       eh.Justificativa,"
-				+ "       eh.Motivo,"
-				+ "       eh.Id_Etapa_Extrato"
+		String jpql = "SELECT eh.id,"
+				+ "	   cr.nome,"
+				+ "       cliente.razao_social,"
+				+ "       eh.projeto,"
+				+ "       eh.dataHora_Inicio,"
+				+ "       modalidade.descricao,"
+				+ "       eh.dataHora_Fim,"
+				+ "       usuario.nome,"
+				+ "       eh.justificativa,"
+				+ "       eh.motivo,"
+				+ "       eh.id_etapa_extrato"
 				+ " FROM extrato_hora eh"
-				+ " INNER JOIN Cr cr on eh.Id_Cr = cr.Id"
-				+ " INNER JOIN Cliente cliente on eh.Id_Cliente = cliente.Id"
-				+ " INNER JOIN Modalidade modalidade on eh.Id_Modalidade = modalidade.Id"
-				+ " INNER JOIN Usuario usuario on eh.Id_Usuario = usuario.Id";
+				+ " INNER JOIN cr cr on eh.id_cr = cr.id"
+				+ " INNER JOIN cliente cliente on eh.id_cliente = cliente.id"
+				+ " INNER JOIN modalidade modalidade on eh.id_modalidade = modalidade.id"
+				+ " INNER JOIN usuario usuario on eh.id_usuario = usuario.id";
 		
 				if(idTipoUsuario == ID_TIPO_COLABORADOR) {
-					jpql += " WHERE usuario.Id = :idUsuario";
+					jpql += " WHERE usuario.id = :idUsuario";
 				}
 				if(idTipoUsuario == ID_TIPO_GESTOR) {
-					jpql += " INNER JOIN cr_usuario crUsuario on crUsuario.Id_Cr = cr.Id";
-					jpql += " WHERE crUsuario.Id_Usuario = :idUsuario";
+					jpql += " INNER JOIN cr_usuario crUsuario on crUsuario.id_Cr = cr.id";
+					jpql += " WHERE crUsuario.id_usuario = :idUsuario";
 				}
 				if(idTipoUsuario == ID_TIPO_ADMIN) {
-					jpql += " WHERE eh.Id_Etapa_Extrato in (:etapas)";
+					jpql += " WHERE eh.id_etapa_extrato in (:etapas)";
 				}
 					
 				TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);

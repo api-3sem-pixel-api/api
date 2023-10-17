@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Cr_Usuario")
+@Table(name = "cr_usuario")
 @Entity(name = "Cr_Usuario")
 @Getter
 @Setter
@@ -22,9 +22,9 @@ public class CrUsuario {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "Id_Usuario")
+	@Column(name = "id_usuario")
 	private Long idUsuario;
-	@Column(name = "Id_Cr")
+	@Column(name = "id_cr")
 	private Long idCr;
 	
 	public CrUsuario(DadosCadastroCrUsuario dados) {
