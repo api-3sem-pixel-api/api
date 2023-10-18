@@ -2,6 +2,9 @@ package fatec.api.pixel.horaextra.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import fatec.api.pixel.horaextra.dto.DadosCadastroCliente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,12 +31,19 @@ public class Cliente {
 	@Column(name = "Razao_Social")
 	private String razaoSocial;
 	private String cnpj;
+	private boolean ativo;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<LancamentoHoras>lancamento;
 	
 	public Cliente(Long idCliente) {
 		this.id = idCliente;
 	}
-
+	
+	public Cliente(DadosCadastroCliente dados) {
+		this.razaoSocial = dados.razaoSocialCliente();
+		this.cnpj = dados.cnpjCliente();
+		this.ativo = true;
+	}
 }

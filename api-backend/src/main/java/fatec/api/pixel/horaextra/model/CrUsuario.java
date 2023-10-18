@@ -1,38 +1,34 @@
 package fatec.api.pixel.horaextra.model;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import fatec.api.pixel.horaextra.dto.DadosCadastroCrUsuario;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "tipo_usuario")
-@Entity(name = "TipoUsuario")
+@Table(name = "Cr_Usuario")
+@Entity(name = "Cr_Usuario")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class TipoUsuario {
-
+@NoArgsConstructor
+public class CrUsuario {
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String descricao;
+	@Column(name = "Id_Usuario")
+	private Long idUsuario;
+	@Column(name = "Id_Cr")
+	private Long idCr;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "tipoUsuario")
-	
-	private List<Usuario> usuario;
-	
-	public TipoUsuario(Long idTipoUsuario) {
-		this.id = idTipoUsuario;
+	public CrUsuario(DadosCadastroCrUsuario dados) {
+		this.idUsuario = dados.idUsuario();
+		this.idCr = dados.idCr();
 	}
 }

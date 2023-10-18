@@ -17,7 +17,7 @@
     <div class="col-3">
       <p class="bold">Cliente</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.idCliente">
-        <option v-for="item in listcliente" :key="item.idCliente" :value="item.idCliente">{{ item.nomeCliente }}</option>
+        <option v-for="item in listcliente" :key="item.idCliente" :value="item.idCliente">{{ item.razaoSocialCliente }}</option>
       </select>
     </div>
     <div class="col-3">
@@ -106,8 +106,11 @@ export default class LancamentoHorasView extends Vue {
   ComboboxCr() {
     const user = useAuth().getUser();
     http.get('/cr/' + user.id)
-      .then(Response => {
-        this.listcr = Response.data
+      .then(response => {
+        console.log(user)
+        this.listcr = response.data
+        console.log(this.listcr)
+        console.log(response.data)
       })
 
   }

@@ -23,7 +23,7 @@ export const colaboradorMenu: MenuParent[] = [
       active: false,
       link:'',
       childs: [
-        { active: false, description: 'Lançamento', link: '/lancamentohoras' }
+        { active: false, description: 'Lançamento', link: 'authorized/lancamentohoras' }
       ]
     },
     {
@@ -36,7 +36,7 @@ export const colaboradorMenu: MenuParent[] = [
 ]
 
 export const gestorMenu: MenuParent[] = [
-    {
+      {
         icon: 'fas fa-home',
         description: 'Home',
         active: false,
@@ -49,8 +49,7 @@ export const gestorMenu: MenuParent[] = [
         active: false,
         link:'',
         childs: [
-          { active: false, description: 'Lançamento', link: '/lancamentohoras' },
-          { active: false, description: 'Aprovação/Reprovação', link: '/controlehoras' }
+          { active: false, description: 'Lançamento', link: 'authorized/lancamentohoras' }
         ]
       },
       {
@@ -63,5 +62,36 @@ export const gestorMenu: MenuParent[] = [
 ]
 
 export const adminMenu: MenuParent[] = [
-    ...gestorMenu
+  {
+    icon: 'fas fa-home',
+    description: 'Home',
+    active: false,
+    link: '/authorized',
+    childs: []
+  },
+  {
+    icon: 'fa-solid fa-users',
+    description: 'Controle',
+    active: false,
+    link:'',
+    childs: [
+      { active: false, description: 'CR', link: '/cr' },
+      { active: false, description: 'Usuario', link: '/usuario' },
+      { active: false, description: 'Cliente', link: '/cliente' },
+    ]
+  },
+  {
+    icon: 'fas fa-clock',
+    description: 'Aprovação/Reprovação',
+    active: false,
+    link:'authorized/lancamentohoras',
+    childs: []
+  },
+  {
+    icon: 'fa-solid fa-right-from-bracket',
+    description: 'Sair',
+    active: false,
+    link:'/',
+    childs: []
+  }
 ]
