@@ -21,7 +21,7 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
-          <td>{{ getFuncao(usuario.tipoUsuario) }}</td>
+          <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
           <td class="text-center">
             <div class="pill text-center text-wrap" :class="{ 'approved': usuario.ativo, 'canceled': !usuario.ativo }">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</div>
           </td>
@@ -131,22 +131,23 @@ export default defineComponent({
       }
     },
     async excludedUser(index: number) {
-      const usuario = this.usuarios[index];
-      try {
-        // Verifique se o usuário está ativo antes de marcá-lo como inativo
-        if (usuario.ativo) {
-          // Apenas atualize o status para inativo
-          usuario.ativo = false;
-          await http.put(`/usuario/${usuario.id}`, { ativo: false });
-          alert('Usuário marcado como Inativo');
-        } else {
-          // O usuário já está inativo
-          alert('Usuário já está Inativo');
-        }
-      } catch (error) {
-        alert('Algo deu errado, tente novamente mais tarde.');
-      }
+  const usuario = this.usuarios[index];
+  try {
+    // Verifique se o usuário está ativo antes de marcá-lo como inativo
+    if (usuario.ativo) {
+      // Use o método DELETE para marcar o usuário como inativo
+      await http.delete(`/usuario/${usuario.id}`);
+      usuario.ativo = false;
+      alert('Usuário marcado como Inativo');
+    } else {
+      // O usuário já está inativo
+      alert('Usuário já está Inativo');
     }
+  } catch (error) {
+    alert('Algo deu errado, tente novamente mais tarde.');
+  }
+}
+
   }
 });
 </script>
