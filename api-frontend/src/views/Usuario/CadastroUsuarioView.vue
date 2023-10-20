@@ -23,13 +23,17 @@
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
            <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
-           <td class="text-center d-flex" style="justify-content: center;"  > <div 
-              class="pill approved text-center text-wrap" 
-              :class="{
-                approved: usuario['ativo'] == true,
-            }" > 
-                Ativo 
-            </div></td>
+            
+            <td class="text-center d-flex" style="justify-content: center;">
+                 <div class="pill text-center text-wrap" :class="usuario['ativo'] ? 'approved' : ''">
+                      Ativo
+                 </div>
+                 <div class="pill text-center text-wrap" :class="usuario['inativo'] ? 'approved' : ''">
+                      Inativo
+                  </div>
+          </td>
+
+          
            <td class="text-center">
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -70,7 +74,8 @@ export default defineComponent({
     return {
       usuarios: [] as Array<any>,
       enumUser: enumUser,
-      editUserId: null as number | null 
+      editUserId: null as number | null, 
+      cond:true
     };
   },
   created() {
@@ -138,20 +143,26 @@ export default defineComponent({
         modal.style.display = "none";
       }
     },
-    async excludedUser(index: number) {
+  async excludedUser(index: number) {
       const usuario = this.usuarios[index];
       try {
         await http.delete(`/usuario/${usuario.id}`);
         this.usuarios.splice(index, 1);
-      } catch (error) {
+        this.cond = false; // Correção
+        alert('Usuário inativado');
+  } catch (error) {
         alert('Algo deu errado, tente novamente mais tarde.');
-      }
-    }
+  }
+}
+
   }
 });
 </script>
-
 <style scoped>
+.r-ml-2 {
+    margin-left: 15px;
+}
+
 .r-modal {
     display: none;
     position: fixed;
@@ -164,38 +175,41 @@ export default defineComponent({
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
+}
 
-    .r-modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 630px;
-    }
+.r-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 630px;
+}
 
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-    button {
-        color: white;
-    }
-    .pill {
+button {
+    color: white;
+}
+
+.pill {
     border-radius: 30px;
     width: 140px;
     color: white;
+    position: relative; // Correção
 
-    &.approvedGestor{
+    &.approvedGestor {
         background-color: #fac02d;
     }
 
@@ -212,12 +226,5 @@ export default defineComponent({
         background-color: red;
     }
 }
-
-}
-
-.r-ml-2 {
-    margin-left: 15px;
-}
-
-
 </style>
+
