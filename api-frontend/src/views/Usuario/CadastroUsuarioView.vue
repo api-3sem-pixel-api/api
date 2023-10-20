@@ -12,7 +12,6 @@
           <th scope="col" class="text-left">CPF</th>
           <th scope="col" class="text-center">Função</th>
           <th scope="col" class="text-center">Status</th>
-          
           <th scope="col" class="text-center">Ações</th>
         </tr>
       </thead>
@@ -22,19 +21,11 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
-           <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
-            
-            <td class="text-center d-flex" style="justify-content: center;">
-                 <div class="pill text-center text-wrap" :class="usuario['ativo'] ? 'approved' : ''">
-                      Ativo
-                 </div>
-                 <div class="pill text-center text-wrap" :class="usuario['inativo'] ? 'approved' : ''">
-                      Inativo
-                  </div>
+          <td>{{ getFuncao(usuario.tipoUsuario) }}</td>
+          <td class="text-center">
+            <div class="pill text-center text-wrap" :class="{ 'approved': usuario.ativo, 'canceled': !usuario.ativo }">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</div>
           </td>
-
-          
-           <td class="text-center">
+          <td class="text-center">
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
@@ -55,8 +46,6 @@
   ></ModalUsuarioView>
 </template>
 
-
-
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
@@ -75,7 +64,7 @@ export default defineComponent({
       usuarios: [] as Array<any>,
       enumUser: enumUser,
       editUserId: null as number | null, 
-      cond:true
+      cond: true
     };
   },
   created() {
@@ -84,8 +73,7 @@ export default defineComponent({
   methods: {
     newUser() {
       var modal = document.getElementById("cadastro-user-modal")!;
-        modal.style.display = "block";
-
+      modal.style.display = "block";
     },
     async loadAllUser() {
       try {
@@ -94,7 +82,7 @@ export default defineComponent({
 
         this.usuarios.forEach((usuario) => {
           usuario.funcao = enumUser[usuario.tipoUsuario];
-          console.log(usuario.tipoUsuario);
+          usuario.ativo = true; // Defina todos os usuários como ativos por padrão
         });
       } catch (err) {
         alert('Algo deu errado, tente novamente mais tarde.');
@@ -121,7 +109,6 @@ export default defineComponent({
         console.error("Elemento não encontrado no DOM.");
       }
     },
-
     async updateUserDetails(updatedUser: any) {
       try {
         await http.put(`/usuario/${this.editUserId}`, updatedUser);
@@ -143,73 +130,34 @@ export default defineComponent({
         modal.style.display = "none";
       }
     },
-  async excludedUser(index: number) {
+    async excludedUser(index: number) {
       const usuario = this.usuarios[index];
       try {
-        await http.delete(`/usuario/${usuario.id}`);
-        this.usuarios.splice(index, 1);
-        this.cond = false; // Correção
-        alert('Usuário inativado');
-  } catch (error) {
+        // Verifique se o usuário está ativo antes de marcá-lo como inativo
+        if (usuario.ativo) {
+          // Apenas atualize o status para inativo
+          usuario.ativo = false;
+          await http.put(`/usuario/${usuario.id}`, { ativo: false });
+          alert('Usuário marcado como Inativo');
+        } else {
+          // O usuário já está inativo
+          alert('Usuário já está Inativo');
+        }
+      } catch (error) {
         alert('Algo deu errado, tente novamente mais tarde.');
-  }
-}
-
+      }
+    }
   }
 });
 </script>
+
 <style scoped>
-.r-ml-2 {
-    margin-left: 15px;
-}
-
-.r-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.r-modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 630px;
-}
-
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-button {
-    color: white;
-}
-
 .pill {
     border-radius: 30px;
     width: 140px;
     color: white;
-    position: relative; // Correção
 
-    &.approvedGestor {
+    &.approvedGestor{
         background-color: #fac02d;
     }
 
@@ -227,4 +175,3 @@ button {
     }
 }
 </style>
-
