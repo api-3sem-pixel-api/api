@@ -17,17 +17,18 @@
              
               <td>{{ client['razaoSocialCliente'] }}</td>
               <td>{{ client['cnpjCliente'] }}</td>
-              <td class="text-center d-flex" style="justify-content: center;"  > <div 
-              class="pill approved text-center text-wrap" 
-              :class="{
-                approved: client['ativo'] == true,
-            }" > 
-                Ativo 
-            </div></td>
+              <td class="text-center d-flex" style="justify-content: center;">
+                    <div class="pill text-center text-wrap" :class="{ approved: client.ativo, inativo: !client.ativo }">
+                            {{ client.ativo ? 'Ativo' : 'Inativo' }}
+                    </div>
+              </td>
+
               <td class="text-center">
                 <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
     
-            <button class="btn btn-link"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                 <button class="btn btn-link" @click="inativarCliente(client.id)">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                  </button>
 
             
               </td>
@@ -72,6 +73,28 @@ export default defineComponent({
         alert('Algo deu errado, tente novamente mais tarde.');
       }
     },
+          methods: {
+  async inativarCliente(clienteId) {
+    const cliente = this.clientes.find(cliente => cliente.id === clienteId);
+    
+    if (cliente) {
+      if (cliente.ativo) {
+        try {
+          await http.put(`/cliente/inativar/${clienteId}`);
+          cliente.ativo = false;
+          alert('Cliente inativado com sucesso');
+        } catch (error) {
+          alert('Erro ao inativar o cliente. Tente novamente mais tarde.');
+        }
+      } else {
+        alert('O cliente já está inativo');
+      }
+    } else {
+      alert('Cliente não encontrado');
+    }
+  }
+}
+
     
     }
 })
@@ -99,5 +122,9 @@ export default defineComponent({
     &.canceled {
         background-color: red;
     }
+   &.inativo {
+    background-color: gray;
+  }
+
 }
 </style>
