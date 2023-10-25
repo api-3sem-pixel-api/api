@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import fatec.api.pixel.horaextra.dto.DadosParametrizacao;
 import fatec.api.pixel.horaextra.dto.DadosParametrizacaoListagem;
+import fatec.api.pixel.horaextra.model.Parametrizacao;
 import fatec.api.pixel.horaextra.service.ParametrizacaoService;
 import jakarta.transaction.Transactional;
 
@@ -25,14 +26,16 @@ public class ParametrizacaoController {
 	@Autowired
 	private ParametrizacaoService service;
 	
+	/*
 	@PostMapping
 	public ResponseEntity cadastrar(@RequestBody DadosParametrizacao dados) {
 		service.cadastrar(dados);
 		return ResponseEntity.created(null).build();
 	}
+	*/
 	
 	@GetMapping
-	public ResponseEntity<List<DadosParametrizacaoListagem>> listar(){
+	public ResponseEntity<List<Parametrizacao>> listar(){
 		var dados = service.listar();
 		return ResponseEntity.ok().body(dados);
 	}

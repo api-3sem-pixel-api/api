@@ -25,23 +25,31 @@ public class Parametrizacao {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "dt_inicio_pagamento")
-	private Date dataInicioPagamento;
+	private int dataInicioPagamento;
 	@Column(name = "dt_fim_pagamento")
-	private Date dataFimPagamento;
+	private int dataFimPagamento;
 	@Column(name = "inicio_horario_noturno")
 	private String inicioHorarioNoturno;
 	@Column(name = "fim_horario_noturno")
 	private String fimHorarioNoturno;
-	private String verba;
-	@Column(name = "valor_verba")
-	private Double valorVerba;
+	private int V1601;
+	private int V1602;
+	private int V3000;
+	private int V3001;
+	private int V1809;
+	private int V3016;
+	
 
 	public Parametrizacao(DadosParametrizacao dados) {
 		this.dataInicioPagamento = dados.dataInicioPagamento();
 		this.dataFimPagamento = dados.dataFimPagamento();
 		this.inicioHorarioNoturno = dados.inicioHorarioNoturno();
 		this.fimHorarioNoturno = dados.fimHorarioNoturno();
-		this.verba = dados.verba();
-		this.valorVerba = dados.valorVerba();
+		this.V1601 = dados.V1601();
+		this.V1602 = dados.V1602();
+		this.V3000 = dados.V3000();
+		this.V3001 = dados.V3001();
+		this.V1809 = dados.V1809();
+		this.V3016 = dados.V3016();
 	}
 }

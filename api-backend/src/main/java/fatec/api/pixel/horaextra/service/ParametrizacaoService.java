@@ -22,14 +22,9 @@ public class ParametrizacaoService {
 		repository.save(parametrizacao);
 	}
 	
-	public List<DadosParametrizacaoListagem> listar(){
+	public List<Parametrizacao> listar(){
 		var parametrizacoes = repository.findAll();
-		var dados = new ArrayList<DadosParametrizacaoListagem>();
-		for(Parametrizacao param : parametrizacoes) {
-			dados.add(new DadosParametrizacaoListagem(param.getId(),param.getDataInicioPagamento(),param.getDataFimPagamento(), 
-					param.getInicioHorarioNoturno(), param.getFimHorarioNoturno()));
-		}
-		return dados;
+		return parametrizacoes;
 	}
 	
 	public void alterar(DadosParametrizacao dados, Long id) {
@@ -38,5 +33,11 @@ public class ParametrizacaoService {
 		parametrizacao.setDataFimPagamento(dados.dataFimPagamento());
 		parametrizacao.setInicioHorarioNoturno(dados.inicioHorarioNoturno());
 		parametrizacao.setFimHorarioNoturno(dados.fimHorarioNoturno());
+		parametrizacao.getV1601();
+		parametrizacao.getV1602();
+		parametrizacao.getV3000();
+		parametrizacao.getV3001();
+		parametrizacao.getV1809();
+		parametrizacao.getV3016();
 	}
 }
