@@ -7,22 +7,22 @@
     </div>
     <div class="row mt-4">
         <div class="col-6">
-            <label >Inicio do Mes</label>
-            <input v-model="request.dataInicioPagamento" type="date" class="form-control">
+            <label>Inicio da hora Noturna</label>
+            <input v-model="request.inicioHorarioNoturno" type="time" class="form-control">
         </div>
         <div class="col-6">
-            <label>Fechamento do Mes</label>
-            <input v-model="request.dataFimPagamento" type="date" class="form-control">
+            <label>Fim da hora Noturna</label>
+            <input v-model="request.fimHorarioNoturno" type="time" class="form-control">
         </div>
     </div>
     <div class="row mt-4">
         <div class="col-4">
-            <label>Inicio da hora Noturna</label>
-            <input v-model="request.inicioHorarioNoturno" type="time" class="form-control">
+            <label >Dia de Inicio do Mes</label>
+            <input v-model="request.dataInicioPagamento" type="number" class="form-control">
         </div>
         <div class="col-4">
-            <label>Fim da hora Noturna</label>
-            <input v-model="request.fimHorarioNoturno" type="time" class="form-control">
+            <label>Dia de Fechamento do Mes</label>
+            <input v-model="request.dataFimPagamento" type="nubmer" class="form-control">
         </div>
     </div>
     <br />
@@ -113,11 +113,14 @@ export default class ParametrizacaoView extends Vue {
 
     getParameters(){
         http.get('/parametrizacao')
-            .then(x => console.log(x.data));
+            .then(x => {
+                console.log(x.data)
+            });
     }
 
     save(){
-        http.put('/parametrizacao', this.request)
+        console.log(this.request);
+        http.put('/parametrizacao/1', this.request)
             .then(_ => alert('Parametros salvos com sucesso!'))
             .catch(_ => alert('Algo deu errado. Tente novamente mais tarde.'));
     }
