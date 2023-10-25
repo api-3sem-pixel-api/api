@@ -132,6 +132,7 @@ export default defineComponent({
     },
     async excludedUser(index: number) {
   const usuario = this.usuarios[index];
+  console.log(usuario)
   try {
     // Verifique se o usuário está ativo antes de marcá-lo como inativo
     if (usuario.ativo) {

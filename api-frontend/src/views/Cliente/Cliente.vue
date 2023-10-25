@@ -50,7 +50,8 @@ export default defineComponent({
     data() {
         return {
             nomeRs: '',
-            siglaCnpj: ''
+            siglaCnpj: '',
+            cllienteId:0
 
         }
     },
