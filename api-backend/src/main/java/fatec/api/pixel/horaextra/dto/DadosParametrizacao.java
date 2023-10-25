@@ -6,6 +6,8 @@ public record DadosParametrizacao(
 		Date dataInicioPagamento, 
 		Date dataFimPagamento,
 		String inicioHorarioNoturno,
-		String fimHorarioNoturno) {
+		String fimHorarioNoturno,
+		String verba,
+		Double valorVerba) {
 
 }
