@@ -78,6 +78,7 @@ export const adminMenu: MenuParent[] = [
       { active: false, description: 'CR', link: '/cr' },
       { active: false, description: 'Usuario', link: '/usuario' },
       { active: false, description: 'Cliente', link: '/cliente' },
+      
     ]
   },
   {
@@ -86,6 +87,14 @@ export const adminMenu: MenuParent[] = [
     active: false,
     link:'authorized/lancamentohoras',
     childs: []
+  },
+  {
+    icon: 'fas fa-clock',
+    description: 'Relatório',
+    active: false,
+    link:'relatorio',
+    childs: []
+
   },
   {
     icon: 'fa-solid fa-right-from-bracket',
