@@ -32,11 +32,16 @@ public class Parametrizacao {
 	private String inicioHorarioNoturno;
 	@Column(name = "fim_horario_noturno")
 	private String fimHorarioNoturno;
+	private String verba;
+	@Column(name = "valor_verba")
+	private Double valorVerba;
 
 	public Parametrizacao(DadosParametrizacao dados) {
 		this.dataInicioPagamento = dados.dataInicioPagamento();
 		this.dataFimPagamento = dados.dataFimPagamento();
 		this.inicioHorarioNoturno = dados.inicioHorarioNoturno();
 		this.fimHorarioNoturno = dados.fimHorarioNoturno();
+		this.verba = dados.verba();
+		this.valorVerba = dados.valorVerba();
 	}
 }
