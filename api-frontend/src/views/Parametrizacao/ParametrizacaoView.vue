@@ -55,7 +55,7 @@
         </div>
         <div class="col-4">
             <label>3001</label>
-            <input v-model="request.v1601" type="number" class="form-control">
+            <input v-model="request.v3001" type="number" class="form-control">
         </div>
     </div>
     <div class="row mt-2">
@@ -95,6 +95,7 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class ParametrizacaoView extends Vue {
     request = {
+        id: 0,
         dataInicioPagamento: '',
         dataFimPagamento: '',
         inicioHorarioNoturno: '',
@@ -114,14 +115,14 @@ export default class ParametrizacaoView extends Vue {
     getParameters(){
         http.get('/parametrizacao')
             .then(x => {
-                console.log(x.data)
+                this.request = x.data[0]
             });
     }
 
     save(){
-        console.log(this.request);
-        http.put('/parametrizacao/1', this.request)
+        http.put('/parametrizacao/'+this.request.id, this.request)
             .then(_ => alert('Parametros salvos com sucesso!'))
+            .then(_ => this.getParameters())
             .catch(_ => alert('Algo deu errado. Tente novamente mais tarde.'));
     }
 };

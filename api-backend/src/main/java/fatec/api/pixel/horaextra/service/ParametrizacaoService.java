@@ -33,11 +33,11 @@ public class ParametrizacaoService {
 		parametrizacao.setDataFimPagamento(dados.dataFimPagamento());
 		parametrizacao.setInicioHorarioNoturno(dados.inicioHorarioNoturno());
 		parametrizacao.setFimHorarioNoturno(dados.fimHorarioNoturno());
-		parametrizacao.getV1601();
-		parametrizacao.getV1602();
-		parametrizacao.getV3000();
-		parametrizacao.getV3001();
-		parametrizacao.getV1809();
-		parametrizacao.getV3016();
+		parametrizacao.setV1601(dados.v1601());
+		parametrizacao.setV1602(dados.v1602());
+		parametrizacao.setV3000(dados.v3000());
+		parametrizacao.setV3001(dados.v3001());
+		parametrizacao.setV1809(dados.v1809());
+		parametrizacao.setV3016(dados.v3016());
 	}
 }
