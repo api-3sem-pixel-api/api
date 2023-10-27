@@ -1,5 +1,11 @@
 <template>
-  <div class="d-flex justify-content-end mb-3">
+  <div class="row mt-4">
+    <div class="col-12">
+      <h3>CONTROLE | USUARIO</h3>
+      <hr>
+    </div>
+  </div>
+  <div class="d-flex mt-3 justify-content-end mb-3">
     <button class="btn btn-outline-primary" @click="newUser()"> Cadastrar Usuário </button>
   </div>
   <div class="row">
@@ -12,7 +18,7 @@
           <th scope="col" class="text-left">CPF</th>
           <th scope="col" class="text-center">Função</th>
           <th scope="col" class="text-center">Status</th>
-          
+
           <th scope="col" class="text-center">Ações</th>
         </tr>
       </thead>
@@ -22,15 +28,15 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
-           <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
-           <td class="text-center d-flex" style="justify-content: center;"  > <div 
-              class="pill approved text-center text-wrap" 
-              :class="{
-                approved: usuario['ativo'] == true,
-            }" > 
-                Ativo 
-            </div></td>
-           <td class="text-center">
+          <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
+          <td class="text-center d-flex" style="justify-content: center;">
+            <div class="pill approved text-center text-wrap" :class="{
+              approved: usuario['ativo'] == true,
+            }">
+              Ativo
+            </div>
+          </td>
+          <td class="text-center">
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
@@ -44,11 +50,8 @@
   </div>
 
   <!-- Modal de Atualização de Usuário -->
-  <ModalUsuarioView
-    :user-id="editUserId"
-    @update-user-details="updateUserDetails"
-    @close-modal="closeUpdateModal"
-  ></ModalUsuarioView>
+  <ModalUsuarioView :user-id="editUserId" @update-user-details="updateUserDetails" @close-modal="closeUpdateModal">
+  </ModalUsuarioView>
 </template>
 
 
@@ -70,7 +73,7 @@ export default defineComponent({
     return {
       usuarios: [] as Array<any>,
       enumUser: enumUser,
-      editUserId: null as number | null 
+      editUserId: null as number | null
     };
   },
   created() {
@@ -79,7 +82,7 @@ export default defineComponent({
   methods: {
     newUser() {
       var modal = document.getElementById("cadastro-user-modal")!;
-        modal.style.display = "block";
+      modal.style.display = "block";
 
     },
     async loadAllUser() {
@@ -126,13 +129,13 @@ export default defineComponent({
           this.usuarios[userIndex] = updatedUser;
         }
 
-        this.closeUpdateModal(); 
+        this.closeUpdateModal();
       } catch (error) {
         alert('Erro ao atualizar o usuário. Tente novamente mais tarde.');
       }
     },
     closeUpdateModal() {
-      this.editUserId = null; 
+      this.editUserId = null;
       var modal = document.getElementById("update-user-modal");
       if (modal) {
         modal.style.display = "none";
@@ -153,71 +156,70 @@ export default defineComponent({
 
 <style scoped>
 .r-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 
-    .r-modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 630px;
-    }
+  .r-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 630px;
+  }
 
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-    button {
-        color: white;
-    }
-    .pill {
+  button {
+    color: white;
+  }
+
+  .pill {
     border-radius: 30px;
     width: 140px;
     color: white;
 
-    &.approvedGestor{
-        background-color: #fac02d;
+    &.approvedGestor {
+      background-color: #fac02d;
     }
 
     &.approved {
-        background-color: #26fc29;
+      background-color: #26fc29;
     }
 
     &.waiting {
-        background-color: gainsboro;
+      background-color: gainsboro;
     }
 
     &.reproved,
     &.canceled {
-        background-color: red;
+      background-color: red;
     }
-}
+  }
 
 }
 
 .r-ml-2 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
-
-
 </style>
