@@ -6,6 +6,7 @@ import cliente from '@/views/Cliente/VizuCliente.vue'
 import ControleCrView from '@/views/Cr/ControleCrView.vue'
 import CadastroUsuarioView from '@/views/Usuario/CadastroUsuarioView.vue'
 import ParametrizacaoView from '@/views/Parametrizacao/ParametrizacaoView.vue'
+import DashboardViewVue from '@/views/Dashboard/DashboardView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,6 +43,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/parametrizacao",
         name: "Parametrizacao",
         component: ParametrizacaoView,
+      },
+      {
+        path: "/dashboard",
+        name: "Dashboard",
+        component: DashboardViewVue,
       }
     ]
   }
