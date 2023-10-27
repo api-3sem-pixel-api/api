@@ -51,6 +51,7 @@ export default defineComponent({
         return {
             nomeRs: '',
             siglaCnpj: '',
+            ativo:true,
             cllienteId:0
 
         }
@@ -67,7 +68,7 @@ export default defineComponent({
             const createCliente = {
                 razaoSocialCliente: this.nomeRs,
                 cnpjCliente: this.siglaCnpj, 
-   
+                ativo:this.ativo,
                 idCliente: 0
             }
             

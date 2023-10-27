@@ -27,7 +27,7 @@
           <td class="text-center">
             <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-        <button class="btn btn-link"><i class="fa fa-trash" @click="inativarCliente(client['id'])" aria-hidden="true" ></i></button>
+        <button class="btn btn-link" @click="inativarCliente(client['id'])"><i class="fa fa-trash"  aria-hidden="true" ></i></button>
 
         
           </td>
@@ -52,7 +52,6 @@ interface ClienteData {
   razaoSocialCliente: string;
   cnpjCliente: string;
   ativo: boolean;
-  // Outros campos de dados, se houver
 }
 
 export default defineComponent({
@@ -83,24 +82,25 @@ export default defineComponent({
     },
 
     async inativarCliente(clienteId: number) {
-      const cliente = this.clientes.find((cliente) => cliente.id === clienteId);
-      console.log(cliente)
-      if (cliente) {
-        if (cliente.ativo) {
-          try {
-            await http.delete(`/cliente/${clienteId}`);
-            cliente.ativo = false;
-            alert('Cliente inativado com sucesso');
-          } catch (error) {
-            alert('Erro ao inativar o cliente. Tente novamente mais tarde.');
-          }
-        } else {
-          alert('O cliente já está inativo');
-        }
-      } else {
-        alert('Cliente não encontrado');
+  const cliente = this.clientes.find((cliente) => cliente.id === clienteId);
+  console.log(cliente);
+  if (cliente) {
+    if (cliente.ativo) {
+      try {
+        await http.delete(`/cliente/${clienteId}`);
+        cliente.ativo = false;
+        alert('Cliente inativado com sucesso');
+      } catch (error) {
+        alert('Erro ao inativar o cliente. Tente novamente mais tarde.');
       }
-    },
+    } else {
+      alert('O cliente já está inativo');
+    }
+  } else {
+    alert('Cliente não encontrado');
+  }
+}
+
   },
 });
 </script>
