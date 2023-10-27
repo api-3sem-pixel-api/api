@@ -29,7 +29,7 @@
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
-            <button class="btn btn-link" @click="excludedUser(usuario)">
+            <button class="btn btn-link" @click="inativarUsuario(usuario['id'])">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
@@ -128,18 +128,30 @@ export default defineComponent({
         modal.style.display = "none";
       }
     },
-    async excludedUser(usuario: any) {
-      console.log(usuario);
-      try {
-        if (usuario.ativo) {
-          await http.put(`/usuario/${usuario.id}`, { ativo: false }); // Marca o usuário como inativo
-          usuario.ativo = false;
-          alert('Usuário marcado como Inativo');
-        } else {
-          alert('Usuário já está Inativo');
+    async inativarUsuario(id: number) {
+      const usuario = this.usuarios.find((usuario) => usuario.id === id);
+      console.log('ID a ser excluído:', id);
+
+      if (usuario) {
+        console.log('Usuario encontrado:', usuario);
+
+        try {
+          if (usuario.ativo) {
+            console.log('Usuario ativo, marcando como inativo:', );
+            await http.delete(`/usuario/${usuario.id}`);
+            usuario.ativo = false;
+            alert('Usuario marcado como Inativo');
+          } else {
+            console.log('Usuario já está Inativo:', usuario);
+            alert('Usuario já está Inativo');
+          }
+        } catch (error) {
+          console.error('Erro ao excluir o Usuario:', error);
+          alert('Algo deu errado, tente novamente mais tarde.');
         }
-      } catch (error) {
-        alert('Algo deu errado, tente novamente mais tarde.');
+      } else {
+        console.log('Usuario não encontrado:', id);
+        alert('Usuario não encontrado');
       }
     }
   }
