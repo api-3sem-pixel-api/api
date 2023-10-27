@@ -29,7 +29,7 @@
             <button class="btn btn-link" @click="updateUser(usuario.id)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
-            <button class="btn btn-link" @click="excludedUser(index)">
+            <button class="btn btn-link" @click="excludedUser(usuario)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
@@ -63,8 +63,7 @@ export default defineComponent({
     return {
       usuarios: [] as Array<any>,
       enumUser: enumUser,
-      editUserId: null as number | null, 
-      cond: true
+      editUserId: null as number | null,
     };
   },
   created() {
@@ -81,8 +80,7 @@ export default defineComponent({
         this.usuarios = response.data;
 
         this.usuarios.forEach((usuario) => {
-          usuario.funcao = enumUser[usuario.tipoUsuario];
-          usuario.ativo = true; // Defina todos os usuários como ativos por padrão
+          usuario.funcao = this.getFuncao(usuario.idTipoUsuario);
         });
       } catch (err) {
         alert('Algo deu errado, tente novamente mais tarde.');
@@ -118,37 +116,32 @@ export default defineComponent({
           this.usuarios[userIndex] = updatedUser;
         }
 
-        this.closeUpdateModal(); 
+        this.closeUpdateModal();
       } catch (error) {
         alert('Erro ao atualizar o usuário. Tente novamente mais tarde.');
       }
     },
     closeUpdateModal() {
-      this.editUserId = null; 
+      this.editUserId = null;
       var modal = document.getElementById("update-user-modal");
       if (modal) {
         modal.style.display = "none";
       }
     },
-    async excludedUser(index: number) {
-  const usuario = this.usuarios[index];
-  console.log(usuario)
-  try {
-    // Verifique se o usuário está ativo antes de marcá-lo como inativo
-    if (usuario.ativo) {
-      // Use o método DELETE para marcar o usuário como inativo
-      await http.delete(`/usuario/${usuario.id}`);
-      usuario.ativo = false;
-      alert('Usuário marcado como Inativo');
-    } else {
-      // O usuário já está inativo
-      alert('Usuário já está Inativo');
+    async excludedUser(usuario: any) {
+      console.log(usuario);
+      try {
+        if (usuario.ativo) {
+          await http.put(`/usuario/${usuario.id}`, { ativo: false }); // Marca o usuário como inativo
+          usuario.ativo = false;
+          alert('Usuário marcado como Inativo');
+        } else {
+          alert('Usuário já está Inativo');
+        }
+      } catch (error) {
+        alert('Algo deu errado, tente novamente mais tarde.');
+      }
     }
-  } catch (error) {
-    alert('Algo deu errado, tente novamente mais tarde.');
-  }
-}
-
   }
 });
 </script>
@@ -159,21 +152,21 @@ export default defineComponent({
     width: 140px;
     color: white;
 
-    &.approvedGestor{
-        background-color: #fac02d;
+    &.approvedGestor {
+      background-color: #fac02d;
     }
 
     &.approved {
-        background-color: #26fc29;
+      background-color: #26fc29;
     }
 
     &.waiting {
-        background-color: gainsboro;
+      background-color: gainsboro;
     }
 
     &.reproved,
     &.canceled {
-        background-color: red;
+      background-color: red;
     }
 }
 </style>
