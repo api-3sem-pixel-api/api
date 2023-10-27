@@ -21,9 +21,8 @@ export const colaboradorMenu: MenuParent[] = [
       icon: 'fas fa-clock',
       description: 'Lançamento de Horas',
       active: false,
-      link:'',
+      link:'lancamentohoras',
       childs: [
-        { active: false, description: 'Lançamento', link: 'authorized/lancamentohoras' }
       ]
     },
     {
@@ -36,30 +35,29 @@ export const colaboradorMenu: MenuParent[] = [
 ]
 
 export const gestorMenu: MenuParent[] = [
-      {
-        icon: 'fas fa-home',
-        description: 'Home',
-        active: false,
-        link: '/authorized',
-        childs: []
-      },
-      {
-        icon: 'fas fa-clock',
-        description: 'Lançamento de Horas',
-        active: false,
-        link:'',
-        childs: [
-          { active: false, description: 'Lançamento', link: 'authorized/lancamentohoras' }
-        ]
-      },
-      {
-        icon: 'fa-solid fa-right-from-bracket',
-        description: 'Sair',
-        active: false,
-        link:'/',
-        childs: []
-      }
+  {
+    icon: 'fas fa-home',
+    description: 'Home',
+    active: false,
+    link: '/authorized',
+    childs: []
+  },
+  {
+    icon: 'fas fa-clock',
+    description: 'Lançamento de Horas',
+    active: false,
+    link:'lancamentohoras',
+    childs: []
+  },
+  {
+    icon: 'fa-solid fa-right-from-bracket',
+    description: 'Sair',
+    active: false,
+    link:'/',
+    childs: []
+  }
 ]
+
 
 export const adminMenu: MenuParent[] = [
   {
@@ -75,16 +73,16 @@ export const adminMenu: MenuParent[] = [
     active: false,
     link:'',
     childs: [
-      { active: false, description: 'CR', link: '/cr' },
-      { active: false, description: 'Usuario', link: '/usuario' },
-      { active: false, description: 'Cliente', link: '/cliente' },
+      { active: false, description: 'CR', link: 'cr' },
+      { active: false, description: 'Usuario', link: 'usuario' },
+      { active: false, description: 'Cliente', link: 'cliente' },
     ]
   },
   {
     icon: 'fas fa-clock',
     description: 'Aprovação/Reprovação',
     active: false,
-    link:'authorized/lancamentohoras',
+    link:'lancamentohoras',
     childs: []
   },
   {
