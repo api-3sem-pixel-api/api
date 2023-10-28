@@ -18,16 +18,22 @@ import http from '@/services/http';
 import { Options, Vue } from 'vue-class-component';
 export default class Relatorio extends Vue {
 
-async gerar(){
+  async gerar() {
+  try {
+    const response = await http.get('/relatorio', {responseType:'arraybuffer'});
+    var blob = new Blob([response.data]);
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download ='teste.xls';
+    link.click()
 
-      http.get('/relatorio')
-            .catch(_ => alert('Tente Novamente '))
-            .finally(()=>{              
+    
+  } catch (error) {
+    console.error('Erro na solicitação de relatório:', error);
+    alert('Erro ao gerar relatório. Tente novamente.');
+  }
+}
 
-            });
-      
-
-    }
   }
 
 
