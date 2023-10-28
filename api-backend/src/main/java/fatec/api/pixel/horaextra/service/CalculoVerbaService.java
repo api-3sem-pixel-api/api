@@ -1,6 +1,7 @@
 package fatec.api.pixel.horaextra.service;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,11 +55,11 @@ public class CalculoVerbaService {
 	}
 	
 	private String getInicioHorarioNoturno() {
-		return parametrizacaoRepository.findInicioHorarioNoturno();
+		return parametrizacaoRepository.findInicioHorarioNoturno().substring(0, 2);
 	}
 	
 	private String getFimHorarioNoturno() {
-		return parametrizacaoRepository.findFimHorarioNoturno();
+		return parametrizacaoRepository.findFimHorarioNoturno().substring(0,2);
 	}
 	
 	private boolean isNoturna(LocalDateTime data) {
@@ -89,8 +90,13 @@ public class CalculoVerbaService {
 		if(isNoturna(dataInicio) || horasTrabalhadas <= 2) {
 			return;
 		}
-		//retorna a quantidade de horas descontado das 2 horas da 1601
-		dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1602", (double) quantidadeHorasTrabalhadas(dataInicio, dataFim) - 2));
+		if(isDiaUtil(dataInicio)){
+			//retorna a quantidade de horas descontado das 2 horas da 1601
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1602", (double) quantidadeHorasTrabalhadas(dataInicio, dataFim) - 2));
+		}else {
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1602", (double) quantidadeHorasTrabalhadas(dataInicio, dataFim)));
+		}
+		
 	}
 	
 	public void quantidadeVerba3000(LancamentoHoras lancamento, List<DadosRelatorio> dados) {
@@ -102,8 +108,12 @@ public class CalculoVerbaService {
 		}
 		if (quantidadeHorasTrabalhadas(dataInicio, dataFim) >= 2) {
 			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "3000", 2 * FATOR_MULTIPLICACAO_HN));
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1809", 2 * FATOR_MULTIPLICACAO_HN));
+		}else {
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "3000", FATOR_MULTIPLICACAO_HN));
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1809", FATOR_MULTIPLICACAO_HN));
 		}
-		dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "3000", FATOR_MULTIPLICACAO_HN));
+		
 	}
 	
 	public void quantidadeVerba3001(LancamentoHoras lancamento, List<DadosRelatorio> dados) {
@@ -114,11 +124,20 @@ public class CalculoVerbaService {
 		if(!isNoturna(dataInicio) || horasTrabalhadas <= 2) {
 			return;
 		}
-		dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "3001", (quantidadeHorasTrabalhadas(dataInicio, dataFim) - 2) * FATOR_MULTIPLICACAO_HN));
+		
+		if(isDiaUtil(dataInicio)) {
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "3001", (quantidadeHorasTrabalhadas(dataInicio, dataFim) - 2) * FATOR_MULTIPLICACAO_HN));
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1809", (quantidadeHorasTrabalhadas(dataInicio, dataFim) - 2) * FATOR_MULTIPLICACAO_HN));
+		}else {
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "3001", (quantidadeHorasTrabalhadas(dataInicio, dataFim)) * FATOR_MULTIPLICACAO_HN));
+			dados.add(new DadosRelatorio(lancamento.getUsuario().getNome(), "1809", (quantidadeHorasTrabalhadas(dataInicio, dataFim)) * FATOR_MULTIPLICACAO_HN));
+		}
+		
 	}
 	
 	
 	public int quantidadeHorasTrabalhadas(LocalDateTime dataInicio, LocalDateTime dataFim) {
-		return dataFim.getHour() - dataInicio.getHour();
+		Duration duracao = Duration.between(dataInicio, dataFim);
+		return (int) duracao.toHours();
 	}
 } 
