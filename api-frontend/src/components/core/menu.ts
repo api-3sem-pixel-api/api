@@ -94,6 +94,13 @@ export const adminMenu: MenuParent[] = [
     active: false,
     link:'relatorio',
     childs: []
+  },
+  {
+    icon: 'fa fa-cog',
+    description: 'Parametrização',
+    active: false,
+    link:'parametrizacao',
+    childs: []
 
   },
   {

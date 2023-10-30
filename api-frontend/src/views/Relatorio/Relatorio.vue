@@ -12,13 +12,13 @@
         class="btn btn-outline-primary"> Gerar relatório </button></div>
         
     </div>
-     
+
 
 </template>
 
 <script lang="ts">
-import http from '@/services/http';
-import { Options, Vue } from 'vue-class-component';
+import http from "@/services/http";
+import { Options, Vue } from "vue-class-component";
 export default class Relatorio extends Vue {
   
   relatorio: any = {
@@ -34,7 +34,7 @@ export default class Relatorio extends Vue {
     var blob = new Blob([response.data]);
     var link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download ='teste.xls';
+    link.download ='extrato_horas.xls';
     link.click()
 
     
@@ -43,11 +43,7 @@ export default class Relatorio extends Vue {
     alert('Erro ao gerar relatório. Tente novamente.');
   }
 }
-
-  }
-
-
-
+}
 </script>
 
 <style scoped>
@@ -58,12 +54,11 @@ export default class Relatorio extends Vue {
 
 
 .bold {
-    font-weight: 700;
-    width: 100%;
-  }
+  font-weight: 700;
+  width: 100%;
+}
 
-  .relatorio {
-    margin-bottom: 75px;
-  }
-
+.relatorio {
+  margin-bottom: 75px;
+}
 </style>
