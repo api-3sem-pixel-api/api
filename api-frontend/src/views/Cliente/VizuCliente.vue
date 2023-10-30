@@ -17,7 +17,7 @@
              
               <td>{{ client['razaoSocialCliente'] }}</td>
               <td>{{ client['cnpjCliente'] }}</td>
-              <td class="text-center d-flex" style="justify-content: center;"  > <div 
+              <td style="width: 100px"> <div 
               class="pill approved text-center text-wrap" 
               :class="{
                 approved: client['ativo'] == true,

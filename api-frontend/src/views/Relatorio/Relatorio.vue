@@ -1,11 +1,14 @@
 <template>
     <div class="row relatorio">
         <div class="col-3">
-            <p class="bold">p</p>
-            <select class="form-select" aria-label=".form-select-lg example" > 
-            </select>
+            <p class="bold">Data Inicio</p>
+            <input class="party" id="party" type="date" name="partydate" v-model="relatorio.datainicio" />
        </div> 
-       <div class="col-1" style="margin-top:40px;"><button @click="gerar()" type="button"
+       <div class="col-3">
+        <p class="bold">Data Fim</p>
+        <input class="party" id="party" type="date" name="partydate" v-model="relatorio.datafim" />
+       </div> 
+       <div class="col-1" style="margin-top:20px;"><button @click="gerar()" type="button"
         class="btn btn-outline-primary"> Gerar relatório </button></div>
         
     </div>
@@ -17,10 +20,17 @@
 import http from '@/services/http';
 import { Options, Vue } from 'vue-class-component';
 export default class Relatorio extends Vue {
+  
+  relatorio: any = {
+    datainicio:'',
+    datafim:''
 
+
+  }
   async gerar() {
-  try {
-    const response = await http.get('/relatorio', {responseType:'arraybuffer'});
+
+    try {
+    const response = await http.get('/relatorio',{responseType:'arraybuffer', params:this.relatorio});
     var blob = new Blob([response.data]);
     var link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -41,6 +51,12 @@ export default class Relatorio extends Vue {
 </script>
 
 <style scoped>
+.party {
+  border: 1px solid #000;
+  
+}
+
+
 .bold {
     font-weight: 700;
     width: 100%;

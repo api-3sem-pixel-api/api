@@ -23,7 +23,7 @@
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
            <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
-           <td class="text-center d-flex" style="justify-content: center;"  > <div 
+           <td style="width: 100px"> <div 
               class="pill approved text-center text-wrap" 
               :class="{
                 approved: usuario['ativo'] == true,
