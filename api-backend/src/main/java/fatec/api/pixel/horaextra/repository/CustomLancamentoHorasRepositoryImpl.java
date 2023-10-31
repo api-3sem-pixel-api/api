@@ -1,13 +1,13 @@
 package fatec.api.pixel.horaextra.repository;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import fatec.api.pixel.horaextra.dto.DadosDashboard;
 import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
+import fatec.api.pixel.horaextra.dto.DadosRetornoDashboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -77,4 +77,65 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				}
 				return dadosListagemLancamentoHoras;
 	}
+	
+	public List<DadosRetornoDashboard> findHoras(DadosDashboard dados){
+		String jpql = "SELECT SUM(TIMESTAMPDIFF(HOUR,a.DataHora_Inicio, a.DataHora_Fim)) Horas,"
+				+ "    b.Razao_Social,"
+				+ "    c.Nome,"
+				+ "    a.Id_Usuario,"
+				+ "    a.Modalidade"
+				+ "	   from ("
+				+ "	   select"
+				+ "			Id_Cliente,"
+				+ "            Id_Cr,"
+				+ "            Id_Modalidade,"
+				+ "            Id_Usuario,"
+				+ "            case"
+				+ "				   when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino and Id_Modalidade = 1 then 1"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 1 then 2"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino and Id_Modalidade = 2 then 3"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 2 then 4"
+				+ "            end Modalidade,"
+				+ "            DataHora_Inicio,"
+				+ "            DataHora_Fim"
+				+ "            from extrato_hora"
+				+ " 	WHERE id_cliente = :idCliente"
+				+ " 	AND id_cr = :idCr"
+				+ " 	AND dataHora_inicio >= :dataInicio"
+				+ " 	AND dataHora_fim <= :dataFim"
+				+ " 	) as a"
+				+ " 	join cliente b on a.Id_cliente = b.id"
+				+ " 	join cr c on c.Id = a.id_cr"
+				+ " 	join modalidade d on d.Id = a.id_Modalidade"
+				+ " 	group by a.Modalidade, b.Razao_Social, c.Nome, d.Descricao, Id_Usuario";
+	}
+	
+	/*
+	public List<DadosRetornoDashboard> getDashboard(Long idCliente, Long idCr, Date dataInicio, Date dataFim){
+		String jpql = "SELECT *"
+				+ " FROM extrato_hora eh"
+				+ " WHERE id_cliente = :idCliente"
+				+ " AND id_cr = :idCr"
+				+ " AND dataHora_inicio >= :dataInicio"
+				+ " AND dataHora_fim <= :dataFim";
+		
+		TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
+		query.setParameter("idCliente", idCliente);
+		query.setParameter("idCr", idCr);
+		query.setParameter("dataInicio", dataInicio);
+		query.setParameter("dataFim", dataFim);
+		
+		List<Object[]> result = query.getResultList();
+		List<DadosRetornoDashboard> dadosRetornoDashboard = new ArrayList<DadosRetornoDashboard>();
+		
+		for(Object[] object : result) {
+			dadosRetornoDashboard.add(new DadosRetornoDashboard(
+					(double) object[0],
+					(double) object[1],
+					(double) object[2],
+					(double) object[3]));
+		}
+		return dadosRetornoDashboard;
+	}
+	*/
 }
