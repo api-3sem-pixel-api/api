@@ -1,6 +1,9 @@
 package fatec.api.pixel.horaextra.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,18 @@ public class DashboardService {
 		 return dadosRetorno = repository.findHoras(dados, horas);
 	}
 	
+	public Date convertData(String data) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = null;
+		try {
+			date = sdf.parse(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
 	public String horarioNoturno() {
 		return parametrizacaoRepository.findInicioHorarioNoturno();
 	}
@@ -35,12 +50,4 @@ public class DashboardService {
 	public String horarioMatutino() {
 		return parametrizacaoRepository.findFimHorarioNoturno();
 	}
-	
-	/*
-	 * public List<DadosListagemLancamentoHoras> listarLancamento(Long idUsuario){
-		var tipoUsuario = usuarioRepository.findTipoUsuarioByIdUsuario(idUsuario);
-		List<DadosListagemLancamentoHoras> lancamentoHoras = new ArrayList<DadosListagemLancamentoHoras>();
-		return lancamentoHoras = lancamentoHorasRepository.findLancamentoHoras(idUsuario, tipoUsuario.getId());
-	}
-	 */
 }

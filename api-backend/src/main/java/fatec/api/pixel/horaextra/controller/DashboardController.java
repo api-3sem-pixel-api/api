@@ -24,19 +24,11 @@ public class DashboardController {
 	@GetMapping
 	public ResponseEntity<List<DadosRetornoDashboard>> findDashboard(@RequestParam(value="idCliente" , required = false) Long idCliente, 
 							  										@RequestParam(value="idCr", required = false) Long idCr,								
-							  										@RequestParam(value="dataInicio" , required = false) Date dataInicio, 
-							  										@RequestParam(value="dataFim", required = false) Date dataFim) throws Exception{
+							  										@RequestParam(value="dataInicio" , required = false) String dataInicio, 
+							  										@RequestParam(value="dataFim", required = false) String dataFim) throws Exception{
 		
-		DadosDashboard dados = new DadosDashboard(idCliente, idCr, dataInicio, dataFim);
+		DadosDashboard dados = new DadosDashboard(idCliente, idCr, service.convertData(dataInicio), service.convertData(dataFim));
 		var dadosRetorno = service.findDashboard(dados);
 		return ResponseEntity.ok().body(dadosRetorno);	
 	}
-	
-	/*
-	@GetMapping
-	public ResponseEntity<List<DadosRetornoDashboard>> getDashboard(@RequestBody DadosDashboard dados){
-		var obterDadosDashboard = service.getDashboard(dados);
-		return ResponseEntity.ok().body(obterDadosDashboard);	
-	}
-	*/
 }
