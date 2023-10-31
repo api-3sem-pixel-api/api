@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fatec.api.pixel.horaextra.dto.DadosFiltroRelatorio;
 import fatec.api.pixel.horaextra.dto.DadosRelatorio;
 import fatec.api.pixel.horaextra.model.Cliente;
 import fatec.api.pixel.horaextra.repository.ClienteRepository;
@@ -22,12 +23,12 @@ public class RelatorioService {
 	@Autowired
 	private CalculoVerbaService service;
 
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public void generateExcel(HttpServletResponse response) throws Exception {
+	public void generateExcel(DadosFiltroRelatorio dados, HttpServletResponse response) throws Exception {
 
-		Date dataInicio = sdf.parse("01/10/2023");// temporario enquanto não tem o filtro no front
-		Date dataFim = sdf.parse("30/10/2023");
+		Date dataInicio = sdf.parse(dados.dataInicio());
+		Date dataFim = sdf.parse(dados.dataFim());
 		
 		
 		List<DadosRelatorio> dadosRelatorio = service.getDadosRelatorio(dataInicio, dataFim); 
