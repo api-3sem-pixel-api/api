@@ -3,6 +3,8 @@ package fatec.api.pixel.horaextra.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -33,6 +35,20 @@ public class RelatorioService {
 		
 		List<DadosRelatorio> dadosRelatorio = service.getDadosRelatorio(dataInicio, dataFim); 
 
+		
+        Map<String, Map<String, Double>> agrupadoComSoma = dadosRelatorio.stream()
+                .collect(Collectors.groupingBy(DadosRelatorio::nome,
+                        Collectors.groupingBy(DadosRelatorio::verba,
+                                Collectors.summingDouble(DadosRelatorio::quantidadeHoras))));
+        
+        dadosRelatorio.clear();
+        
+        agrupadoComSoma.forEach((nome, mapPorVerba) -> {
+            mapPorVerba.forEach((verba, somaVerba) -> {
+                dadosRelatorio.add(new DadosRelatorio(nome, verba, somaVerba));
+            });
+        });
+		
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet("Extrato Horas");
 		HSSFRow row = sheet.createRow(0);
