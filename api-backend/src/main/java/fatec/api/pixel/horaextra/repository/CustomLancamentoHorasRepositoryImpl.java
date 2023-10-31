@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import fatec.api.pixel.horaextra.dto.DadosDashboard;
+import fatec.api.pixel.horaextra.dto.DadosDashboardHoras;
 import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
 import fatec.api.pixel.horaextra.dto.DadosRetornoDashboard;
 import jakarta.persistence.EntityManager;
@@ -78,7 +79,7 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				return dadosListagemLancamentoHoras;
 	}
 	
-	public List<DadosRetornoDashboard> findHoras(DadosDashboard dados){
+	public List<DadosRetornoDashboard> findHoras(DadosDashboard dados, DadosDashboardHoras horas){
 		String jpql = "SELECT SUM(TIMESTAMPDIFF(HOUR,a.DataHora_Inicio, a.DataHora_Fim)) Horas,"
 				+ "    b.Razao_Social,"
 				+ "    c.Nome,"
@@ -108,6 +109,27 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				+ " 	join cr c on c.Id = a.id_cr"
 				+ " 	join modalidade d on d.Id = a.id_Modalidade"
 				+ " 	group by a.Modalidade, b.Razao_Social, c.Nome, d.Descricao, Id_Usuario";
+		
+		TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
+		query.setParameter("horarioNoturno", horas.horarioNoturno());
+		query.setParameter("horarioMatutino", horas.horarioMatutino());
+		query.setParameter("idCliente", dados.idCliente());
+		query.setParameter("idCr", dados.idCr());
+		query.setParameter("dataInicio", dados.dataInicio());
+		query.setParameter("dataFim", dados.dataFim());
+		
+		List<Object[]> result = query.getResultList();
+		List<DadosRetornoDashboard> dadosRetornoDashboard = new ArrayList<DadosRetornoDashboard>();
+		
+		for(Object[] object : result) {
+			dadosRetornoDashboard.add(new DadosRetornoDashboard(
+					(double) object[0],
+					(String) object[1],
+					(String) object[2],
+					(Long) object[3],
+					(String) object[4]));
+		}
+		return dadosRetornoDashboard;
 	}
 	
 	/*

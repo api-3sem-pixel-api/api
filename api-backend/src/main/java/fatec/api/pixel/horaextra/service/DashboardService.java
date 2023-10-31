@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fatec.api.pixel.horaextra.dto.DadosDashboard;
+import fatec.api.pixel.horaextra.dto.DadosDashboardHoras;
 import fatec.api.pixel.horaextra.dto.DadosRetornoDashboard;
 import fatec.api.pixel.horaextra.repository.LancamentoHorasRepository;
+import fatec.api.pixel.horaextra.repository.ParametrizacaoRepository;
 
 @Service
 public class DashboardService {
@@ -16,11 +18,23 @@ public class DashboardService {
 	@Autowired
 	LancamentoHorasRepository repository;
 	
+	@Autowired
+	ParametrizacaoRepository parametrizacaoRepository;
+	
 	public List<DadosRetornoDashboard> findDashboard(DadosDashboard dados){
 		 List<DadosRetornoDashboard> dadosRetorno = new ArrayList<DadosRetornoDashboard>();
-		 return dadosRetorno = repository.findHoras(dados);
+		 DadosDashboardHoras horas = new DadosDashboardHoras(horarioNoturno(), horarioMatutino());
+		 
+		 return dadosRetorno = repository.findHoras(dados, horas);
 	}
 	
+	public String horarioNoturno() {
+		return parametrizacaoRepository.findInicioHorarioNoturno();
+	}
+	
+	public String horarioMatutino() {
+		return parametrizacaoRepository.findFimHorarioNoturno();
+	}
 	
 	/*
 	 * public List<DadosListagemLancamentoHoras> listarLancamento(Long idUsuario){

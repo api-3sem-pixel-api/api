@@ -1,8 +1,9 @@
 package fatec.api.pixel.horaextra.dto;
 
-public record DadosRetornoDashboard(double horaExtraMatutina,
-									double horaExtraNoturna,
-									double sobrevaisoMatutino,
-									double sobreavisoNoturno) {
+public record DadosRetornoDashboard(double horas,
+									String razaoSocial,
+									String nome,
+									Long idUsuario,
+									String Modalidade) {
 
 }

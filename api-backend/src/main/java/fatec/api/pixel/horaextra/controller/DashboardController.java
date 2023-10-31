@@ -27,7 +27,7 @@ public class DashboardController {
 							  										@RequestParam(value="dataInicio" , required = false) Date dataInicio, 
 							  										@RequestParam(value="dataFim", required = false) Date dataFim) throws Exception{
 		
-		DadosDashboard dados = new DadosDashboard(idCliente, idCr, dataInicio, dataFim, null, null);
+		DadosDashboard dados = new DadosDashboard(idCliente, idCr, dataInicio, dataFim);
 		var dadosRetorno = service.findDashboard(dados);
 		return ResponseEntity.ok().body(dadosRetorno);	
 	}
