@@ -1,4 +1,44 @@
 <template>
+      <Cliente @update-table="loadAllcliente"></Cliente>
+      <div class="row">
+        <table class="table table-responsive no-wrap-table">
+          <thead>
+            <tr>
+              <th scope="col" class="text-left">Razão Social</th>
+              <th scope="col" class="text-left">Cnpj</th>
+            
+              <th scope="col" class="text-center">Status</th>
+              <th scope="col" class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(client, index) in clientes" :key="index">
+          
+             
+              <td>{{ client['razaoSocialCliente'] }}</td>
+              <td>{{ client['cnpjCliente'] }}</td>
+              <td style="width: 100px"> <div 
+              class="pill approved text-center text-wrap" 
+              :class="{
+                approved: client['ativo'] == true,
+            }" > 
+                Ativo 
+            </div></td>
+              <td class="text-center">
+                <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    
+            <button class="btn btn-link"><i class="fa fa-trash" aria-hidden="true"></i></button>
+
+            
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+
+
+
   <div>
     <Cliente @update-table="loadAllCliente"></Cliente>
     <div class="row">

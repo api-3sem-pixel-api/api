@@ -18,7 +18,7 @@
           <td>{{ cr['codigo'] }}</td>
           <td>{{ cr['sigla'] }}</td>
           <td>{{ cr['nome'] }}</td>
-          <td class="d-flex justify-content-center">  
+          <td style="width: 100px">  
             <div 
               class="pill text-center text-wrap" 
               :class="{

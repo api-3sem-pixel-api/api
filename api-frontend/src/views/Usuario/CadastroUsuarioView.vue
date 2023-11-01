@@ -21,12 +21,24 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
+           <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
+           <td style="width: 100px"> <div 
+              class="pill approved text-center text-wrap" 
+              :class="{
+                approved: usuario['ativo'] == true,
+            }" > 
+                Ativo 
+            </div></td>
+           <td class="text-center">
+            <button class="btn btn-link" @click="updateUser(usuario.id)">
+
           <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
           <td class="text-center">
             <div class="pill text-center text-wrap" :class="{ 'approved': usuario.ativo, 'canceled': !usuario.ativo }">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</div>
           </td>
           <td class="text-center">
             <button class="btn btn-link" @click="updateUser(usuario['id'])">
+
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
             <button class="btn btn-link" @click="inativarUsuario(usuario['id'])">

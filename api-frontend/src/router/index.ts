@@ -5,6 +5,7 @@ import LancamentoHorasView from '@/views/LancamentoHoras/LancamentoHorasView.vue
 import cliente from '@/views/Cliente/VizuCliente.vue'
 import ControleCrView from '@/views/Cr/ControleCrView.vue'
 import CadastroUsuarioView from '@/views/Usuario/CadastroUsuarioView.vue'
+import Relatorio from '@/views/Relatorio/Relatorio.vue'
 import ParametrizacaoView from '@/views/Parametrizacao/ParametrizacaoView.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -19,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     children: [
       {
-        path: "lancamentohoras", 
+        path: "/lancamentohoras", 
         name: "LancamentoHoras",
         component:LancamentoHorasView,
       },
@@ -39,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
         component: CadastroUsuarioView,
       },
       {
+        path:"/relatorio",
+        name: "Relatorio",
+        component: Relatorio,
+	  },
+	  {
         path: "/parametrizacao",
         name: "Parametrizacao",
         component: ParametrizacaoView,
