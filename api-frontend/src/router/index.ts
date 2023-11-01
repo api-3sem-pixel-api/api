@@ -49,6 +49,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "dashboard",
         name: "Dashboard",
         component: DashboardViewVue,
+      },
+      {
+        path: "relatorio",
+        name: "Relatorio",
+        component: Relatorio,
       }
     ]
   }
