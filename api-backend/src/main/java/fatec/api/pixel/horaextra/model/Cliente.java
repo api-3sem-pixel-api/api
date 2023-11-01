@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Cliente")
+@Table(name = "cliente")
 @Entity(name = "Cliente")
 @Getter
 @Setter
@@ -28,7 +28,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "Razao_Social")
+	@Column(name = "razao_social")
 	private String razaoSocial;
 	private String cnpj;
 	private boolean ativo;

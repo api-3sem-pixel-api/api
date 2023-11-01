@@ -1,6 +1,6 @@
 drop table parametrizacao;
 
-CREATE TABLE `Parametrizacao` (
+CREATE TABLE `parametrizacao` (
   `id` int NOT NULL AUTO_INCREMENT,
   `dt_inicio_pagamento` int NOT NULL,
   `dt_fim_pagamento` int NOT NULL,
@@ -15,4 +15,4 @@ CREATE TABLE `Parametrizacao` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO PARAMETRIZACAO VALUES(0, '16', '15', '19:00', '04:59', 1,1,1,1,1,1);
+INSERT INTO parametrizacao VALUES(0, '16', '15', '19:00', '04:59', 1,1,1,1,1,1);

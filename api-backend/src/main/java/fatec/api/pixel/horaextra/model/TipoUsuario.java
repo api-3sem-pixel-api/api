@@ -29,7 +29,6 @@ public class TipoUsuario {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "tipoUsuario")
-	
 	private List<Usuario> usuario;
 	
 	public TipoUsuario(Long idTipoUsuario) {

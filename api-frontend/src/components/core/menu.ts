@@ -86,11 +86,19 @@ export const adminMenu: MenuParent[] = [
     childs: []
   },
   {
+    icon: 'fas fa-clock',
+    description: 'Relatório',
+    active: false,
+    link:'relatorio',
+    childs: []
+  },
+  {
     icon: 'fa fa-cog',
     description: 'Parametrização',
     active: false,
     link:'parametrizacao',
     childs: []
+
   },
   {
     icon: 'fa-solid fa-right-from-bracket',

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "LancamentoHoras")
-@Table(name = "Extrato_Hora")
+@Table(name = "extrato_hora")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -38,15 +38,15 @@ public class LancamentoHoras {
 	private Date dataFim;
 
 	@ManyToOne
-	@JoinColumn(name = "Id_Cr")
+	@JoinColumn(name = "id_cr")
 	private Cr cr;
 
 	@ManyToOne
-	@JoinColumn(name = "Id_Usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "Id_Etapa_Extrato")
+	@JoinColumn(name = "id_etapa_extrato")
 	private EtapaExtrato etapa;
 
 	@ManyToOne
@@ -54,7 +54,7 @@ public class LancamentoHoras {
 	private Modalidade modalidade;
 
 	@ManyToOne
-	@JoinColumn(name = "Id_Cliente")
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 	
 	public LancamentoHoras(DadosCadastroLancamentoHoras horas) {
