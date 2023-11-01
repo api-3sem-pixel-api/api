@@ -92,7 +92,6 @@ export default defineComponent({
 
         this.usuarios.forEach((usuario) => {
           usuario.funcao = enumUser[usuario.tipoUsuario];
-          console.log(usuario.tipoUsuario);
         });
       } catch (err) {
         alert('Algo deu errado, tente novamente mais tarde.');

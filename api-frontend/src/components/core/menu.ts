@@ -26,6 +26,14 @@ export const colaboradorMenu: MenuParent[] = [
       ]
     },
     {
+      icon: 'fas fa-chart-bar',
+      description: 'Dashboard',
+      active: false,
+      link:'dashboard',
+      childs: [
+      ]
+    },
+    {
       icon: 'fa-solid fa-right-from-bracket',
       description: 'Sair',
       active: false,
@@ -48,6 +56,14 @@ export const gestorMenu: MenuParent[] = [
     active: false,
     link:'lancamentohoras',
     childs: []
+  },
+  {
+    icon: 'fas fa-chart-bar',
+    description: 'Dashboard',
+    active: false,
+    link:'dashboard',
+    childs: [
+    ]
   },
   {
     icon: 'fa-solid fa-right-from-bracket',
@@ -84,6 +100,14 @@ export const adminMenu: MenuParent[] = [
     active: false,
     link:'lancamentohoras',
     childs: []
+  },
+  {
+    icon: 'fas fa-chart-bar',
+    description: 'Dashboard',
+    active: false,
+    link:'dashboard',
+    childs: [
+    ]
   },
   {
     icon: 'fas fa-clock',

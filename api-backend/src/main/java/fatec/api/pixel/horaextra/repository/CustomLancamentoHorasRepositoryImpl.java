@@ -92,10 +92,10 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				+ "            Id_Modalidade,"
 				+ "            Id_Usuario,"
 				+ "            case"
-				+ "				   when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and (DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino or DATE_FORMAT(DataHora_Fim , '%H:%i:s') >= :horarioMatutino) and Id_Modalidade = 1 then 'horaExtraNoturna'"
-				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 1 then 'horaExtraMatutina'"
-				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and (DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino or DATE_FORMAT(DataHora_Fim , '%H:%i:s') >= :horarioMatutino) and Id_Modalidade = 2 then 'sobreavisoNoturno'"
-				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 2 then 'sobreavisoMatutino'"
+				+ "				   when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and (DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino or DATE_FORMAT(DataHora_Fim , '%H:%i:s') >= :horarioMatutino) and Id_Modalidade = 1 then 'HE Noturno'"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 1 then 'HE Diurno'"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and (DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino or DATE_FORMAT(DataHora_Fim , '%H:%i:s') >= :horarioMatutino) and Id_Modalidade = 2 then 'Sobreaviso Noturno'"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 2 then 'Sobreaviso Diurno'"
 				+ "            end Modalidade,"
 				+ "            DataHora_Inicio,"
 				+ "            DataHora_Fim"
@@ -108,7 +108,8 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 				+ " 	join cliente b on a.Id_cliente = b.id"
 				+ " 	join cr c on c.Id = a.id_cr"
 				+ " 	join modalidade d on d.Id = a.id_Modalidade"
-				+ " 	group by a.Modalidade, b.Razao_Social, c.Nome, d.Descricao, Id_Usuario";
+				+ " 	group by a.Modalidade, b.Razao_Social, c.Nome, d.Descricao, Id_Usuario"
+				+ " 	order by a.Modalidade asc";
 		
 		TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
 		query.setParameter("horarioNoturno", horas.horarioNoturno());

@@ -33,7 +33,7 @@ modalidade: '',
 
 async lancar() {
 
-console.log(this.lancamento);
+
 const { data } = await http.post("/lancamentoHoras", this.lancamento);
 
 }

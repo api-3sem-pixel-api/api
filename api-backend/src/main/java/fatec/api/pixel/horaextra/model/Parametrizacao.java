@@ -45,11 +45,11 @@ public class Parametrizacao {
 		this.dataFimPagamento = dados.dataFimPagamento();
 		this.inicioHorarioNoturno = dados.inicioHorarioNoturno();
 		this.fimHorarioNoturno = dados.fimHorarioNoturno();
-		this.V1601 = dados.V1601();
-		this.V1602 = dados.V1602();
-		this.V3000 = dados.V3000();
-		this.V3001 = dados.V3001();
-		this.V1809 = dados.V1809();
-		this.V3016 = dados.V3016();
+		this.V1601 = dados.v1601();
+		this.V1602 = dados.v1602();
+		this.V3000 = dados.v3000();
+		this.V3001 = dados.v3001();
+		this.V1809 = dados.v1809();
+		this.V3016 = dados.v3016();
 	}
 }

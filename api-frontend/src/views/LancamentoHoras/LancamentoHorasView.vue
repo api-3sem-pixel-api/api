@@ -123,10 +123,7 @@ export default class LancamentoHorasView extends Vue {
     const user = useAuth().getUser();
     http.get('/cr/' + user.id)
       .then(response => {
-        console.log(user)
         this.listcr = response.data
-        console.log(this.listcr)
-        console.log(response.data)
       })
 
   }
