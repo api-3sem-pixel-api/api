@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "modalidade")
+@Table(name = "Modalidade")
 @Entity(name = "Modalidade")
 @Getter
 @Setter

@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "cr")
+@Table(name = "Cr")
 @Entity(name = "Cr")
 @Getter
 @Setter
@@ -30,7 +30,7 @@ public class Cr {
 	private Long id;
 	private String nome;
 	private String sigla;
-	@Column(name = "codigo_cr")
+	@Column(name = "Codigo_CR")
 	private String codigo;
 	private boolean ativo;
 	

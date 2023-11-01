@@ -17,11 +17,11 @@ public class CustomCrRepositoryImpl implements CustomCrRepository {
 	
 	@Override
 	public List<DadosListagemCr> findCrByIdUsuario(Long id) {
-		String jpql = "SELECT cr.id,"
-				+ "	          cr.nome"
-				+ "    FROM cr cr"
-				+ "    INNER JOIN cr_usuario crUsuario on crUsuario.id_cr = cr.id"
-				+ "    WHERE crUsuario.id_usuario = :idUsuario ";
+		String jpql = "SELECT cr.Id,"
+				+ "	          cr.Nome"
+				+ "    FROM Cr cr"
+				+ "    INNER JOIN cr_usuario crUsuario on crUsuario.Id_Cr = cr.Id"
+				+ "    WHERE crUsuario.Id_Usuario = :idUsuario ";
 		
 				
 				TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
