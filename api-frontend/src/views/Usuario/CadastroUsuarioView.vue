@@ -18,10 +18,6 @@
           <th scope="col" class="text-left">CPF</th>
           <th scope="col" class="text-center">Função</th>
           <th scope="col" class="text-center">Status</th>
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/dashboard
           <th scope="col" class="text-center">Ações</th>
         </tr>
       </thead>
@@ -55,8 +51,6 @@
   <!-- Modal de Atualização de Usuário -->
   <ModalUsuarioView :user-id="editUserId" @update-user-details="updateUserDetails" @close-modal="closeUpdateModal">
   </ModalUsuarioView>
-</template>
-
 
   <ModalUpdateUsuarioView
     :user-id="editUserId"
