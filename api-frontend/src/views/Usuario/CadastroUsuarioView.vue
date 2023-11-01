@@ -26,7 +26,7 @@
             <div class="pill text-center text-wrap" :class="{ 'approved': usuario.ativo, 'canceled': !usuario.ativo }">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</div>
           </td>
           <td class="text-center">
-            <button class="btn btn-link" @click="updateUser(usuario.id)">
+            <button class="btn btn-link" @click="updateUser(usuario['id'])">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
             <button class="btn btn-link" @click="inativarUsuario(usuario['id'])">
@@ -38,26 +38,35 @@
     </table>
   </div>
 
-  <!-- Modal de Atualização de Usuário -->
-  <ModalUsuarioView
+
+    <!-- Modal de Atualização de Usuário -->
+    <ModalUsuarioView
     :user-id="editUserId"
     @update-user-details="updateUserDetails"
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
+
+  <!-- Modal de Atualização de Usuário -->
+  <ModalUpdateUsuarioView
+    :user-id="editUserId"
+    @update-user-details="updateUserDetails"
+    @close-modal="closeUpdateModal"
+  ></ModalUpdateUsuarioView>
 </template>
+
 
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
 import ModalUsuarioView from '@/views/Usuario/ModalCadastroUsuario/ModalCadastroUsuarioView.vue';
-import ModalCadastroUpdateUserView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue';
+import ModalUpdateUsuarioView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue'; // Importe o novo componente
 import { enumUser } from '@/views/Usuario/enumUser';
 
 export default defineComponent({
   name: "ControleUsuarioView",
   components: {
     ModalUsuarioView,
-    ModalCadastroUpdateUserView
+    ModalUpdateUsuarioView, 
   },
   data() {
     return {
@@ -100,12 +109,9 @@ export default defineComponent({
     },
     updateUser(userId: number) {
       this.editUserId = userId;
-      var modal = document.getElementById("update-user-modal");
-      if (modal) {
-        modal.style.display = "block";
-      } else {
-        console.error("Elemento não encontrado no DOM.");
-      }
+      var modal = document.getElementById("update-user-modal")!;
+      modal.style.display = "block";
+   
     },
     async updateUserDetails(updatedUser: any) {
       try {
