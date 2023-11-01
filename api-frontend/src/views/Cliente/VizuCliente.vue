@@ -65,7 +65,8 @@ export default defineComponent({
       try {
         const response = await http.get('/cliente');
         this.clientes = response.data;
-        console.log(this.clientes);
+
+       
       } catch (err) {
         alert('Algo deu errado, tente novamente mais tarde.');
       }

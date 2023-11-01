@@ -1,5 +1,11 @@
 <template>
-    <div class="d-flex justify-content-end mb-3">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3>CONTROLE | CLIENTE</h3>
+            <hr>
+        </div>
+    </div>
+    <div class="d-flex mt-3 justify-content-end mb-3">
         <button class="btn btn-outline-primary" @click="newCliente()"> Cadastrar Cliente </button>
     </div>
     <div id="cadastro-cliente-modal" class="r-modal">
@@ -25,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row mt-4">
                     <div class="col">
                         <button type="button" @click="save()" class="btn btn-success">Salvar</button>
@@ -35,7 +41,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script lang="ts">
@@ -46,7 +51,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'Cliente',
-    
+
     data() {
         return {
             nomeRs: '',
@@ -58,45 +63,45 @@ export default defineComponent({
     },
     methods: {
         newCliente() {
-        var modal = document.getElementById("cadastro-cliente-modal")!;
-        modal.style.display = "block";
+            var modal = document.getElementById("cadastro-cliente-modal")!;
+            modal.style.display = "block";
         },
-    
-        
-        
-        save(){
+
+
+
+        save() {
             const createCliente = {
                 razaoSocialCliente: this.nomeRs,
                 cnpjCliente: this.siglaCnpj, 
                 ativo:this.ativo,
                 idCliente: 0
             }
-            
 
-            http.post('/cliente',createCliente)
-            .then(_ => alert('Cliente salvo !!!'))
-            .catch(_ => alert('Tente Novamente '))
-            .finally(()=>{
-                this.clear()
-              
 
-            });
+            http.post('/cliente', createCliente)
+                .then(_ => alert('Cliente salvo !!!'))
+                .catch(_ => alert('Tente Novamente '))
+                .finally(() => {
+                    this.clear()
 
-            
+
+                });
+
+
         },
-        emitUpdateTable(){
+        emitUpdateTable() {
             this.$emit('update-table');
         },
-        
-        
-       
+
+
+
         close() {
             var modal = document.getElementById("cadastro-cliente-modal")!;
             modal.style.display = "none";
             this.clear();
         },
-      
-        clear(){
+
+        clear() {
             this.nomeRs = '';
             this.siglaCnpj = '';
         }
@@ -149,5 +154,4 @@ export default defineComponent({
 .r-ml-2 {
     margin-left: 15px;
 }
-
 </style>

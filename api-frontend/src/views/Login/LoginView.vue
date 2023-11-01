@@ -37,7 +37,7 @@ export default class LoginView extends Vue {
           token: response.data.token
         });
         auth.setIsAuth(true);
-        router.push('authorized')
+        router.push('authorized/')
       })
       .catch(err => {
         alert(
