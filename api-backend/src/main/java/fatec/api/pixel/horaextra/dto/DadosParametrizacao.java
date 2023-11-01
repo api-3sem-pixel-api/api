@@ -7,11 +7,11 @@ public record DadosParametrizacao(
 		int dataFimPagamento,
 		String inicioHorarioNoturno,
 		String fimHorarioNoturno,
-		int V1601,
-		int V1602,
-		int V3000,
-		int V3001,
-		int V1809,
-		int V3016) {
+		int v1601,
+		int v1602,
+		int v3000,
+		int v3001,
+		int v1809,
+		int v3016) {
 
 }

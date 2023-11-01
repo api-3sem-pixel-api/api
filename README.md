@@ -55,21 +55,15 @@
       <li>Segurança</li>
     </ol>
    
-   <h2 align="center">Modelagem</h2>
+   <h2 align="center">Documentação</h2>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/Documenta%C3%A7%C3%A3o.pdf"> Documentação </a></li>
+   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/backlog.png"> Backlog </a></li>
    <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/MER.png">Modelo Entidade-Relacionamento</a></li>
    <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/ModeloLogico.jpeg">Modelo Lógico</a></li>
-   <br>
-
-   <h2 align="center">Dicionário de Dados</h2>
    <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/DicionarioDados.pdf">Dicionário de Dados</a></li>
    <br>
    
-   <h2 align="center">Documentação</h2>
-   <li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/Documenta%C3%A7%C3%A3o.pdf"> Documentação </a></li>
-   <br>
-   
    <h2 align="center">Sprints</h2>
-   
    <h3 align="center">Sprint-1</h3>
    <ul>
      <li>Burndown: https://imgur.com/a/DF0zaIQ</li>
