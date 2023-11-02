@@ -44,10 +44,10 @@ public class DashboardService {
 	}
 	
 	public String horarioNoturno() {
-		return parametrizacaoRepository.findInicioHorarioNoturno();
+		return parametrizacaoRepository.findFimHorarioNoturno();
 	}
 	
 	public String horarioMatutino() {
-		return parametrizacaoRepository.findFimHorarioNoturno();
+		return parametrizacaoRepository.findInicioHorarioNoturno();
 	}
 }
