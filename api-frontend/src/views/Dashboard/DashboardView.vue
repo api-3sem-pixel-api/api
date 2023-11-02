@@ -83,7 +83,7 @@ export default class DashboardView extends Vue {
                 enabled: false
             },
             xaxis: {
-                categories: ['Horas Extra - Diario', 'Horas Extra - Noturno', 'Sobreaviso - Diario', 'Sobreaviso - Noturno'],
+                categories: ['Horas Extra - Diario', 'Horas Extra - Noturno', 'Sobreaviso'],
             }
         },
     }    
@@ -108,8 +108,7 @@ export default class DashboardView extends Vue {
                 this.chartConfig.series[0].data = [
                     this.getHour(filteredData, 'HE Diurno'),
                     this.getHour(filteredData, 'HE Noturno'),
-                    this.getHour(filteredData, 'Sobreaviso Diurno'),
-                    this.getHour(filteredData, 'Sobreaviso Noturno')
+                    this.getHour(filteredData, 'Sobreaviso')
                 ];  
             });
     }

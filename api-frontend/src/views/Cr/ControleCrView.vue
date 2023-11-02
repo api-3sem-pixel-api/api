@@ -25,18 +25,20 @@
           <td>{{ cr['codigo'] }}</td>
           <td>{{ cr['sigla'] }}</td>
           <td>{{ cr['nome'] }}</td>
-          <td class="d-flex justify-content-center">
-            <div class="pill text-center text-wrap" :class="{
-              approved: cr['ativo'] == true,
-            }">
-              Ativo
+          <td style="width: 100px">  
+            <div 
+              class="pill text-center text-wrap" 
+              :class="{
+                approved: cr['ativo'] === true,
+                inativo: cr['ativo'] === false,
+              }"> 
+                {{ cr.ativo ? 'Ativo' : 'Inativo' }}
             </div>
           </td>
           <td class="text-center">
             <button class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button class="btn btn-link" @click="editUserCr(cr['id'])"><i class="fas fa-id-card"
-                aria-hidden="true"></i></button>
-            <button class="btn btn-link"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button class="btn btn-link" @click="editUserCr(cr['id'])"><i class="fas fa-id-card" aria-hidden="true"></i></button>
+            <button class="btn btn-link" @click="inativarCr(cr['id'])"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>
@@ -45,7 +47,6 @@
   <ModalCrUsuario :id-cr="idCr"></ModalCrUsuario>
   <ModalCadastroCrView @update-table="loadAllCr"></ModalCadastroCrView>
 </template>
-
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent, ref } from 'vue';
@@ -112,27 +113,27 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 .pill {
-  border-radius: 30px;
-  width: 140px;
-  color: white;
+    border-radius: 30px;
+    width: 140px;
+    color: white;
 
-  &.approvedGestor {
-    background-color: #fac02d;
-  }
+    &.approvedGestor {
+      background-color: #fac02d;
+    }
 
-  &.approved {
-    background-color: #26fc29;
-  }
+    &.approved {
+      background-color: #26fc29;
+    }
 
-  &.waiting {
-    background-color: gainsboro;
-  }
+    &.waiting {
+      background-color: gainsboro;
+    }
 
-  &.reproved,
-  &.canceled {
-    background-color: red;
-  }
+    &.reproved,
+    &.canceled {
+      background-color: red;
+    }
 }
 </style>
