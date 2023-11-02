@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="d-flex mt-3 justify-content-end mb-3">
-    <button class="btn btn-outline-primary" @click="newUser()"> Cadastrar Usuário </button>
+    <button class="btn btn-outline-primary" @click="newUser()"> Cadastcdrar Usuário </button>
   </div>
   <div class="row">
     <table class="table table-responsive no-wrap-table">
