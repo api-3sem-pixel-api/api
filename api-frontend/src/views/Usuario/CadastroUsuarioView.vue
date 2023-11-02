@@ -52,7 +52,7 @@
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
 
-  <!-- Modal de Atualização de Usuário -->
+
   <ModalUpdateUsuarioView
     :user-id="editUserId"
     @update-user-details="updateUserDetails"
