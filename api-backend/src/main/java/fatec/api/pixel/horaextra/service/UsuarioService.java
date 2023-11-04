@@ -32,7 +32,8 @@ public class UsuarioService {
 					usuario.getCpf(),
 					usuario.getNome(),
 					usuario.getTelefone(),
-					usuario.getEmail()));
+					usuario.getEmail(),
+					usuario.isAtivo()));
 		}
 		return dados;
 	}

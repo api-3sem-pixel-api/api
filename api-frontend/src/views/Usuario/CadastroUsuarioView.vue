@@ -1,6 +1,12 @@
 <template>
-  <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-outline-primary" @click="newUser()"> Cadastrar Usuário </button>
+  <div class="row mt-4">
+    <div class="col-12">
+      <h3>CONTROLE | USUARIO</h3>
+      <hr>
+    </div>
+  </div>
+  <div class="d-flex mt-3 justify-content-end mb-3">
+    <button class="btn btn-outline-primary" @click="newUser()"> Cadastcdrar Usuário </button>
   </div>
   <div class="row">
     <table class="table table-responsive no-wrap-table">
@@ -12,7 +18,6 @@
           <th scope="col" class="text-left">CPF</th>
           <th scope="col" class="text-center">Função</th>
           <th scope="col" class="text-center">Status</th>
-          
           <th scope="col" class="text-center">Ações</th>
         </tr>
       </thead>
@@ -22,19 +27,15 @@
           <td>{{ usuario['email'] }}</td>
           <td>{{ usuario['telefone'] }}</td>
           <td>{{ usuario['cpf'] }}</td>
-           <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
-           <td class="text-center d-flex" style="justify-content: center;"  > <div 
-              class="pill approved text-center text-wrap" 
-              :class="{
-                approved: usuario['ativo'] == true,
-            }" > 
-                Ativo 
-            </div></td>
-           <td class="text-center">
-            <button class="btn btn-link" @click="updateUser(usuario.id)">
+          <td>{{ getFuncao(usuario.idTipoUsuario) }}</td>
+          <td style="width: 100px">
+            <div class="pill text-center text-wrap" :class="{ 'approved': usuario.ativo, 'canceled': !usuario.ativo }">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</div>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-link" @click="updateUser(usuario['id'])">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
-            <button class="btn btn-link" @click="excludedUser(index)">
+            <button class="btn btn-link" @click="inativarUsuario(usuario['id'])">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
@@ -43,34 +44,41 @@
     </table>
   </div>
 
-  <!-- Modal de Atualização de Usuário -->
-  <ModalUsuarioView
+
+    <!-- Modal de Atualização de Usuário -->
+    <ModalUsuarioView
     :user-id="editUserId"
     @update-user-details="updateUserDetails"
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
-</template>
 
+
+  <ModalUpdateUsuarioView
+    :user-id="editUserId"
+    @update-user-details="updateUserDetails"
+    @close-modal="closeUpdateModal"
+  ></ModalUpdateUsuarioView>
+</template>
 
 
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
 import ModalUsuarioView from '@/views/Usuario/ModalCadastroUsuario/ModalCadastroUsuarioView.vue';
-import ModalCadastroUpdateUserView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue';
+import ModalUpdateUsuarioView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue'; // Importe o novo componente
 import { enumUser } from '@/views/Usuario/enumUser';
 
 export default defineComponent({
   name: "ControleUsuarioView",
   components: {
     ModalUsuarioView,
-    ModalCadastroUpdateUserView
+    ModalUpdateUsuarioView, 
   },
   data() {
     return {
       usuarios: [] as Array<any>,
       enumUser: enumUser,
-      editUserId: null as number | null 
+      editUserId: null as number | null
     };
   },
   created() {
@@ -79,8 +87,7 @@ export default defineComponent({
   methods: {
     newUser() {
       var modal = document.getElementById("cadastro-user-modal")!;
-        modal.style.display = "block";
-
+      modal.style.display = "block";
     },
     async loadAllUser() {
       try {
@@ -88,8 +95,7 @@ export default defineComponent({
         this.usuarios = response.data;
 
         this.usuarios.forEach((usuario) => {
-          usuario.funcao = enumUser[usuario.tipoUsuario];
-          console.log(usuario.tipoUsuario);
+          usuario.funcao = this.getFuncao(usuario.idTipoUsuario);
         });
       } catch (err) {
         alert('Algo deu errado, tente novamente mais tarde.');
@@ -109,14 +115,10 @@ export default defineComponent({
     },
     updateUser(userId: number) {
       this.editUserId = userId;
-      var modal = document.getElementById("update-user-modal");
-      if (modal) {
-        modal.style.display = "block";
-      } else {
-        console.error("Elemento não encontrado no DOM.");
-      }
+      var modal = document.getElementById("update-user-modal")!;
+      modal.style.display = "block";
+   
     },
-
     async updateUserDetails(updatedUser: any) {
       try {
         await http.put(`/usuario/${this.editUserId}`, updatedUser);
@@ -126,25 +128,42 @@ export default defineComponent({
           this.usuarios[userIndex] = updatedUser;
         }
 
-        this.closeUpdateModal(); 
+        this.closeUpdateModal();
       } catch (error) {
         alert('Erro ao atualizar o usuário. Tente novamente mais tarde.');
       }
     },
     closeUpdateModal() {
-      this.editUserId = null; 
+      this.editUserId = null;
       var modal = document.getElementById("update-user-modal");
       if (modal) {
         modal.style.display = "none";
       }
     },
-    async excludedUser(index: number) {
-      const usuario = this.usuarios[index];
-      try {
-        await http.delete(`/usuario/${usuario.id}`);
-        this.usuarios.splice(index, 1);
-      } catch (error) {
-        alert('Algo deu errado, tente novamente mais tarde.');
+    async inativarUsuario(id: number) {
+      const usuario = this.usuarios.find((usuario) => usuario.id === id);
+      console.log('ID a ser excluído:', id);
+
+      if (usuario) {
+        console.log('Usuario encontrado:', usuario);
+
+        try {
+          if (usuario.ativo) {
+            console.log('Usuario ativo, marcando como inativo:', );
+            await http.delete(`/usuario/${usuario.id}`);
+            usuario.ativo = false;
+            alert('Usuario marcado como Inativo');
+          } else {
+            console.log('Usuario já está Inativo:', usuario);
+            alert('Usuario já está Inativo');
+          }
+        } catch (error) {
+          console.error('Erro ao excluir o Usuario:', error);
+          alert('Algo deu errado, tente novamente mais tarde.');
+        }
+      } else {
+        console.log('Usuario não encontrado:', id);
+        alert('Usuario não encontrado');
       }
     }
   }
@@ -152,72 +171,26 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.r-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-
-    .r-modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 630px;
-    }
-
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    button {
-        color: white;
-    }
-    .pill {
+.pill {
     border-radius: 30px;
     width: 140px;
     color: white;
 
-    &.approvedGestor{
-        background-color: #fac02d;
+    &.approvedGestor {
+      background-color: #fac02d;
     }
 
     &.approved {
-        background-color: #26fc29;
+      background-color: #26fc29;
     }
 
     &.waiting {
-        background-color: gainsboro;
+      background-color: gainsboro;
     }
 
     &.reproved,
     &.canceled {
-        background-color: red;
+      background-color: red;
     }
 }
-
-}
-
-.r-ml-2 {
-    margin-left: 15px;
-}
-
-
 </style>

@@ -1,13 +1,14 @@
 package fatec.api.pixel.horaextra.repository;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import fatec.api.pixel.horaextra.dto.DadosDashboard;
+import fatec.api.pixel.horaextra.dto.DadosDashboardHoras;
 import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
+import fatec.api.pixel.horaextra.dto.DadosRetornoDashboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -76,5 +77,59 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 							Long.valueOf(object[10].toString())));
 				}
 				return dadosListagemLancamentoHoras;
+	}
+	
+	public List<DadosRetornoDashboard> findHoras(DadosDashboard dados, DadosDashboardHoras horas){
+		String jpql = "SELECT SUM(TIMESTAMPDIFF(HOUR,a.DataHora_Inicio, a.DataHora_Fim)) Horas,"
+				+ "    b.Razao_Social,"
+				+ "    c.Nome,"
+				+ "    a.Id_Usuario,"
+				+ "    a.Modalidade"
+				+ "	   from ("
+				+ "	   select"
+				+ "			Id_Cliente,"
+				+ "            Id_Cr,"
+				+ "            Id_Modalidade,"
+				+ "            Id_Usuario,"
+				+ "            case"
+				+ "				   when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') >= :horarioNoturno and (DATE_FORMAT(DataHora_Fim , '%H:%i:s') <= :horarioMatutino or DATE_FORMAT(DataHora_Fim , '%H:%i:s') >= :horarioMatutino) and Id_Modalidade = 1 then 'HE Noturno'"
+				+ "                when DATE_FORMAT(DataHora_Inicio, '%H:%i:s') < :horarioNoturno and DATE_FORMAT(DataHora_Fim , '%H:%i:s') > :horarioMatutino and Id_Modalidade = 1 then 'HE Diurno'"
+				+ "                when Id_Modalidade = 2 then 'Sobreaviso'"
+				+ "            end Modalidade,"
+				+ "            DataHora_Inicio,"
+				+ "            DataHora_Fim"
+				+ "            from extrato_hora"
+				+ " 	WHERE id_cliente = :idCliente"
+				+ " 	AND id_cr = :idCr"
+				+ " 	AND dataHora_inicio >= :dataInicio"
+				+ " 	AND dataHora_fim <= :dataFim"
+				+ " 	AND Id_Etapa_extrato = 2"
+				+ " 	) as a"
+				+ " 	join cliente b on a.Id_cliente = b.id"
+				+ " 	join cr c on c.Id = a.id_cr"
+				+ " 	join modalidade d on d.Id = a.id_Modalidade"
+				+ " 	group by a.Modalidade, b.Razao_Social, c.Nome, d.Descricao, Id_Usuario"
+				+ " 	order by a.Modalidade asc";
+		
+		TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
+		query.setParameter("horarioNoturno", horas.horarioNoturno());
+		query.setParameter("horarioMatutino", horas.horarioMatutino());
+		query.setParameter("idCliente", dados.idCliente());
+		query.setParameter("idCr", dados.idCr());
+		query.setParameter("dataInicio", dados.dataInicio());
+		query.setParameter("dataFim", dados.dataFim());
+		
+		List<Object[]> result = query.getResultList();
+		List<DadosRetornoDashboard> dadosRetornoDashboard = new ArrayList<DadosRetornoDashboard>();
+		
+		for(Object[] object : result) {
+			dadosRetornoDashboard.add(new DadosRetornoDashboard(
+					Double.valueOf(object[0].toString()),
+					(String) object[1],
+					(String) object[2],
+					(int) object[3],
+					(String) object[4]));
+		}
+		return dadosRetornoDashboard;
 	}
 }

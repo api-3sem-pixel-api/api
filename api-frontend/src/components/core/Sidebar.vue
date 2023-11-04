@@ -62,28 +62,24 @@ export default class Sidebar extends Vue {
 </script>
 
 <style scoped>
+.sidebar {
+  display: flex;
+  flex-direction: row;
+}
+
 .header {
-  background: linear-gradient(270deg, rgb(97, 156, 216) 5.22%, #1F25C1 60.08%);
-  width: 100%;
-  height: 76px;
-  box-shadow: 5px 5px 5px #c6c6c6;
-
-  .toggle-button {
-    display: flex;
-  }
-
   .logo {
     display: flex;
     flex-direction: column;
-    height: inherit;
     justify-content: center;
     position: relative;
 
-    .logo-img{
-      position:absolute;
+    .logo-img {
+      position: absolute;
       z-index: 2;
-      top:85vh;
+      top: 85vh;
       width: 200px;
+      left: 20px;
     }
   }
 }
@@ -95,7 +91,7 @@ export default class Sidebar extends Vue {
   float: left;
   overflow-x: hidden;
   box-shadow: 5px 5px 5px #c6c6c6;
-  background: linear-gradient(0deg, rgb(97, 156, 216) 5.22%, #1F25C1 60.08%);
+  background-color: #1F25C1;
   transition: 0.5s;
   position: relative;
 
@@ -104,5 +100,15 @@ export default class Sidebar extends Vue {
     left: 45%;
     position: absolute;
   }
+
+  &.responsive {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .toggle-btn {
+      display: block;
+    }
+  }
 }
-</style>./Menu./menu
+</style>

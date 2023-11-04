@@ -1,9 +1,24 @@
 <template>
+  <div class="row mt-4 mb-4" v-if="nivelDePermissao != 3">
+    <div class="col-12">
+      <h3>LANÇAMENTO DE HORAS</h3>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row mt-4 mb-4" v-if="nivelDePermissao == 3">
+    <div class="col-12">
+      <h3>APROVAÇÃO / REPROVAÇÃO </h3>
+      <hr>
+    </div>
+  </div>
+
   <div class="row lancamento-horas" v-if="nivelDePermissao != 3">
     <div class="col-3">
       <p class="bold">Modalidade</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.modalidade">
-        <option v-for="item in listmodal" :key="item.idModalidade" :value="item.idModalidade">{{ item.descricaoModalidade }}
+        <option v-for="item in listmodal" :key="item.idModalidade" :value="item.idModalidade">{{ item.descricaoModalidade
+        }}
         </option>
       </select>
     </div>
@@ -17,7 +32,8 @@
     <div class="col-3">
       <p class="bold">Cliente</p>
       <select class="form-select" aria-label=".form-select-lg example" v-model="lancamento.idCliente">
-        <option v-for="item in listcliente" :key="item.idCliente" :value="item.idCliente">{{ item.razaoSocialCliente }}</option>
+        <option v-for="item in listcliente" :key="item.idCliente" :value="item.idCliente">{{ item.razaoSocialCliente }}
+        </option>
       </select>
     </div>
     <div class="col-3">
@@ -107,10 +123,7 @@ export default class LancamentoHorasView extends Vue {
     const user = useAuth().getUser();
     http.get('/cr/' + user.id)
       .then(response => {
-        console.log(user)
         this.listcr = response.data
-        console.log(this.listcr)
-        console.log(response.data)
       })
 
   }

@@ -46,4 +46,6 @@ public class Cliente {
 		this.cnpj = dados.cnpjCliente();
 		this.ativo = true;
 	}
+
+  
 }

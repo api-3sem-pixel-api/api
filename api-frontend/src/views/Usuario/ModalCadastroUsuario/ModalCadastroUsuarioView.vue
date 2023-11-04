@@ -79,6 +79,7 @@ export default defineComponent({
       funcao: "", // Inicialize como uma string vazia
       showModal: false,
       errorMessage: "",
+      status: false,
     };
   },
   methods: {

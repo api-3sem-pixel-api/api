@@ -54,7 +54,6 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(user);
 	}
 
-	
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity alterarUsuario(@PathVariable Long id, @RequestBody DadosCadastroUsuario dados) {
