@@ -48,14 +48,14 @@
     <!-- Modal de Atualização de Usuário -->
     <ModalUsuarioView
     :user-id="editUserId"
-    @update-user-details="updateUserDetails"
+    @update-user-details="updateUser"
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
 
 
   <ModalUpdateUsuarioView
     :user-id="editUserId"
-    @update-user-details="updateUserDetails"
+    @update-user-details="updateUser"
     @close-modal="closeUpdateModal"
   ></ModalUpdateUsuarioView>
 </template>
@@ -118,14 +118,13 @@ export default defineComponent({
       var modal = document.getElementById("update-user-modal")!;
       modal.style.display = "block";
    
-    },
-    async updateUserDetails(updatedUser: any) {
+   
       try {
-        await http.put(`/usuario/${this.editUserId}`, updatedUser);
+         http.put(`/usuario/${this.editUserId}`, userId);
 
         const userIndex = this.usuarios.findIndex((u) => u.id === this.editUserId);
         if (userIndex !== -1) {
-          this.usuarios[userIndex] = updatedUser;
+          this.usuarios[userIndex] = userId;
         }
 
         this.closeUpdateModal();

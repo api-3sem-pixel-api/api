@@ -44,7 +44,7 @@
           <div class="col-12">
             <div class="form-group">
               <label for="funcao">Função</label>
-              <select class="form-select" id="funcao" :value="funcao" @change="updateFuncao($event.target.value)">
+              <select class="form-select" id="funcao" :value="funcao" >
                 <option value="Colaborador">Colaborador</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Gestor">Gestor</option>
