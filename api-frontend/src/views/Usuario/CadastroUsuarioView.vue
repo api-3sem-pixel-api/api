@@ -1,12 +1,12 @@
 <template>
-  <div class="row mt-4">
+   <div class="row mt-4">
     <div class="col-12">
       <h3>CONTROLE | USUARIO</h3>
       <hr>
     </div>
   </div>
   <div class="d-flex mt-3 justify-content-end mb-3">
-    <button class="btn btn-outline-primary" @click="newUser()"> Cadastcdrar Usuário </button>
+    <button class="btn btn-outline-primary" @click="newUser">Cadastrar Usuário</button>
   </div>
   <div class="row">
     <table class="table table-responsive no-wrap-table">
@@ -44,28 +44,27 @@
     </table>
   </div>
 
-
-    <!-- Modal de Atualização de Usuário -->
-    <ModalUsuarioView
+  <ModalUsuarioView
     :user-id="editUserId"
-    @update-user-details="updateUser"
+    @update-user-details="updateUserDetails"
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
 
 
+  <!-- Modal de Atualização de Usuário -->
   <ModalUpdateUsuarioView
     :user-id="editUserId"
-    @update-user-details="updateUser"
+    @update-user-details="updateUserDetails"
     @close-modal="closeUpdateModal"
   ></ModalUpdateUsuarioView>
 </template>
 
-
 <script lang="ts">
 import http from '@/services/http';
 import { PropType, defineComponent } from 'vue';
+import ModalUpdateUsuarioView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue';
 import ModalUsuarioView from '@/views/Usuario/ModalCadastroUsuario/ModalCadastroUsuarioView.vue';
-import ModalUpdateUsuarioView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue'; // Importe o novo componente
+
 import { enumUser } from '@/views/Usuario/enumUser';
 
 export default defineComponent({
@@ -78,7 +77,7 @@ export default defineComponent({
     return {
       usuarios: [] as Array<any>,
       enumUser: enumUser,
-      editUserId: null as number | null
+      editUserId: null as number | null,
     };
   },
   created() {
@@ -113,83 +112,74 @@ export default defineComponent({
           return 'Função Desconhecida';
       }
     },
-    updateUser(userId: number) {
-      this.editUserId = userId;
+    updateUser(id: number) {
+      this.editUserId = id;
       var modal = document.getElementById("update-user-modal")!;
       modal.style.display = "block";
-   
-   
+    },
+    async updateUserDetails(updatedUser: number) {
       try {
-         http.put(`/usuario/${this.editUserId}`, userId);
-
+        const response = await http.put(`/usuario/${this.editUserId}`, updatedUser);
+        console.log(response)
         const userIndex = this.usuarios.findIndex((u) => u.id === this.editUserId);
         if (userIndex !== -1) {
-          this.usuarios[userIndex] = userId;
+          this.usuarios[userIndex] = updatedUser;
         }
 
         this.closeUpdateModal();
       } catch (error) {
-        alert('Erro ao atualizar o usuário. Tente novamente mais tarde.');
+        console.log(error)
       }
     },
     closeUpdateModal() {
       this.editUserId = null;
-      var modal = document.getElementById("update-user-modal");
-      if (modal) {
-        modal.style.display = "none";
-      }
+      var modal = document.getElementById("update-user-modal")!;
+      modal.style.display = "none";
     },
     async inativarUsuario(id: number) {
       const usuario = this.usuarios.find((usuario) => usuario.id === id);
-      console.log('ID a ser excluído:', id);
 
       if (usuario) {
-        console.log('Usuario encontrado:', usuario);
-
         try {
           if (usuario.ativo) {
-            console.log('Usuario ativo, marcando como inativo:', );
             await http.delete(`/usuario/${usuario.id}`);
             usuario.ativo = false;
-            alert('Usuario marcado como Inativo');
+            alert('Usuário marcado como Inativo');
           } else {
-            console.log('Usuario já está Inativo:', usuario);
-            alert('Usuario já está Inativo');
+            alert('Usuário já está Inativo');
           }
         } catch (error) {
-          console.error('Erro ao excluir o Usuario:', error);
           alert('Algo deu errado, tente novamente mais tarde.');
         }
       } else {
-        console.log('Usuario não encontrado:', id);
-        alert('Usuario não encontrado');
+        alert('Usuário não encontrado');
       }
-    }
-  }
+    },
+  },
 });
 </script>
 
 <style scoped>
 .pill {
-    border-radius: 30px;
-    width: 140px;
-    color: white;
+  border-radius: 30px;
+  width: 140px;
+  color: white;
+}
 
-    &.approvedGestor {
-      background-color: #fac02d;
-    }
+.pill.approvedGestor {
+  background-color: #fac02d;
+}
 
-    &.approved {
-      background-color: #26fc29;
-    }
+.pill.approved {
+  background-color: #26fc29;
+}
 
-    &.waiting {
-      background-color: gainsboro;
-    }
+.pill.waiting {
+  background-color: gainsboro;
+}
 
-    &.reproved,
-    &.canceled {
-      background-color: red;
-    }
+.pill.reproved,
+.pill.canceled {
+  background-color: red;
 }
 </style>
