@@ -101,7 +101,15 @@
    </ul>
    
    <h3 align="center">Sprint-3</h3>
-       <ul>
+   <ul>
+     <li>Burndown: https://imgur.com/a/LMLsD30</li>
+   </ul>
+   <ul>
+   <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/li/901400522773</li>
+   <br>
+
+   
+       
 
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
