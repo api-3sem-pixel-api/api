@@ -1,5 +1,6 @@
 package fatec.api.pixel.horaextra.repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -68,9 +69,9 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 							(String) object[1],
 							(String) object[2],
 							(String) object[3],
-							(Date) object[4], 
+							(String) object[4].toString(), 
 							(String) object[5], 
-							(Date) object[6],
+							(String) object[6].toString(),
 							(String) object[7],
 							(String) object[8],
 							(String) object[9],
