@@ -17,7 +17,7 @@
             Justificativa do Gestor/Administrador
           </th>
           <th scope="col" class="text-center">Status</th>
-          <th scope="col" class="text-center" v-if="podeGerenciarLancamentos">
+          <th scope="col" class="text-center">
             Ações
           </th>
         </tr>
@@ -47,6 +47,13 @@
               {{ obterDescricaoStatus(linha.status) }}
             </div>
           </td>
+          
+          <td v-if="!podeGerenciarLancamentos && linha.status == 1">
+            <button class="btn btn-link text-danger" @click="cancelar(linha)">
+              <i class="fa fa-window-close" aria-hidden="true"></i> Cancelar
+            </button>
+          </td>
+
           <td
             v-if="
               podeGerenciarLancamentos &&
@@ -65,7 +72,8 @@
             v-if="
               (nivelPermissao == 3 && linha.status != 1 && linha.status != 5) ||
               (nivelPermissao == 2 &&
-                (linha.status == 5 || linha.status == 3 || linha.status == 2))
+               (linha.status == 5 || linha.status == 3 || linha.status == 2 || linha.status == 4)) ||
+                (!podeGerenciarLancamentos  && linha.status != 1)
             "
             class="text-center"
           >
@@ -136,6 +144,23 @@ export default defineComponent({
       this.statusReprova = linha.status;
       const modal = document.getElementById("reprovar-modal")!;
       modal.style.display = "block";
+    },
+
+    cancelar(item: ExtratoHoraLinha){
+      const horaParaReprovar = {
+        idLancamento: item.id,
+        status: 4,
+        justificativa: 'Cancelado pelo usuario'
+      };
+
+      http.put('/lancamentoHoras', horaParaReprovar)
+          .then(r => {
+              this.$emit('update-table');
+              alert('Hora cancelada com sucesso.');
+          })
+          .catch(err => {
+              alert('Algo deu errado tente novamente mais tarde.')
+          });
     },
 
     obterDescricaoStatus(statusId: number) {
