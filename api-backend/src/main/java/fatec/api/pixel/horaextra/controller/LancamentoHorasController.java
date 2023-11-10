@@ -18,6 +18,7 @@ import fatec.api.pixel.horaextra.dto.DadosCadastroLancamentoHoras;
 import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
 import fatec.api.pixel.horaextra.model.LancamentoHoras;
 import fatec.api.pixel.horaextra.repository.LancamentoHorasRepository;
+import fatec.api.pixel.horaextra.service.EmailSenderService;
 import fatec.api.pixel.horaextra.service.LancamentoHorasService;
 import jakarta.transaction.Transactional;
 
@@ -31,11 +32,12 @@ public class LancamentoHorasController {
 	
 	@Autowired
 	LancamentoHorasService service;
-
+	
 	@PostMapping
 	public ResponseEntity lancamento(@RequestBody DadosCadastroLancamentoHoras horas) {
 		var lancamento = new LancamentoHoras(horas);
 		repository.save(lancamento);
+		service.enviarNotificacao(lancamento);
 		return ResponseEntity.created(null).build();
 	}
 
