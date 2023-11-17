@@ -43,7 +43,8 @@ public class LancamentoHorasService{
 	
 	public void enviarNotificacao(LancamentoHoras lancamento) {
 		var dadosGestor = crUsuarioRepository.getDadosGestor(lancamento.getCr().getId());
-		emailService.sendSimpleEmail(dadosGestor.email(), "Olá " + dadosGestor.nome() + ", gostariamos de informá-lo que o colaborador(a)" + lancamento.getUsuario().getNome() + " efetuou o lançamento de horas referente o periodo: "
-				+ lancamento.getDataInicio().toString() + " - " + lancamento.getDataFim().toString() + "no CR " + lancamento.getCr().getNome()+".");
+		var dadosLancamento = lancamentoHorasRepository.findDadosLancamentos(lancamento.getUsuario().getId(), lancamento.getCr().getId());
+		emailService.sendSimpleEmail(dadosGestor.email(), "Olá " + dadosGestor.nome() + ", gostariamos de informá-lo que o colaborador(a)" + dadosLancamento.nomeUsuario() + " efetuou o lançamento de horas referente o periodo: "
+				+ lancamento.getDataInicio().toString() + " - " + lancamento.getDataFim().toString() + " no CR " + dadosLancamento.nomeCr()+".");
 	}
 }

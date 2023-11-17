@@ -8,6 +8,7 @@ import java.util.List;
 
 import fatec.api.pixel.horaextra.dto.DadosDashboard;
 import fatec.api.pixel.horaextra.dto.DadosDashboardHoras;
+import fatec.api.pixel.horaextra.dto.DadosLancamento;
 import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
 import fatec.api.pixel.horaextra.dto.DadosRetornoDashboard;
 import jakarta.persistence.EntityManager;
@@ -132,5 +133,26 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 					(String) object[4]));
 		}
 		return dadosRetornoDashboard;
+	}
+	
+	public DadosLancamento findDadosLancamentos(Long idUsuario, Long idCr){
+		String jpql = "select u.Nome, c.Nome from extrato_hora e"
+				+ " inner join usuario u on e.Id_Usuario = u.Id"
+				+ " inner join cr c on e.Id_Cr = c.Id"
+				+ " where c.Id = :idCr and u.Id = :idUsuario";
+				
+		
+		TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
+		query.setParameter("idCr", idCr);
+		query.setParameter("idUsuario", idUsuario);
+		
+		
+		List<Object[]> result = query.getResultList();
+		DadosLancamento dadosLancamento = null;
+		
+		for(Object[] object : result) {
+			dadosLancamento = new DadosLancamento(object[0].toString(),object[1].toString());
+		}
+		return dadosLancamento;
 	}
 }

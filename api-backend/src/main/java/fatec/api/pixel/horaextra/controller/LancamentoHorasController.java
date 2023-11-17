@@ -47,13 +47,6 @@ public class LancamentoHorasController {
 		return ResponseEntity.ok().body(list);
 	}
 
-	/*
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<LancamentoHoras> findById(@PathVariable Long id) {
-		LancamentoHoras extrato = repository.findById(id).get();
-		return ResponseEntity.ok().body(extrato);
-	}
-	*/
 	@GetMapping("/{idUsuario}")
 	public ResponseEntity<List<DadosListagemLancamentoHoras>> getLancamentos(@PathVariable("idUsuario") Long id){
 		var listagemLancamento  = service.listarLancamento(id);
