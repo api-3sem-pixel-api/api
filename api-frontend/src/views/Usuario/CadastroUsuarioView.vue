@@ -66,7 +66,6 @@ import ModalUsuarioView from '@/views/Usuario/ModalCadastroUsuario/ModalCadastro
 
 import { enumUser } from '@/views/Usuario/enumUser';
 
-// Defina a interface User
 interface User {
   id: number;
   nome: string;
@@ -123,15 +122,18 @@ export default defineComponent({
       }
     },
     updateUser(id: number) {
-      this.editUserId = id;
-      var modal = document.getElementById("update-user-modal")!;
-      modal.style.display = "block";
+  this.editUserId = id;
+  var modal = document.getElementById("update-user-modal")!;
+  modal.style.display = "block";
 
-      const userToUpdate = this.usuarios.find((usuario) => usuario.id === id) as User | undefined;
-      if (userToUpdate) {
-        this.$refs.updateUserModal.setUserDetails(userToUpdate);
-      }
-    },
+  const userToUpdate = this.usuarios.find((usuario) => usuario.id === id) as User | undefined;
+  if (userToUpdate) {
+    const updateUserModal = this.$refs.updateUserModal as typeof ModalUpdateUsuarioView | undefined;
+    if (updateUserModal) {
+      updateUserModal.setUserDetails(userToUpdate);
+    }
+  }
+},
     async updateUserDetails(updatedUser: User) {
       try {
         const response = await http.put(`/usuario/${this.editUserId}`, updatedUser);

@@ -72,6 +72,15 @@
 <script lang="ts">
 import http from '@/services/http';
 import { defineComponent } from 'vue';
+interface User {
+  id: number;
+  nome: string;
+  email: string;
+  telefone: string;
+  cpf: string;
+  idTipoUsuario: number;
+  ativo: boolean;
+}
 const enumUser = {
   Colaborador: 1,
   Administrador: 2,
@@ -109,30 +118,30 @@ export default defineComponent({
       this.localFuncao = "";
       this.localStatus = "";
     },
-    updateNome(event) {
-      this.localNome = event.target.value;
-    },
-    updateTelefone(event) {
-      this.localTelefone = event.target.value;
-    },
-    updateEmail(event) {
-      this.localEmail = event.target.value;
-    },
-    updateCpf(event) {
-      this.localCpf = event.target.value;
-    },
-    updateFuncao(event) {
-      this.localFuncao = event.target.value;
-    },
-    setUserDetails(userDetails) {
-      this.localId = userDetails.id;
-      this.localNome = userDetails.nome;
-      this.localEmail = userDetails.email;
-      this.localTelefone = userDetails.telefone;
-      this.localCpf = userDetails.cpf;
-      this.localFuncao = userDetails.idTipoUsuario.toString();
-      this.localStatus = userDetails.ativo ? 'ativo' : 'inativo';
-    },
+    updateNome(event: InputEvent) {
+    this.localNome = (event.target as HTMLInputElement).value;
+  },
+  updateTelefone(event: InputEvent) {
+    this.localTelefone = (event.target as HTMLInputElement).value;
+  },
+  updateEmail(event: InputEvent) {
+    this.localEmail = (event.target as HTMLInputElement).value;
+  },
+  updateCpf(event: InputEvent) {
+    this.localCpf = (event.target as HTMLInputElement).value;
+  },
+  updateFuncao(event: InputEvent) {
+    this.localFuncao = (event.target as HTMLInputElement).value;
+  },
+  setUserDetails(userDetails: User) {
+    this.localId = userDetails.id;
+    this.localNome = userDetails.nome;
+    this.localEmail = userDetails.email;
+    this.localTelefone = userDetails.telefone;
+    this.localCpf = userDetails.cpf;
+    this.localFuncao = userDetails.idTipoUsuario.toString();
+    this.localStatus = userDetails.ativo ? 'ativo' : 'inativo';
+  },
     async save() {
       const funcaoAsInt = this.getFuncao(this.localFuncao);
 
@@ -148,12 +157,14 @@ export default defineComponent({
 
       try {
         await http.put(`/usuario/${this.localId}`, updatedUser);
+        alert("Usuario atualizado!")
+
         this.close();
       } catch (error) {
         console.error(error);
       }
     },
-    getFuncao(tipoUsuario) {
+    getFuncao(tipoUsuario: string) {
       switch (tipoUsuario) {
         case 'Colaborador':
           return enumUser.Colaborador;
