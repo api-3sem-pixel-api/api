@@ -5,7 +5,8 @@
         <h4>Edição de Usuário</h4>
         <span class="close" @click="close">&times;</span>
       </div>
-      <div class="modal-body">
+      <transition name="fade">
+      <div class="modal-body " >
         <div class="row">
           <div class="col-12">
             <div class="form-group">
@@ -53,17 +54,7 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="status">Status</label>
-              <select class="form-select" id="status" v-model="localStatus">
-                <option value="ativo">Ativo</option>
-                <option value="inativo">Inativo</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        
 
         <div class="row mt-4">
           <div class="col">
@@ -72,33 +63,34 @@
           </div>
         </div>
       </div>
+    </transition>
+
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import http from '@/services/http';
+import { defineComponent } from 'vue';
+const enumUser = {
+  Colaborador: 1,
+  Administrador: 2,
+  Gestor: 3,
+};
 
-export default {
+export default defineComponent({
   props: {
-    nome: String,
-    email: String,
-    telefone: String,
-    cpf: String,
-    funcao: String,
-    showModal: Boolean,
-    errorMessage: String,
-    status: Boolean,
     userId: Number,
   },
   data() {
     return {
-      localNome: this.nome,
-      localEmail: this.email,
-      localTelefone: this.telefone,
-      localCpf: this.cpf,
-      localFuncao: this.funcao,
-      localStatus: this.status, 
+      localId: this.userId,
+      localNome: '',
+      localEmail: '',
+      localTelefone: '',
+      localCpf: '',
+      localFuncao: '',
+      localStatus: '',
     };
   },
   methods: {
@@ -115,6 +107,7 @@ export default {
       this.localTelefone = "";
       this.localCpf = "";
       this.localFuncao = "";
+      this.localStatus = "";
     },
     updateNome(event) {
       this.localNome = event.target.value;
@@ -131,33 +124,51 @@ export default {
     updateFuncao(event) {
       this.localFuncao = event.target.value;
     },
+    setUserDetails(userDetails) {
+      this.localId = userDetails.id;
+      this.localNome = userDetails.nome;
+      this.localEmail = userDetails.email;
+      this.localTelefone = userDetails.telefone;
+      this.localCpf = userDetails.cpf;
+      this.localFuncao = userDetails.idTipoUsuario.toString();
+      this.localStatus = userDetails.ativo ? 'ativo' : 'inativo';
+    },
     async save() {
+      const funcaoAsInt = this.getFuncao(this.localFuncao);
+
       const updatedUser = {
+        id: this.localId,
         nome: this.localNome,
         email: this.localEmail,
         telefone: this.localTelefone,
         cpf: this.localCpf,
-        funcao: this.localFuncao,
-        status: this.localStatus,
+        idTipoUsuario: funcaoAsInt,
+        ativo: this.localStatus === 'ativo',
       };
 
       try {
-        await http.put(`/usuario/${this.userId}`, updatedUser);
-
-        const userIndex = this.usuarios.findIndex((u) => u.id === this.userId);
-        if (userIndex !== -1) {
-          this.usuarios[userIndex] = updatedUser;
-        }
-
+        await http.put(`/usuario/${this.localId}`, updatedUser);
         this.close();
       } catch (error) {
-        alert('Erro ao atualizar o usuário. Tente novamente mais tarde.');
-        console.log(error);
+        console.error(error);
+      }
+    },
+    getFuncao(tipoUsuario) {
+      switch (tipoUsuario) {
+        case 'Colaborador':
+          return enumUser.Colaborador;
+        case 'Administrador':
+          return enumUser.Administrador;
+        case 'Gestor':
+          return enumUser.Gestor;
+        default:
+          return 1;
       }
     },
   },
-};
+});
 </script>
+
 
 <style lang="css">
 .r-modal {
@@ -203,4 +214,35 @@ button {
 .r-ml-2 {
   margin-left: 15px;
 }
+
+/* Defina o estilo de entrada pela esquerda */
+.fade-enter-active {
+  animation: enter-from-left 0.5s;
+}
+
+/* Defina o estilo de saída */
+.fade-leave-active {
+  animation: fade-out 0.5s;
+}
+
+@keyframes enter-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 </style>

@@ -50,22 +50,32 @@
     @close-modal="closeUpdateModal"
   ></ModalUsuarioView>
 
-
   <!-- Modal de Atualização de Usuário -->
   <ModalUpdateUsuarioView
-    :user-id="editUserId"
-    @update-user-details="updateUserDetails"
+    ref="updateUserModal"
     @close-modal="closeUpdateModal"
   ></ModalUpdateUsuarioView>
+
 </template>
 
 <script lang="ts">
 import http from '@/services/http';
-import { PropType, defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import ModalUpdateUsuarioView from './ModalCadastroUsuario/ModalCadastroUpdateUserView.vue';
 import ModalUsuarioView from '@/views/Usuario/ModalCadastroUsuario/ModalCadastroUsuarioView.vue';
 
 import { enumUser } from '@/views/Usuario/enumUser';
+
+// Defina a interface User
+interface User {
+  id: number;
+  nome: string;
+  email: string;
+  telefone: string;
+  cpf: string;
+  idTipoUsuario: number;
+  ativo: boolean;
+}
 
 export default defineComponent({
   name: "ControleUsuarioView",
@@ -116,11 +126,16 @@ export default defineComponent({
       this.editUserId = id;
       var modal = document.getElementById("update-user-modal")!;
       modal.style.display = "block";
+
+      const userToUpdate = this.usuarios.find((usuario) => usuario.id === id) as User | undefined;
+      if (userToUpdate) {
+        this.$refs.updateUserModal.setUserDetails(userToUpdate);
+      }
     },
-    async updateUserDetails(updatedUser: number) {
+    async updateUserDetails(updatedUser: User) {
       try {
         const response = await http.put(`/usuario/${this.editUserId}`, updatedUser);
-        console.log(response)
+        console.log(response);
         const userIndex = this.usuarios.findIndex((u) => u.id === this.editUserId);
         if (userIndex !== -1) {
           this.usuarios[userIndex] = updatedUser;
@@ -128,7 +143,7 @@ export default defineComponent({
 
         this.closeUpdateModal();
       } catch (error) {
-        console.log(error)
+        console.error(error);
       }
     },
     closeUpdateModal() {
@@ -158,6 +173,8 @@ export default defineComponent({
   },
 });
 </script>
+
+
 
 <style scoped>
 .pill {
