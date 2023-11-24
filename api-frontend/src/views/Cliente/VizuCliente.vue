@@ -2,7 +2,7 @@
   <div>
     <Cliente @update-table="loadAllCliente"></Cliente>
     
-    <div id="cadastro-cliente-modall" class="r-modal">
+    <div id="update-cliente-modall" class="r-modal">
       <div class="r-modal-content">
           <div class="modal-header d-flex align-items-baseline">
               <h4>Edição de Cliente</h4>
@@ -47,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="cliente in clientes" :key="cliente.id">
+          <tr v-for="cliente in clientes" :key="cliente.idCliente">
             <td>{{ cliente.razaoSocialCliente }}</td>
             <td>{{ cliente.cnpjCliente }}</td>
             <td style="width: 100px">
@@ -81,7 +81,7 @@ import http from "@/services/http";
 import { PropType, defineComponent } from "vue";
 import Cliente from "@/views/Cliente/Cliente.vue";
 interface clientee {
-  id: number;
+  idCliente: number;
   razaoSocialCliente: string;
   cnpjCliente:string;
   
@@ -110,7 +110,7 @@ export default defineComponent({
 
   methods: {
     setclienteDetails(clienteDetails: clientee) {
-    this.idCliente = clienteDetails.id;
+    this.idCliente = clienteDetails.idCliente;
     this.nomeRs = clienteDetails.razaoSocialCliente;
     this.siglaCnpj = clienteDetails.cnpjCliente;
     
@@ -136,20 +136,25 @@ export default defineComponent({
     },
 
     close() {
-      var modal = document.getElementById('cadastro-cliente-modall')!;
-      modal.style.display = 'none';
-      this.clear();
-    },
+  var modal = document.getElementById('update-cliente-modall')!;
+  if (modal) {
+    modal.style.display = 'none';
+    this.clear();
+  }
+},
+
 
     clear() {
       this.nomeRs = '';
       this.siglaCnpj = '';
     },
     
-    uptedeCliente(cliente: any) {
+    uptedeCliente(cliente: clientee) {
       this.idCliente = cliente.idCliente
-      var modal = document.getElementById("cadastro-cliente-modall")!;
+      var modal = document.getElementById("update-cliente-modall")!;
       modal.style.display = "block";
+
+      this.setclienteDetails(cliente)
       
     },
     async loadAllCliente() {
