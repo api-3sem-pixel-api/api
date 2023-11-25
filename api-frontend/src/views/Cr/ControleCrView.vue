@@ -1,53 +1,4 @@
 <template>
-  <div id="update-cr-modall" class="r-modal">
-    <div class="r-modal-content">
-      <div class="modal-header d-flex align-items-baseline">
-        <h4>Edição de Cr</h4>
-        <span class="close" @click="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12" style="margin-top: 10px;">
-            <div class="form-group">
-              <label for="cod">Cod</label>
-              <input type="text" class="form-control" id="cod" v-model="codigoCr">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12" style="margin-top: 20px;">
-            <div class="form-group">
-              <label for="sigla">Sigla</label>
-              <input type="text" class="form-control" id="sigla" v-model="siglaCr">
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-12" style="margin-top: 20px;">
-            <div class="form-group">
-              <label for="sigla">Nome </label>
-              <input type="text" class="form-control" id="sigla" v-model="nomeCr">
-            </div>
-          </div>
-        </div>
-
-        <div class="row mt-4">
-          <div class="col">
-            <button type="button" @click="save()" class="btn btn-success">Salvar</button>
-            <button type="button" @click="close()" class="btn btn-link r-ml-2">Cancelar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
   <div class="row mt-4">
     <div class="col-12">
       <h3>CONTROLE | CR</h3>
@@ -95,11 +46,12 @@
     </table>
   </div>
   <ModalCrUsuario :id-cr="idCr"></ModalCrUsuario>
-  <ModalCadastroCrView @update-table="loadAllCr"></ModalCadastroCrView>
+  <ModalCadastroCrView @update-table="loadAllCr" :id-cr-prop="idCr" :codigo-cr-prop="codigoCr" :nome-cr-prop="nomeCr"
+    :sigla-cr-prop="siglaCr"></ModalCadastroCrView>
 </template>
 <script lang="ts">
 import http from '@/services/http';
-import { PropType, defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import ModalCadastroCrView from '@/views/Cr/ModalCadastroCr/ModalCadastroCrView.vue';
 import ModalCrUsuario from '@/views/Cr/ModalCrUsuario/ModalCrUsuario.vue';
 interface cr {
@@ -129,58 +81,27 @@ export default defineComponent({
     this.loadAllCr();
   },
   methods: {
-    setCrDetails(crDetails: cr) {
+    setCrDetails(crDetails: any) {
       this.idCr = crDetails.id;
-      this.codigoCr = crDetails.codigoCr;
-      this.siglaCr = crDetails.siglaCr;
-      this.nomeCr = crDetails.nomeCr;
+      this.codigoCr = crDetails.codigo;
+      this.siglaCr = crDetails.sigla;
+      this.nomeCr = crDetails.nome;
     },
 
     newCr() {
       var modal = document.getElementById("cadastro-cr-modal")!;
       modal.style.display = "block";
     },
-    async save() {
-      const updatedCr = {
-        codigoCr: this.codigoCr,
-        siglaCr: this.siglaCr,
-        nomeCr: this.nomeCr,
-        idCr: this.idCr,
-      };
-
-      try {
-        await http.put(`/cr/${updatedCr.idCr}`, updatedCr);
-        alert('Cr atualizado!');
-        this.close();
-      } catch (error) {
-        alert('Erro ao atualizar o cr. Tente novamente mais tarde.');
-      }
-    },
-
-
-
-
-    close() {
-      var modal = document.getElementById('update-cr-modall')!;
-      if (modal) {
-        modal.style.display = 'none';
-        this.clear();
-      }
-    },
-
-    clear() {
-      //
-    }, editUserCr(id: number) {
+    editUserCr(id: number) {
       this.idCr = id;
       var modal = document.getElementById("cr-usuario-modal")!;
       modal.style.display = "block";
     },
-
-    editCr(cr: cr) {
+    editCr(cr: any) {
       this.setCrDetails(cr);
 
       // Show the modal
-      var modal = document.getElementById("update-cr-modall")!;
+      var modal = document.getElementById("cadastro-cr-modal")!;
       modal.style.display = "block";
     },
 
