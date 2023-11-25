@@ -48,6 +48,12 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ModalCadastroCrView',
+    props:{
+        idCr: Number,
+        nomeCr: String,
+        siglaCr: String,
+        descricaoCr: String
+    },
     data() {
         return {
             codigoCr: '',

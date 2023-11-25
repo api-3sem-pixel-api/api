@@ -127,13 +127,10 @@ export default class DashboardView extends Vue {
         this.getHour(filteredData, "HE Noturno"),
         this.getHour(filteredData, "Sobreaviso"),
       ];
-      console.log("aloooo");
-      console.log(this.chartConfig.series[0].data);
     });
   }
 
   private getHour(f: any[], key: string) {
-    console.log(key, f);
     return f.filter((x) => x.Modalidade == key).map((x) => x.horas)[0] ?? 0;
   }
 

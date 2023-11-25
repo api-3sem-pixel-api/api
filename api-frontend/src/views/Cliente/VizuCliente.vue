@@ -123,7 +123,6 @@ export default defineComponent({
         cnpjCliente: this.siglaCnpj,
         ativo: this.ativo,
       };
-      console.log(updatedCliente);
 
       try {
         await http.put(`/cliente/${this.idCliente}`, updatedCliente);
@@ -131,7 +130,6 @@ export default defineComponent({
         this.close();
       } catch (error) {
         alert('Erro ao atualizar o cliente. Tente novamente mais tarde.');
-        console.log(error);
       }
     },
 
@@ -167,7 +165,6 @@ export default defineComponent({
     },
 
     async inativarCliente(idCliente: number) {
-      console.log(idCliente);
       const cliente = this.clientes.find((c) => c.idCliente === idCliente);
 
       if (cliente) {

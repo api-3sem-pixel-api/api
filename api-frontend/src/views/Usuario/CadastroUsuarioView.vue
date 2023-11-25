@@ -137,7 +137,6 @@ export default defineComponent({
     async updateUserDetails(updatedUser: User) {
       try {
         const response = await http.put(`/usuario/${this.editUserId}`, updatedUser);
-        console.log(response);
         const userIndex = this.usuarios.findIndex((u) => u.id === this.editUserId);
         if (userIndex !== -1) {
           this.usuarios[userIndex] = updatedUser;
