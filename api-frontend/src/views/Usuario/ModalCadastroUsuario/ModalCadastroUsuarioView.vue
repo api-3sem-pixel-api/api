@@ -76,7 +76,7 @@ export default defineComponent({
       email: "",
       telefone: "",
       cpf: "",
-      funcao: "", // Inicialize como uma string vazia
+      funcao: "", 
       showModal: false,
       errorMessage: "",
       status: false,
@@ -85,9 +85,9 @@ export default defineComponent({
   methods: {
     save() {
       const funcoesMap: { [key: string]: number } = {
-  Colaborador: 1,
-  Administrador: 2,
-  Gestor: 3,
+         Colaborador: 1,
+        Administrador: 2,
+        Gestor: 3,
 };
 
 
