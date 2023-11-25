@@ -1,5 +1,7 @@
 package fatec.api.pixel.horaextra.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record DadosCadastroLancamentoHoras(
@@ -8,8 +10,8 @@ public record DadosCadastroLancamentoHoras(
 		Long idUsuario,
 		Long modalidade,
 		String motivo,
-		Date dataHoraInicio,
-		Date dataHoraFim,
+		LocalDateTime dataHoraInicio,
+		LocalDateTime dataHoraFim,
 		String justificativa,
 		Long idCliente) {
 	
