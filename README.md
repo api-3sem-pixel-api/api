@@ -64,7 +64,7 @@
    <br>
    
    <h2 align="center">Sprints</h2>
-   <ul><li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/backlogs.xlsx">Backlog (XLSX)</a></li></ul>
+   <ul><li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/BACKLOGS.xlsx">Backlog (XLSX)</a></li></ul>
    <h3 align="center">Sprint-1</h3>
    <ul>
      <li>Burndown: https://imgur.com/a/DF0zaIQ</li>
