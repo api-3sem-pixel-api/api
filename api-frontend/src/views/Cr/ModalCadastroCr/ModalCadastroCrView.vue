@@ -48,31 +48,72 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ModalCadastroCrView',
+    props: {
+        idCrProp: Number,
+        nomeCrProp: String,
+        siglaCrProp: String,
+        codigoCrProp: String
+    },
     data() {
         return {
-            codigoCr: '',
-            siglaCr: '', 
-            nomeCr: ''
+            codigoCr: this.codigoCrProp,
+            siglaCr: this.siglaCrProp,
+            nomeCr: this.nomeCrProp,
+            idCr: this.idCrProp
+        }
+    },
+    watch: {
+        siglaCrProp(newValue, oldValue) {
+            this.siglaCr = newValue;
+        },
+        codigoCrProp(newValue, oldValue) {
+            this.codigoCr = newValue;
+        },
+        nomeCrProp(newValue, oldValue) {
+            this.nomeCr = newValue;
+        },
+        idCrProp(newValue, oldValue) {
+            this.idCr = newValue;
         }
     },
     methods: {
-        save(){
+        async updateCr() {
+            const updatedCr = {
+                codigoCr: this.codigoCr,
+                siglaCr: this.siglaCr,
+                nomeCr: this.nomeCr,
+                idCr: this.idCr,
+            };
+            try {
+                await http.put(`/cr/${updatedCr.idCr}`, updatedCr);
+                alert('Cr atualizado!');
+                this.emitUpdateTable();
+                this.close();
+            } catch (error) {
+                alert('Erro ao atualizar o cr. Tente novamente mais tarde.');
+            }
+        },
+        save() {
+            if(this.idCr){
+                this.updateCr();
+                return;
+            }
             const crToCreate = {
                 codigoCr: this.codigoCr,
-                siglaCr: this.siglaCr, 
+                siglaCr: this.siglaCr,
                 nomeCr: this.nomeCr,
                 idCr: 0
             }
 
             http.post('/cr', crToCreate)
-                .then(_ => alert ('CR salvo com sucesso!!!'))
+                .then(_ => alert('CR salvo com sucesso!!!'))
                 .catch(_ => alert('Algo deu errado. Tente novamente mais tarde.'))
                 .finally(() => {
                     this.emitUpdateTable();
                     this.close()
                 });
         },
-        emitUpdateTable(){
+        emitUpdateTable() {
             this.$emit('update-table');
         },
         close() {
@@ -80,7 +121,7 @@ export default defineComponent({
             modal.style.display = "none";
             this.clear();
         },
-        clear(){
+        clear() {
             this.codigoCr = '';
             this.siglaCr = '';
             this.nomeCr = '';

@@ -1,5 +1,6 @@
 package fatec.api.pixel.horaextra.model;
 
+import java.time.ZoneId;
 import java.util.Date;
 
 import fatec.api.pixel.horaextra.dto.DadosCadastroLancamentoHoras;
@@ -61,8 +62,8 @@ public class LancamentoHoras {
 		this.projeto = horas.projeto();
 		this.motivo = horas.motivo();
 		this.justificativa = horas.justificativa();
-		this.dataInicio = horas.dataHoraInicio();
-		this.dataFim = horas.dataHoraFim();
+		this.dataInicio = Date.from(horas.dataHoraInicio().atZone(ZoneId.systemDefault()).toInstant());
+		this.dataFim = Date.from(horas.dataHoraFim().atZone(ZoneId.systemDefault()).toInstant());
 		this.cr = new Cr(horas.idCr());
 		this.usuario = new Usuario(horas.idUsuario());
 		this.modalidade = new Modalidade(horas.modalidade());

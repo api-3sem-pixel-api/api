@@ -64,21 +64,13 @@
    <br>
    
    <h2 align="center">Sprints</h2>
+   <ul><li><a href="https://github.com/api-3sem-pixel-api/api/blob/develop/assets/BACKLOGS.xlsx">Backlog (XLSX)</a></li></ul>
    <h3 align="center">Sprint-1</h3>
    <ul>
      <li>Burndown: https://imgur.com/a/DF0zaIQ</li>
    </ul>
    <ul> 
    <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/8cmdt4x-394</li>
-   <br>
-   
-    
-|      | **Entrega**    |**Prioridade**  |   
-| :-------------: | :-------------: |:-------------: | 
-|   Sprint-1    |      **Login**           |   **11**              |
-|   Sprint-1    |      **Lançamento de Horas** | **1** |
-|   Sprint-1    |      **Aprovação/Reprovação** | **2** |
-|   Sprint-1    |      **Enabler de alteração de senha** | **-** |
    </ul>
    
    <h3 align="center">Sprint-2</h3>
@@ -87,40 +79,20 @@
    </ul>
    <ul>
    <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/8cmdt4x-314</li>
-   <br>
-
-|      | **Entrega**    |**Prioridade**  |   
-| :-------------: | :-------------: |:-------------: | 
-|   Sprint-2    |      **Visualização Clientes**           |   **10**              |
-|   Sprint-2    |      **Cadastro de Clientes** | **9** |
-|   Sprint-2    |      **Visualização CRs** | **8** |
-|   Sprint-2    |      **Cadastro de CRs** | **7** |
-|   Sprint-2    |      **Visualização Usuarios** | **6** |
-|   Sprint-2    |      **Cadastro de Usuários** | **5** |
-|   Sprint-2    |      **Enabler de Parametrização** | **-** |
    </ul>
    
    <h3 align="center">Sprint-3</h3>
-       <ul>
-
-|      | **Entrega**    |**Prioridade**  |   
-| :-------------: | :-------------: |:-------------: | 
-|   Sprint-3    |      **Relatórios**           |   **4**              |
-|   Sprint-3    |      **Dashboards** | **12** |
-|   Sprint-3    |      **Parametrização** | **3** |
-|   Sprint-3    |      **Inativação de Usuário** | **13** |
-|   Sprint-3    |      **Inativação de CR** | **14** |
-|   Sprint-3    |      **Inativação de Clientes** | **15** |
+   <ul>
+     <li>Burndown: https://imgur.com/a/LMLsD30</li>
+   </ul>
+   <ul>
+   <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/li/901400522773</li>
    </ul>
    
    <h3 align="center">Sprint-4</h3>
-     <ul>
-
-|      | **Entrega**    |**Prioridade**  |   
-| :-------------: | :-------------: |:-------------: | 
-|   Sprint-4    |      **Cancelamento de Horas**           |   **16**              |
-|   Sprint-4    |      **Edição de Usuário**          |   **18**              |
-|   Sprint-4    |      **Edição de CR**          |   **19**              |
-|   Sprint-4    |      **Edição de Clientes**          |   **20**              |
-|   Sprint-4    |      **Notificação Admin/Gestor**          |   **17**              |
+   <ul>
+     <li>Burndown: https://imgur.com/a/n0b563W   </li>
+   </ul>
+   <ul>
+   <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/b/li/901400522775</li>
    </ul>

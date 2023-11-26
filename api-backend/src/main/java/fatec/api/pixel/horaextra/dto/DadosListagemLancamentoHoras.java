@@ -1,5 +1,6 @@
 package fatec.api.pixel.horaextra.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DadosListagemLancamentoHoras(
@@ -7,9 +8,9 @@ public record DadosListagemLancamentoHoras(
 		String cr,
 		String cliente,
 		String projeto,
-		Date inicio,
+		String inicio,
 		String modalidade,
-		Date fim,
+		String fim,
 		String solicitante,
 		String justificativa,
 		String motivo,

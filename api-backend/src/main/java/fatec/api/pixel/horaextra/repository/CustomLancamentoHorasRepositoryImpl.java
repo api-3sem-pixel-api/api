@@ -1,5 +1,6 @@
 package fatec.api.pixel.horaextra.repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import fatec.api.pixel.horaextra.dto.DadosDashboard;
 import fatec.api.pixel.horaextra.dto.DadosDashboardHoras;
+import fatec.api.pixel.horaextra.dto.DadosLancamento;
 import fatec.api.pixel.horaextra.dto.DadosListagemLancamentoHoras;
 import fatec.api.pixel.horaextra.dto.DadosRetornoDashboard;
 import jakarta.persistence.EntityManager;
@@ -68,9 +70,9 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 							(String) object[1],
 							(String) object[2],
 							(String) object[3],
-							(Date) object[4], 
+							(String) object[4].toString(), 
 							(String) object[5], 
-							(Date) object[6],
+							(String) object[6].toString(),
 							(String) object[7],
 							(String) object[8],
 							(String) object[9],
@@ -131,5 +133,26 @@ public class CustomLancamentoHorasRepositoryImpl implements CustomLancamentoHora
 					(String) object[4]));
 		}
 		return dadosRetornoDashboard;
+	}
+	
+	public DadosLancamento findDadosLancamentos(Long idUsuario, Long idCr){
+		String jpql = "select u.Nome, c.Nome from extrato_hora e"
+				+ " inner join usuario u on e.Id_Usuario = u.Id"
+				+ " inner join cr c on e.Id_Cr = c.Id"
+				+ " where c.Id = :idCr and u.Id = :idUsuario";
+				
+		
+		TypedQuery<Object[]> query = (TypedQuery<Object[]>) entityManager.createNativeQuery(jpql, Object[].class);
+		query.setParameter("idCr", idCr);
+		query.setParameter("idUsuario", idUsuario);
+		
+		
+		List<Object[]> result = query.getResultList();
+		DadosLancamento dadosLancamento = null;
+		
+		for(Object[] object : result) {
+			dadosLancamento = new DadosLancamento(object[0].toString(),object[1].toString());
+		}
+		return dadosLancamento;
 	}
 }
