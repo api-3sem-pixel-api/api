@@ -128,6 +128,7 @@ export default defineComponent({
         await http.put(`/cliente/${this.idCliente}`, updatedCliente);
         alert('Cliente atualizado!');
         this.close();
+        await this.loadAllCliente();
       } catch (error) {
         alert('Erro ao atualizar o cliente. Tente novamente mais tarde.');
       }
