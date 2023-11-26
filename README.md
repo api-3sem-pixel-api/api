@@ -108,7 +108,7 @@
    <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/l/li/901400522773</li>
    <br>
 
-   
+https://imgur.com/a/n0b563W   
        
 
 |      | **Entrega**    |**Prioridade**  |   
@@ -122,7 +122,12 @@
    </ul>
    
    <h3 align="center">Sprint-4</h3>
-     <ul>
+   <ul>
+     <li>Burndown: https://imgur.com/a/n0b563W   </li>
+   </ul>
+   <ul>
+   <li> Gerenciamento do time: https://app.clickup.com/9014011037/v/b/li/901400522775</li>
+   <br>
 
 |      | **Entrega**    |**Prioridade**  |   
 | :-------------: | :-------------: |:-------------: | 
