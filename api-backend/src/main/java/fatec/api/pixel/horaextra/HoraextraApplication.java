@@ -34,7 +34,7 @@ public class HoraextraApplication {
 	    mailSender.setPort(587);
 	    
 	    mailSender.setUsername("rpnotificacoesapi@gmail.com");
-	    mailSender.setPassword("fofz cffe lxuk kfor");
+	    mailSender.setPassword("nsri wmvi aiwm ryzu");
 	    
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");
